@@ -1,7 +1,9 @@
 package com.fcv.expressCourier.models;
 
+import javax.persistence.Entity;
 import java.util.List;
 
+@Entity
 public class Order {
     private int id;
     private int price;

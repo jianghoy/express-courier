@@ -1,7 +1,9 @@
 package com.fcv.expressCourier.models;
 
 
+import javax.persistence.Entity;
 
+@Entity
 public class User {
     private static final long serialVersionUID = 2652327633296064143L;
 

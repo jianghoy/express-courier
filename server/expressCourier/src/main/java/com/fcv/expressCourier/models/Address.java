@@ -1,5 +1,8 @@
 package com.fcv.expressCourier.models;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Address {
 
 

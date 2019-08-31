@@ -1,5 +1,8 @@
 package com.fcv.expressCourier.models;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Item {
     private int id;
     private int weight;

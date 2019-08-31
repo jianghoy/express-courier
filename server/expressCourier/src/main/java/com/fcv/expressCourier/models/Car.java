@@ -1,7 +1,9 @@
 package com.fcv.expressCourier.models;
 
+import javax.persistence.Entity;
 import java.util.List;
 
+@Entity
 public class Car extends Robot {
     int id;
     int price;
