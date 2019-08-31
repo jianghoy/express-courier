@@ -1,0 +1,14 @@
+{
+  "name": "get-distance",
+  "version": "1.0.0",
+  "description": "A little demo showing how to get distance; with a static HTML page as front-end, a express.js server as backend and using external Google Distance Matrix API to calculate.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jianghong Ying",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
