@@ -21,3 +21,7 @@ git push origin your_branch_name
 ```
 
 You can only push your branch onto remote server's your branch (which makes sense) so you have to specify the branch name.
+
+## How to create a pull request
+
+While collaborators can directly push onto `master` branch I strongly discourage this sort of action. Codes should be reviewed and tested before merge into `master` branch. So we should use `pull request`.
