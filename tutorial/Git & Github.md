@@ -32,5 +32,7 @@ While collaborators can directly push onto `master` branch I strongly discourage
 
 ![pull request detail](resources/pull-request-detail.png)
 2. In the pull request page, first write down your comment (blue box)
+  
 3. Use green box bo pick some properties, most importantly the `Assigness`(your name) and `Labels`.
+
 4. Create pull request!(red box)
