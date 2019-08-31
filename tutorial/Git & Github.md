@@ -31,8 +31,9 @@ While collaborators can directly push onto `master` branch I strongly discourage
 1.First switch branch to your branch(on the left of red box); press `New pull request` branch.
 
 ![pull request detail](resources/pull-request-detail.png)
-2. In the pull request page, first write down your comment (blue box)
-  
-3. Use green box bo pick some properties, most importantly the `Assigness`(your name) and `Labels`.
 
-4. Create pull request!(red box)
+1. In the pull request page, first write down your comment (blue box)
+  
+2. Use green box bo pick some properties, most importantly the `Assigness`(your name) and `Labels`.
+
+3. Create pull request!(red box)
