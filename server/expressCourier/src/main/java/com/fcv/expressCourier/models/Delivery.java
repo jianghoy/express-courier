@@ -1,10 +1,11 @@
 package com.fcv.expressCourier.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Delivery {
+public class Delivery implements Serializable {
 
     @Id
     private Long id;
