@@ -1,22 +1,25 @@
 package com.fcv.expressCourier.models;
 
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-public class User {
-    private static final long serialVersionUID = 2652327633296064143L;
+@Table(name = "users")
+public class User implements Serializable {
 
+    private static final long serialVersionUID = 2681531852204068105L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String firstName;
-    private String lastName;
-    private String customerPhone;
-    private Address shippingAddress;
+    private String emailId;
+    private String password;
+    private boolean enabled;
 
-    private Address billingAddress;
-
-    private User user;
-
+    @OneToOne(mappedBy = "user")
+    private Customer customer;
 
     public int getId() {
         return id;
@@ -26,51 +29,35 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getEmailId() {
+        return emailId;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getCustomerPhone() {
-        return customerPhone;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public Address getShippingAddress() {
-        return shippingAddress;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setShippingAddress(Address shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
-
-    public Address getBillingAddress() {
-        return billingAddress;
-    }
-
-    public void setBillingAddress(Address billingAddress) {
-        this.billingAddress = billingAddress;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

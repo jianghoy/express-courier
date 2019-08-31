@@ -1,16 +1,34 @@
 package com.fcv.expressCourier.models;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Order {
+@Table(name = "order")
+public class Order implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @OneToOne
     private int price;
+    @OneToOne
     private String status;
     // pickup order or delivery order
+    @OneToOne
     private boolean type;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     List<Item> items;
+
+    @OneToOne
+    private Customer customer;
+
+    @OneToOne
+    private Address shippingAddress;
+
+    @OneToOne
+    private Address billingAddress;
 
     public int getId() {
         return id;

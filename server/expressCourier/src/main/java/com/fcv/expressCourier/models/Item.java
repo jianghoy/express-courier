@@ -1,12 +1,19 @@
 package com.fcv.expressCourier.models;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Item {
+@Table(name = "item")
+public class Item implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private int weight;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private double price;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private int[] dimension = new int[3];
 
     public void setDimension(int length, int width, int height) {

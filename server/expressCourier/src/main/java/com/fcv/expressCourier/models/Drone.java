@@ -1,21 +1,28 @@
 package com.fcv.expressCourier.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Drone extends Robot{
+@Table(name = "drone")
+public class Drone extends Robot implements Serializable {
     @Id
     //TODO: DECIDE SCHEMA AND HOOK UP EVERYTHING
     //@OneToMany
     private long id;
     private Item currentItem;
     private Item pickupItem;
-    private int price;
+
+    @OneToOne
     private int EstimateTimeArrival;
+    @OneToOne
     private int status;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "order")
     private Order deliverOrder;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "order")
     private Order pickupOrder;
 
     public void setId(long id) {
@@ -55,7 +62,7 @@ public class Drone extends Robot{
     }
 
     @Override
-    public void setCapcity(int capacity) {
+    public void setCapacity(int capacity) {
 
     }
 
@@ -69,15 +76,6 @@ public class Drone extends Robot{
 
     }
 
-    @Override
-    public int getPrice() {
-        return price;
-    }
-
-    @Override
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     @Override
     public void pickUp(Item item, Order order) {

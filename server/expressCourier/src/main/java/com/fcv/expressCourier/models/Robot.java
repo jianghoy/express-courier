@@ -1,9 +1,13 @@
 package com.fcv.expressCourier.models;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public abstract class Robot {
+@Table(name = "robot")
+public abstract class Robot implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     public int getId() {
         return id;
@@ -18,15 +22,11 @@ public abstract class Robot {
 
     public abstract int getMaxWeight();
 
-    public abstract void setCapcity(int capacity);
+    public abstract void setCapacity(int capacity);
 
     public abstract int getCapacity();
 
     public abstract void setSpeed(int speed);
-
-    public abstract int getPrice();
-
-    public abstract void setPrice(int price);
 
     public abstract void pickUp(Item item, Order order);
 

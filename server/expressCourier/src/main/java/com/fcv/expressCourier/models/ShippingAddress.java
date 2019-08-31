@@ -1,11 +1,16 @@
 package com.fcv.expressCourier.models;
-
-import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-public class Address implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "shippingAddress")
+public class ShippingAddress implements Serializable {
 
     private static final long serialVersionUID = 7551999649936522523L;
 
@@ -18,7 +23,7 @@ public class Address implements Serializable {
     private String zipcode;
     private String country;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "shippingAddress")
     private Customer customer;
 
     public int getId() {
@@ -76,5 +81,4 @@ public class Address implements Serializable {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
 }

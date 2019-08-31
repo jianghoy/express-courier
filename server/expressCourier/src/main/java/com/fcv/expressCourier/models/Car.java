@@ -1,16 +1,26 @@
 package com.fcv.expressCourier.models;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Car extends Robot {
+@Table(name = "car")
+public class Car extends Robot implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
-    int price;
+
+    @OneToOne
     int EstimateTimeArrival;
+    @OneToOne
     int status;
+
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     List<Order> deliverOrders;
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     List<Item> pickupItems;
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     List<Order> pickupOrders;
 
     @Override
@@ -39,7 +49,7 @@ public class Car extends Robot {
     }
 
     @Override
-    public void setCapcity(int capacity) {
+    public void setCapacity(int capacity) {
 
     }
 
@@ -51,16 +61,6 @@ public class Car extends Robot {
     @Override
     public void setSpeed(int speed) {
 
-    }
-
-    @Override
-    public int getPrice() {
-        return price;
-    }
-
-    @Override
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     @Override
