@@ -1,43 +1,25 @@
 package com.fcv.expressCourier.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import java.util.List;
 
-@Entity
-public class Drone extends Robot{
-    @Id
-    //TODO: DECIDE SCHEMA AND HOOK UP EVERYTHING
-    //@OneToMany
-    private long id;
-    private Item currentItem;
-    private Item pickupItem;
-    private int price;
-    private int EstimateTimeArrival;
-    private int status;
-    private Order deliverOrder;
-    private Order pickupOrder;
+public class Car extends Robot {
+    int id;
+    int price;
+    int EstimateTimeArrival;
+    int status;
+    List<Order> deliverOrders;
+    List<Item> pickupItems;
+    List<Order> pickupOrders;
 
-    public void setId(long id) {
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
         this.id = id;
     }
-
-    public Item getCurrentItem() {
-        return currentItem;
-    }
-
-    public void setCurrentItem(Item currentItem) {
-        this.currentItem = currentItem;
-    }
-
-    public Item getPickupItem() {
-        return pickupItem;
-    }
-
-    public void setPickupItem(Item pickupItem) {
-        this.pickupItem = pickupItem;
-    }
-
 
     @Override
     public int getSpeed() {
@@ -81,8 +63,13 @@ public class Drone extends Robot{
 
     @Override
     public void pickUp(Item item, Order order) {
-        pickupItem = item;
-        pickupOrder = order;
+        pickupItems.add(item);
+        pickupOrders.add(order);
+    }
+
+    @Override
+    public void drop(Item item, Order order) {
+
     }
 
     public int getEstimateTimeArrival() {
@@ -101,8 +88,14 @@ public class Drone extends Robot{
         this.status = status;
     }
 
-    @Override
-    public void drop(Item item, Order order) {
-
+    public List<Order> getDeliverOrders() {
+        return deliverOrders;
     }
+
+    public void setDeliverOrders(List<Order> deliverOrders) {
+        this.deliverOrders = deliverOrders;
+    }
+
+
+
 }
