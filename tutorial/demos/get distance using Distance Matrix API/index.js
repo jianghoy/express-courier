@@ -8,8 +8,8 @@ const path = require("path");
 // Here 'axios' is a module to handle http request
 const axios = require("axios")
 // Here API_KEY is imported from a private directory (unavailiable from Github)
-const {API_KEY} = require('./credentials/config.json')
-console.log(API_KEY)
+const {API_KEY} = require('./credentials.json')
+console.log(API_KEY?API_KEY:"cannot find API_KEY, please create a credentials.json file under current folder and add {\"API_KEY\":YOUR_KEY}")
 // Now app is the express.js server object.
 const app = express();
 

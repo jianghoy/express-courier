@@ -4,7 +4,8 @@
   "description": "A little demo showing how to get distance; with a static HTML page as front-end, a express.js server as backend and using external Google Distance Matrix API to calculate.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "Jianghong Ying",
   "license": "ISC",
