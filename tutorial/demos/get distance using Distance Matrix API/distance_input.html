@@ -1,18 +1,10 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <form >
-      Starting point <input type="text" name="FirstName" value="New York, NY" /><br />
-      End point <input type="text" name="LastName" value="Washington DC" /><br />
-      <input type="submit" value="Submit" />
+    <form action="/distance" method="GET">
+      Starting point <input type="text" name="origin" value="New York, NY" /><br />
+      End point <input type="text" name="destination" value="Washington DC" /><br />
+      <input type="submit" value="see distance" />
     </form>
-    <div>
-        <p>
-            The distance is:
-            <b id:"result">
-                30km.
-            </b>
-        </p>        
-    </div>
   </body>
 </html>
