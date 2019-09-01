@@ -1,2 +1,5 @@
 node_modules/
+
+# do not upload your credential data(API keys, password, etc)
+# onto Github!
 credentials.json
