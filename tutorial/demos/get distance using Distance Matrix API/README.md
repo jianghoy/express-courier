@@ -7,11 +7,23 @@ This is a little example showcase how to use Google Distance Matrix API to get d
 If it's first time you download:
 
 1. Install all your dependencies:
+
 ```bash
 npm install
 ```
 
-2. 
+2. Add your API_KEY:
+
+add a `credentials.json` file under this same folder, like this:
+
+```json
+{
+    "API_KEY":"YOUR_API_KEY"
+}
+```
+
+3. Run
+
 ```bash
 npm start
 ```
