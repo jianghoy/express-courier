@@ -9,6 +9,6 @@ public interface DeliveryRepository extends CrudRepository<Delivery, Long> {
     @Override
     <S extends Delivery> S save(S s);
 
-    @Override
-    Optional<Delivery> findById(Long aLong);
+    Optional<Delivery> findById(Long id);
+    void findStatusInfo(String status);
 }
