@@ -11,7 +11,6 @@ public class Drone extends Robot implements Serializable {
     //@OneToMany
     private long id;
     private Item currentItem;
-    private Item pickupItem;
 
     @OneToOne
     private int EstimateTimeArrival;
@@ -37,12 +36,12 @@ public class Drone extends Robot implements Serializable {
         this.currentItem = currentItem;
     }
 
-    public Item getPickupItem() {
-        return pickupItem;
+    public void getPickupItem() {
+        return ;
     }
 
     public void setPickupItem(Item pickupItem) {
-        this.pickupItem = pickupItem;
+        this.currentItem= pickupItem;
     }
 
 
@@ -79,7 +78,7 @@ public class Drone extends Robot implements Serializable {
 
     @Override
     public void pickUp(Item item, Order order) {
-        pickupItem = item;
+        currentItem = item;
         pickupOrder = order;
     }
 
