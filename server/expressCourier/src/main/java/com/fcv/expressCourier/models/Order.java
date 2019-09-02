@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 @Table(name = "order")
 public class Order implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

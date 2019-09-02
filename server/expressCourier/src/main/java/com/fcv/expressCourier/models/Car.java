@@ -7,6 +7,8 @@ import java.util.List;
 @Entity
 @Table(name = "car")
 public class Car extends Robot implements Serializable {
+    private static final long serialVersionUID = 179618413781514686L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;

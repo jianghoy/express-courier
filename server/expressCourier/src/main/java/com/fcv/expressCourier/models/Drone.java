@@ -6,7 +6,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "drone")
 public class Drone extends Robot implements Serializable {
-    @Id
+    private static final long serialVersionUID = 8161569630798667789L;
+	@Id
     //TODO: DECIDE SCHEMA AND HOOK UP EVERYTHING
     //@OneToMany
     private long id;

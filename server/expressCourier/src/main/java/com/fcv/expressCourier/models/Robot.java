@@ -6,6 +6,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "robot")
 public abstract class Robot implements Serializable {
+    private static final long serialVersionUID = 4967845126404931447L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
