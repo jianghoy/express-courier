@@ -6,6 +6,7 @@ import java.util.Optional;
 
 public interface OrderRepository extends CrudRepository<Order, Integer> {
 
+    <S extends Order> S save(S s);
     Optional<Order> findById(Integer id);
     void addPrice(Integer price);
     void findStatusInfo(String status);

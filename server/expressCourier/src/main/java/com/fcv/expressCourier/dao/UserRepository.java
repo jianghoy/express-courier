@@ -6,6 +6,7 @@ import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
 
+    <S extends User> S save(S s);
     Optional<User> findById(Integer id);
     void addName(String name);
     void addPhone(String phoneNum);
