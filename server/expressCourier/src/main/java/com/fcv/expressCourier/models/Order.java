@@ -11,13 +11,15 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToOne
     private int price;
-    @OneToOne
     private String status;
     // pickup order or delivery order
-    @OneToOne
     private boolean type;
+
+
+
+    @ManyToOne
+    Robot robot;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     List<Item> items;
@@ -28,8 +30,17 @@ public class Order implements Serializable {
     @OneToOne
     private Address shippingAddress;
 
+
+
+    @OneToOne
+    private WareHouse wareHouse;
+
+    @OneToOne
+    private Address pickUpAddress;
+
     @OneToOne
     private Address billingAddress;
+
 
     public int getId() {
         return id;
@@ -79,14 +90,43 @@ public class Order implements Serializable {
         this.robot = robot;
     }
 
-    public Address getAddress() {
-        return address;
+    public Address getShippingAddress() {
+        return shippingAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 
-    Robot robot;
-    Address address;
+    public Address getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
+    }
+
+    public WareHouse getWareHouse() {
+        return wareHouse;
+    }
+
+    public void setWareHouse(WareHouse wareHouse) {
+        this.wareHouse = wareHouse;
+    }
+
+    public Address getPickUpAddress() {
+        return pickUpAddress;
+    }
+
+    public void setPickUpAddress(Address pickUpAddress) {
+        this.pickUpAddress = pickUpAddress;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 }

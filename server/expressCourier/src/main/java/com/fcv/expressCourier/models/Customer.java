@@ -17,28 +17,13 @@ public class Customer implements Serializable {
     private String customerPhone;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "shippingAddressId")
-    private ShippingAddress shippingAddress;
+    private Address shippingAddress;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "billingAddressId")
-    private BillingAddress billingAddress;
+    private Address billingAddress;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId")
+    @OneToOne
     private User user;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "cartId")
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -64,19 +49,19 @@ public class Customer implements Serializable {
         this.customerPhone = customerPhone;
     }
 
-    public ShippingAddress getShippingAddress() {
+    public Address getShippingAddress() {
         return shippingAddress;
     }
 
-    public void setShippingAddress(ShippingAddress shippingAddress) {
+    public void setShippingAddress(Address shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
 
-    public BillingAddress getBillingAddress() {
+    public Address getBillingAddress() {
         return billingAddress;
     }
 
-    public void setBillingAddress(BillingAddress billingAddress) {
+    public void setBillingAddress(Address billingAddress) {
         this.billingAddress = billingAddress;
     }
 
@@ -87,5 +72,4 @@ public class Customer implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-
 }

@@ -2,6 +2,7 @@ package com.fcv.expressCourier.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.List;
 
 @Entity
@@ -12,11 +13,9 @@ public class Car extends Robot implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
-
-    @OneToOne
-    int EstimateTimeArrival;
-    @OneToOne
+    // deliver or pickup, status = 0 deliver, status = 1 pickup
     int status;
+    int battery;
 
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     List<Order> deliverOrders;
@@ -25,19 +24,25 @@ public class Car extends Robot implements Serializable {
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     List<Order> pickupOrders;
 
+
     @Override
     public int getId() {
-        return id;
+        return super.getId();
     }
 
     @Override
     public void setId(int id) {
-        this.id = id;
+        super.setId(id);
     }
 
     @Override
     public int getSpeed() {
         return 0;
+    }
+
+    @Override
+    public void setSpeed(int speed) {
+
     }
 
     @Override
@@ -61,14 +66,8 @@ public class Car extends Robot implements Serializable {
     }
 
     @Override
-    public void setSpeed(int speed) {
-
-    }
-
-    @Override
     public void pickUp(Item item, Order order) {
-        pickupItems.add(item);
-        pickupOrders.add(order);
+
     }
 
     @Override
@@ -76,30 +75,9 @@ public class Car extends Robot implements Serializable {
 
     }
 
-    public int getEstimateTimeArrival() {
-        return EstimateTimeArrival;
-    }
+    public void charge() {
 
-    public void setEstimateTimeArrival(int estimateTimeArrival) {
-        EstimateTimeArrival = estimateTimeArrival;
     }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public List<Order> getDeliverOrders() {
-        return deliverOrders;
-    }
-
-    public void setDeliverOrders(List<Order> deliverOrders) {
-        this.deliverOrders = deliverOrders;
-    }
-
 
 
 }

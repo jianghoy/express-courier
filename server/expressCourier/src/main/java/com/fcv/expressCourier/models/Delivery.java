@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
 public class Delivery implements Serializable {
 
     private static final long serialVersionUID = -299012133465590362L;

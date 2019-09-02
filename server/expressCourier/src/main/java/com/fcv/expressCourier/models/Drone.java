@@ -11,18 +11,16 @@ public class Drone extends Robot implements Serializable {
     //TODO: DECIDE SCHEMA AND HOOK UP EVERYTHING
     //@OneToMany
     private long id;
+	@OneToOne
     private Item currentItem;
 
-    @OneToOne
-    private int EstimateTimeArrival;
-    @OneToOne
+	// deliver or pickup, status = 0 deliver, status = 1 pickup
     private int status;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "order")
     private Order deliverOrder;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "order")
     private Order pickupOrder;
 
     public void setId(long id) {
@@ -83,20 +81,16 @@ public class Drone extends Robot implements Serializable {
         pickupOrder = order;
     }
 
-    public int getEstimateTimeArrival() {
-        return EstimateTimeArrival;
-    }
-
-    public void setEstimateTimeArrival(int estimateTimeArrival) {
-        EstimateTimeArrival = estimateTimeArrival;
-    }
-
     public int getStatus() {
         return status;
     }
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    @Override
+    public void charge() {
     }
 
     @Override

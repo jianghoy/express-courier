@@ -18,7 +18,7 @@ public class Address implements Serializable {
     private String zipcode;
     private String country;
 
-    @OneToOne(mappedBy = "address")
+    @ManyToOne
     private Customer customer;
 
     public int getId() {
