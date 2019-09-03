@@ -11,6 +11,9 @@ public abstract class Robot implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    // deliver or pickup, status = 0 deliver, status = 1 pickup
+    int status;
+
     public int getId() {
         return id;
     }
@@ -18,6 +21,15 @@ public abstract class Robot implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public abstract int getSpeed();
 
     public abstract void setSpeed(int speed);
@@ -30,9 +42,9 @@ public abstract class Robot implements Serializable {
 
     public abstract int getCapacity();
 
-    public abstract void pickUp(Item item, Order order);
+    public abstract void pickUp(Item item, DeliveryOrder order);
 
-    public abstract void drop(Item item, Order order);
+    public abstract void drop(Item item, DeliveryOrder order);
 
     public abstract void charge();
 }

@@ -4,24 +4,19 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "drone")
 public class Drone extends Robot implements Serializable {
     private static final long serialVersionUID = 8161569630798667789L;
-	@Id
+    @Id
     //TODO: DECIDE SCHEMA AND HOOK UP EVERYTHING
-    //@OneToMany
     private long id;
-	@OneToOne
+    @OneToOne
     private Item currentItem;
 
-	// deliver or pickup, status = 0 deliver, status = 1 pickup
-    private int status;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private DeliveryOrder deliverOrder;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Order deliverOrder;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Order pickupOrder;
+    private DeliveryOrder pickupOrder;
 
     public void setId(long id) {
         this.id = id;
@@ -36,11 +31,10 @@ public class Drone extends Robot implements Serializable {
     }
 
     public void getPickupItem() {
-        return ;
     }
 
     public void setPickupItem(Item pickupItem) {
-        this.currentItem= pickupItem;
+        this.currentItem = pickupItem;
     }
 
 
@@ -76,7 +70,7 @@ public class Drone extends Robot implements Serializable {
 
 
     @Override
-    public void pickUp(Item item, Order order) {
+    public void pickUp(Item item, DeliveryOrder order) {
         currentItem = item;
         pickupOrder = order;
     }
@@ -94,7 +88,7 @@ public class Drone extends Robot implements Serializable {
     }
 
     @Override
-    public void drop(Item item, Order order) {
+    public void drop(Item item, DeliveryOrder order) {
 
     }
 }

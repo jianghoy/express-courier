@@ -6,23 +6,18 @@ import java.sql.Time;
 import java.util.List;
 
 @Entity
-@Table(name = "car")
 public class Car extends Robot implements Serializable {
     private static final long serialVersionUID = 179618413781514686L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
-    // deliver or pickup, status = 0 deliver, status = 1 pickup
-    int status;
+
     int battery;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-    List<Order> deliverOrders;
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-    List<Item> pickupItems;
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-    List<Order> pickupOrders;
+    @OneToMany(mappedBy = "robot", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<DeliveryOrder> deliverOrders;
+//    @OneToMany(mappedBy = "robot", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    List<Item> pickupItems;
+    @OneToMany(mappedBy = "robot", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<DeliveryOrder> pickupOrders;
 
 
     @Override
@@ -66,12 +61,12 @@ public class Car extends Robot implements Serializable {
     }
 
     @Override
-    public void pickUp(Item item, Order order) {
+    public void pickUp(Item item, DeliveryOrder order) {
 
     }
 
     @Override
-    public void drop(Item item, Order order) {
+    public void drop(Item item, DeliveryOrder order) {
 
     }
 
