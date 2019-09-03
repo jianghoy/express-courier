@@ -1,11 +1,11 @@
+import React,{Component}from 'react';
 import { Menu, Icon } from 'antd';
-import React, {Component} from 'react';
 
 const { SubMenu } = Menu;
 
 export default class NavBar extends Component {
     state = {
-        current: 'mail',
+        current: null,
     };
 
     handleClick = e => {
@@ -18,16 +18,14 @@ export default class NavBar extends Component {
     render() {
         return (
             <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
-                <Menu.Item key="mail">
-                    Logo
+                <Icon type="github" />
+                <Menu.Item key="cars">
+                    Cars Info
                 </Menu.Item>
-                <Menu.Item key="app">
-                    Car Info
+                <Menu.Item key="drones">
+                    Drones Info
                 </Menu.Item>
-                <Menu.Item>
-                    Drone Info
-                </Menu.Item>
-                <Menu.Item>
+                <Menu.Item key="help">
                     Help
                 </Menu.Item>
                 <SubMenu
