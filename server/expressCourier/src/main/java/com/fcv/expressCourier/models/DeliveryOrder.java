@@ -5,8 +5,8 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "order")
-public class Order implements Serializable {
+@Table(name = "deliveryOrder")
+public class DeliveryOrder implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,10 +19,10 @@ public class Order implements Serializable {
 
 
     @ManyToOne
-    Robot robot;
+    private Robot robot;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-    List<Item> items;
+    @OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    private List<Item> items;
 
     @OneToOne
     private Customer customer;
