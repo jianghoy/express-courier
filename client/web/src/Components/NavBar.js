@@ -36,6 +36,10 @@ export default class NavBar extends Component {
                     <Menu.Item key="setting:1">Option 1</Menu.Item>
                     <Menu.Item key="setting:2">Option 2</Menu.Item>
                 </SubMenu>
+
+                {/* <h1>
+                    hello
+                </h1> */}
             </Menu>
         );
     }
