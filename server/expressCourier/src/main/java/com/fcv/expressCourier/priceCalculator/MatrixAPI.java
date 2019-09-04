@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MatrixAPI implements PriceCalculator {
 
-    private static final String API_KEY = APIkey.key;
+    private static final String API_KEY = APIKey.key;
 
     private OkHttpClient client = new OkHttpClient();
 
