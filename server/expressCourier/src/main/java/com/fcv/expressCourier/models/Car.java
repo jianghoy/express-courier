@@ -6,7 +6,7 @@ import java.sql.Time;
 import java.util.List;
 
 @Entity
-@Table(name = "car")
+
 public class Car extends Robot implements Serializable {
     private static final long serialVersionUID = 179618413781514686L;
 
@@ -17,11 +17,11 @@ public class Car extends Robot implements Serializable {
     int status;
     int battery;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @OneToMany
     List<Order> deliverOrders;
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @OneToMany
     List<Item> pickupItems;
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @OneToMany
     List<Order> pickupOrders;
 
 

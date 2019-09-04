@@ -21,7 +21,7 @@ public class Order implements Serializable {
     @ManyToOne
     Robot robot;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @OneToMany
     List<Item> items;
 
     @OneToOne
