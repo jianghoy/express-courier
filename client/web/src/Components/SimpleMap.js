@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 const {GOOGLEMAPAPI_KEY} = require('./credentials.json')
-console.log(GOOGLEMAPAPI_KEY?GOOGLEMAPAPI_KEY:"cannot find API_KEY, please create a credentials.json file under current folder and add {\"API_KEY\":YOUR_KEY}")
+console.log(GOOGLEMAPAPI_KEY?"API key found.":"cannot find API_KEY, please create a credentials.json file under current folder and add {\"API_KEY\":YOUR_KEY}")
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
  
 class SimpleMap extends Component {
