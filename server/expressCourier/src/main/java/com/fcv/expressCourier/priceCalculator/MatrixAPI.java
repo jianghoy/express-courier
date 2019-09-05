@@ -7,7 +7,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.stereotype.Service;
 
-// for calculate prices for car
 @Service
 public class MatrixAPI implements PriceCalculator {
 
@@ -20,8 +19,8 @@ public class MatrixAPI implements PriceCalculator {
 
         Response response = client.newCall(request).execute();
         return response.body().string();
-    }
 
+    }
     @Override
     public double carPrice(String origin, String destination) {
 
