@@ -19,21 +19,22 @@ public class MatrixAPI implements PriceCalculator {
 
         Response response = client.newCall(request).execute();
         return response.body().string();
-
     }
+
     @Override
     public double carPrice(String origin, String destination) {
 
-        String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origin + "&destinations="
-                + destination + "&departure_time=now&key=" + API_KEY;
+        String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origin +
+                "&destinations=" + destination + "&departure_time=now&key=" + API_KEY;
         String response;
         try {
             response = run(url_request);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
             return -1;
         }
-        // String output = response(["data"]["row"][0]["element"]["distance"]["text"]);
+
         JSONObject jsonRespRouteDistance = new JSONObject(response)
                 .getJSONArray("rows")
                 .getJSONObject(0)
@@ -41,7 +42,6 @@ public class MatrixAPI implements PriceCalculator {
                 .getJSONObject(0)
                 .getJSONObject("distance");
         String value = jsonRespRouteDistance.get("value").toString();
-        //System.out.println(response);
         return Integer.parseInt(value) * 0.0006;
     }
 
@@ -58,10 +58,11 @@ public class MatrixAPI implements PriceCalculator {
         String response = null;
         try {
             response = run(url_request);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
-        // String output = response(["data"]["row"][0]["element"]["distance"]["text"]);
+
         JSONObject jsonRespRoute = new JSONObject(response)
                 .getJSONArray("results")
                 .getJSONObject(0)
@@ -69,7 +70,6 @@ public class MatrixAPI implements PriceCalculator {
                 .getJSONObject("location");
         double latitude = Double.parseDouble(jsonRespRoute.get("lat").toString());
         double longitude = Double.parseDouble(jsonRespRoute.get("lng").toString());
-        //System.out.println("lan=" + latitude + "lon=" + longitude);
         return new double[]{latitude, longitude};
     }
 
@@ -85,6 +85,7 @@ public class MatrixAPI implements PriceCalculator {
         }
         else {
             double theta = lon1 - lon2;
+            // mathematics formula for calculating distance
             double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2)) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
             dist = Math.acos(dist);
             dist = Math.toDegrees(dist);
