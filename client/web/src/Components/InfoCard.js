@@ -21,13 +21,17 @@ class InfoCard extends Component {
             lineHeight: '30px',
         };
         return (
-            <Card bordered={false} style={{ width: 300, height: 400 }}>
+            <Card className="info-card" bordered={false} style={{ width: 300, height: 600 }}>
+                <br />
+                <br />
                 <div className="autocomplete">
                     <Input placeholder="Add pick up location" />
                     <br />
                     <br />
                     <Input placeholder="Add destination" />
                 </div>
+                <br />
+                <br />
                 <div className="radio_button">
                     <Radio.Group onChange={this.onChange} value={this.state.value}>
                         <Radio style={radioStyle} value={1}>
@@ -38,7 +42,11 @@ class InfoCard extends Component {
                         </Radio>
                     </Radio.Group>
                 </div>
+                <br />
+                <br />
                 <div className="price">Price Will Show Here</div>
+                <br />
+                <br />
                 <div className="checkout">
                     <Button type="primary" block>
                         Checkout
