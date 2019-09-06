@@ -1,4 +1,8 @@
 @import '~antd/dist/antd.css';
+@import './Components/MainPage.css';
+@import './Components/InfoCard.css';
+@import './Components/NavBar.css';
+
 
 body {
   margin: 0;
