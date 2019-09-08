@@ -2,7 +2,6 @@ package com.fcv.expressCourier.controller;
 
 
 import com.fcv.expressCourier.priceCalculator.PriceCalculator;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
