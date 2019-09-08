@@ -21,16 +21,27 @@ class InfoCard extends Component {
         });
     };
 
-    handleAddressChange = address => {
-        this.setState({ address });
+    handlePickUpAddressChange = pickUpAddress => {
+        this.setState({ pickUpAddress });
     };
 
 
-    // TODO: not sure if this is the best practice to make sure the state is set
-    handleSelect = address => {
-        this.setState({address});
-        // console.log(this.state.pickUpLocation);
-        geocodeByAddress(address)
+    handlePickUpAddressSelect = pickUpAddress => {
+        this.setState({pickUpAddress});
+        geocodeByAddress(pickUpAddress)
+            .then(results => getLatLng(results[0]))
+            .then(latLng => console.log('Success', latLng))
+            .catch(error => console.error('Error', error));
+
+    };
+    handleDestinationAddressChange = destinationAddress => {
+        this.setState({ destinationAddress });
+    };
+
+
+    handleDestinationAddressSelect = destinationAddress => {
+        this.setState({destinationAddress});
+        geocodeByAddress(destinationAddress)
             .then(results => getLatLng(results[0]))
             .then(latLng => console.log('Success', latLng))
             .catch(error => console.error('Error', error));
@@ -51,15 +62,13 @@ class InfoCard extends Component {
                     <br />
                     <div className="autocomplete">
                         <PlacesAutocomplete
-                            value={this.state.address}
-                            onChange={this.handleAddressChange}
-                            onSelect={this.handleSelect}
+                            value={this.state.pickUpAddress}
+                            onChange={this.handlePickUpAddressChange}
+                            onSelect={this.handlePickUpAddressSelect}
                         >
                             { ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                 <div>
                                     <Input
-                                        onPressEnter={()=>{this.value="aaa"}}
-                                        onSearch={value => console.log(value)}
                                         allowClear={true}
                                         {...getInputProps({
                                             placeholder: "Add Pick Up Location",
@@ -95,7 +104,48 @@ class InfoCard extends Component {
                             )}
                         </PlacesAutocomplete>
                         <br />
-                        <Input placeholder="Add Your Destination" />
+                        <PlacesAutocomplete
+                            value={this.state.destinationAddress}
+                            onChange={this.handleDestinationAddressChange}
+                            onSelect={this.handleDestinationAddressSelect}
+                        >
+                            { ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                <div>
+                                    <Input
+                                        allowClear={true}
+                                        {...getInputProps({
+                                            placeholder: "Add Your Destination",
+                                            className: 'location-search-input',
+                                            autoFocus: true,
+                                        })}
+                                    />
+                                    <Menu className="autocomplete-dropdown-container">
+                                        {/*{loading && <div>Loading...</div>}*/}
+                                        {suggestions.map(suggestion => {
+                                            const className = suggestion.active
+                                                ? 'suggestion-item--active'
+                                                : 'suggestion-item';
+                                            // inline style for demonstration purpose
+                                            const style = suggestion.active
+                                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                            return (
+                                                <Menu.Item
+                                                    {...getSuggestionItemProps(suggestion, {
+                                                        className,
+                                                        style,
+                                                    })}
+                                                >
+                                                   <span>
+                                                    {suggestion.description}
+                                                   </span>
+                                                </Menu.Item>
+                                            );
+                                        })}
+                                    </Menu>
+                                </div>
+                            )}
+                        </PlacesAutocomplete>
                     </div>
                     <br />
                     <br />
