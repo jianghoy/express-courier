@@ -2,7 +2,6 @@ package com.fcv.expressCourier.controller;
 
 
 import com.fcv.expressCourier.priceCalculator.PriceCalculator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,10 +19,7 @@ public class PriceSelectionController {
 
     @RequestMapping(value = "/price", method = RequestMethod.GET, produces = "application/json")
     public List<PricePlan> prices(@RequestParam(name = "orig", defaultValue = "SFO") String orig,
-                               @RequestParam(name = "dest", defaultValue = "SFO") String dest,
-                               Model model) {
-        model.addAttribute("orig", orig);
-        model.addAttribute("dest", dest);
+                               @RequestParam(name = "dest", defaultValue = "SFO") String dest) {
         double dronePrice = priceCalculator.dronePrice(orig, dest);
         double carPrice = priceCalculator.carPrice(orig, dest);
         List<PricePlan> resultList = new ArrayList<>();
