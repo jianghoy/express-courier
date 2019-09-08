@@ -1,7 +1,7 @@
 @import '~antd/dist/antd.css';
-@import './Components/MainPage.css';
-@import './Components/InfoCard.css';
-@import './Components/NavBar.css';
+@import './style/MainPage.css';
+@import './style/InfoCard.css';
+@import './style/NavBar.css';
 
 
 body {
