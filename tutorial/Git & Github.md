@@ -47,3 +47,11 @@ While collaborators can directly push onto `master` branch I strongly discourage
 2. Use green box bo pick some properties, most importantly the `Assigness`(your name) and `Labels`.
 
 3. Create pull request!(red box)
+
+## How to reset back to remote branch
+
+```bash
+git reset --hard origin/branch_name
+```
+
+This will discard all local commits.
