@@ -1,4 +1,8 @@
 @import '~antd/dist/antd.css';
+@import './style/MainPage.css';
+@import './style/OrderPanel.css';
+@import './style/NavBar.css';
+
 
 body {
   margin: 0;

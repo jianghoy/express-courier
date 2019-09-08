@@ -1,13 +1,13 @@
 import React from 'react';
-import './App.css';
-import NavBar from "./Components/NavBar"
-import SimpleMap from './Components/SimpleMap';
+import MainPage from "./Components/MainPage";
 
+
+// TODO: decide how to serve various pages: via router or components
 function App() {
   return (
     <div className="App">
-        <NavBar/>
-        <SimpleMap/>
+        {/* {(showMainPage)?<MainPage/>:<anotherPage/>} */}
+        <MainPage/>
     </div>
   );
 }
