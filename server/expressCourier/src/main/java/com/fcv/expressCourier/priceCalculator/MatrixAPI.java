@@ -7,7 +7,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.stereotype.Service;
-
+// TODO: use modern library for json parsing;
 @Service
 public class MatrixAPI implements PriceCalculator {
 
