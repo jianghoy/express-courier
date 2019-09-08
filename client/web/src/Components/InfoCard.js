@@ -13,8 +13,6 @@ const { Title} = Typography;
 class InfoCard extends Component {
     state = {
         value: 1,
-        pickUpLocation: null,
-        destination: null,
     };
     onRadioButtonChange = e => {
         console.log('radio checked', e.target.value);
@@ -29,15 +27,16 @@ class InfoCard extends Component {
 
 
     // TODO: not sure if this is the best practice to make sure the state is set
-    handleSelect = async address => {
-        await this.setState({pickUpLocation: address});
-        console.log(this.state.pickUpLocation);
+    handleSelect = address => {
+        this.setState({address});
+        // console.log(this.state.pickUpLocation);
         geocodeByAddress(address)
             .then(results => getLatLng(results[0]))
             .then(latLng => console.log('Success', latLng))
             .catch(error => console.error('Error', error));
 
     };
+
 
     render() {
         const radioStyle = {
@@ -46,7 +45,6 @@ class InfoCard extends Component {
             lineHeight: '30px',
         };
         return (
-            // TODO: add readme document for adding API key in index,html
             <div className="infoCard">
                 <Card className="info-card" bordered={false}>
                     <Title level={2}>Request a Delivery Now</Title>
@@ -57,12 +55,16 @@ class InfoCard extends Component {
                             onChange={this.handleAddressChange}
                             onSelect={this.handleSelect}
                         >
-                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                            { ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                 <div>
                                     <Input
+                                        onPressEnter={()=>{this.value="aaa"}}
+                                        onSearch={value => console.log(value)}
+                                        allowClear={true}
                                         {...getInputProps({
-                                            placeholder: "Add pick up location",
+                                            placeholder: "Add Pick Up Location",
                                             className: 'location-search-input',
+                                            autoFocus: true,
                                         })}
                                     />
                                     <Menu className="autocomplete-dropdown-container">
@@ -93,7 +95,7 @@ class InfoCard extends Component {
                             )}
                         </PlacesAutocomplete>
                         <br />
-                        <Input placeholder="Add destination" />
+                        <Input placeholder="Add Your Destination" />
                     </div>
                     <br />
                     <br />
