@@ -4,6 +4,16 @@
 
 TBD
 
+## How to download master branch
+
+First, we need to download everything right. First get a copy of Git. Then at your working folder (whatever you want), use this `bash` command:
+
+```bash
+git clone https://github.com/jianghoy/express-courier.git
+```
+
+This contains right `.git` message such that everything's up-to-date.
+
 ## How to create my own branch and push onto Github
 
 First you need to use `checkout` command of `Git` to switch between branches (mostly your branch and master). When create your branch, use:
