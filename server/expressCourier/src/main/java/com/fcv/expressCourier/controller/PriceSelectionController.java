@@ -1,20 +1,26 @@
 package com.fcv.expressCourier.controller;
 
 
-import org.json.JSONArray;
+import com.fcv.expressCourier.priceCalculator.PriceCalculator;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
+@RestController
 public class PriceSelectionController {
+    @Autowired
+    private PriceCalculator priceCalculator;
+
     @RequestMapping(value = "/price", method = RequestMethod.GET, produces = "application/json")
-    public JSONObject greeting(@RequestParam(name="orig",  defaultValue="SFO") String orig, @RequestParam(name="dest",  defaultValue="SFO") String dest, Model model) {
+    public JSONObject prices(@RequestParam(name = "orig", defaultValue = "SFO") String orig,
+                               @RequestParam(name = "dest", defaultValue = "SFO") String dest,
+                               Model model) {
         model.addAttribute("orig", orig);
         model.addAttribute("dest", dest);
-        int dronePrice = getPrice(orig, dest, true);
-        int carPrice = getPrice(orig, dest, false);
+        double dronePrice = priceCalculator.dronePrice(orig, dest);
+        double carPrice = priceCalculator.carPrice(orig, dest);
         JSONObject obj = new JSONObject();
         try {
             obj.put("type", "car");
@@ -32,7 +38,4 @@ public class PriceSelectionController {
 
     }
 
-    private int getPrice(String  orig, String des, boolean isDrone){
-        return 0;
-    }
 }
