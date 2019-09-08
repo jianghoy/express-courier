@@ -1,13 +1,11 @@
 import React from 'react';
 import './App.css';
-import NavBar from "./Components/NavBar"
-import SimpleMap from './Components/SimpleMap';
+import MainPage from "./Components/MainPage";
 
 function App() {
   return (
     <div className="App">
-        <NavBar/>
-        <SimpleMap/>
+        <MainPage/>
     </div>
   );
 }

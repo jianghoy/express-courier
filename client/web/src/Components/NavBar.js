@@ -17,18 +17,19 @@ export default class NavBar extends Component {
 
     render() {
         return (
-            <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
-                <Icon type="github" />
+            <Menu className="nav-bar" onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
+                <Icon className="logo" type="github" />
                 <Menu.Item key="cars">
                     Cars Info
                 </Menu.Item>
                 <Menu.Item key="drones">
                     Drones Info
                 </Menu.Item>
-                <Menu.Item key="help">
+                <div className="space"></div>
+                <Menu.Item className="help" key="help">
                     Help
                 </Menu.Item>
-                <SubMenu
+                <SubMenu className="login"
                     title={
                         <span className="submenu-title-wrapper">Login</span>
                     }

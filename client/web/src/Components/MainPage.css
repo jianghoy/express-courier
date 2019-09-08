@@ -1,0 +1,10 @@
+.MainPage{
+    position: relative;
+    text-align: center;
+}
+
+.infoCard{
+    position: absolute;
+    left: 300px;
+    top: 100px;
+}
