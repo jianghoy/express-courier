@@ -8,10 +8,8 @@ class MainPage extends Component {
         return (
             <div className="MainPage">
                 <NavBar/>
-                <SimpleMap className="Map"/>
-                <div className="infoCard">
-                    <InfoCard/>
-                </div>
+                <SimpleMap />
+                <InfoCard />
             </div>
         );
     }
