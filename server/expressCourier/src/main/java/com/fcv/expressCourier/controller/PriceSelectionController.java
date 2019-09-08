@@ -2,40 +2,53 @@ package com.fcv.expressCourier.controller;
 
 
 import com.fcv.expressCourier.priceCalculator.PriceCalculator;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class PriceSelectionController {
-    @Autowired
-    private PriceCalculator priceCalculator;
+    private final PriceCalculator priceCalculator;
+
+    public PriceSelectionController(PriceCalculator priceCalculator) {
+        this.priceCalculator = priceCalculator;
+    }
 
     @RequestMapping(value = "/price", method = RequestMethod.GET, produces = "application/json")
-    public JSONObject prices(@RequestParam(name = "orig", defaultValue = "SFO") String orig,
+    public List<PricePlan> prices(@RequestParam(name = "orig", defaultValue = "SFO") String orig,
                                @RequestParam(name = "dest", defaultValue = "SFO") String dest,
                                Model model) {
         model.addAttribute("orig", orig);
         model.addAttribute("dest", dest);
         double dronePrice = priceCalculator.dronePrice(orig, dest);
         double carPrice = priceCalculator.carPrice(orig, dest);
-        JSONObject obj = new JSONObject();
-        try {
-            obj.put("type", "car");
-            obj.put("price", carPrice);
-            obj.put("time", "Estimate time");
-
-            obj.put("type", "drone");
-            obj.put("price", dronePrice);
-            obj.put("time", "Estimate time");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return obj;
+        List<PricePlan> resultList = new ArrayList<>();
+        resultList.add(new PricePlan(carPrice,"Car"));
+        resultList.add(new PricePlan(dronePrice,"Drone"));
+        return resultList;
 
     }
 
+}
+
+class PricePlan implements Serializable {
+    private double price;
+    private String type;
+
+    public PricePlan(double price, String type) {
+        this.price = price;
+        this.type = type;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getType() {
+        return type;
+    }
 }
