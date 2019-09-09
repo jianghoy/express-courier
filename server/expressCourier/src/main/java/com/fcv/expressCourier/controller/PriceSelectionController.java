@@ -1,38 +1,49 @@
 package com.fcv.expressCourier.controller;
 
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.ui.Model;
+import com.fcv.expressCourier.priceCalculator.PriceCalculator;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+@RestController
 public class PriceSelectionController {
+    private final PriceCalculator priceCalculator;
+
+    public PriceSelectionController(PriceCalculator priceCalculator) {
+        this.priceCalculator = priceCalculator;
+    }
+
     @RequestMapping(value = "/price", method = RequestMethod.GET, produces = "application/json")
-    public JSONObject greeting(@RequestParam(name="orig",  defaultValue="SFO") String orig, @RequestParam(name="dest",  defaultValue="SFO") String dest, Model model) {
-        model.addAttribute("orig", orig);
-        model.addAttribute("dest", dest);
-        int dronePrice = getPrice(orig, dest, true);
-        int carPrice = getPrice(orig, dest, false);
-        JSONObject obj = new JSONObject();
-        try {
-            obj.put("type", "car");
-            obj.put("price", carPrice);
-            obj.put("time", "Estimate time");
-
-            obj.put("type", "drone");
-            obj.put("price", dronePrice);
-            obj.put("time", "Estimate time");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return obj;
+    public List<PricePlan> prices(@RequestParam(name = "orig", defaultValue = "SFO") String orig,
+                               @RequestParam(name = "dest", defaultValue = "SFO") String dest) {
+        double dronePrice = priceCalculator.dronePrice(orig, dest);
+        double carPrice = priceCalculator.carPrice(orig, dest);
+        List<PricePlan> resultList = new ArrayList<>();
+        resultList.add(new PricePlan(carPrice,"Car"));
+        resultList.add(new PricePlan(dronePrice,"Drone"));
+        return resultList;
 
     }
 
-    private int getPrice(String  orig, String des, boolean isDrone){
-        return 0;
+}
+
+class PricePlan implements Serializable {
+    private double price;
+    private String type;
+
+    public PricePlan(double price, String type) {
+        this.price = price;
+        this.type = type;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getType() {
+        return type;
     }
 }
