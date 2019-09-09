@@ -13,12 +13,6 @@ public class ExpressCourierApplication {
 	@Autowired
 	private PriceCalculator priceCalculator;
 
-	@RequestMapping("/")
-	String home() {
-		return "Hello World! The price between San Jose and Cuppertino is "
-				+ priceCalculator.carPrice("San Jose","Cupertino");
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(ExpressCourierApplication.class, args);
 	}
