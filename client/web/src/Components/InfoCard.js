@@ -26,8 +26,10 @@ class InfoCard extends Component {
     };
 
 
-    handlePickUpAddressSelect = pickUpAddress => {
-        this.setState({pickUpAddress});
+    handlePickUpAddressSelect = async pickUpAddress => {
+        // TODO: send pickUpAddress to back end
+        await this.setState({pickUpAddress});
+        // console.log(this.state.pickUpAddress);
         geocodeByAddress(pickUpAddress)
             .then(results => getLatLng(results[0]))
             .then(latLng => console.log('Success', latLng))
@@ -39,8 +41,9 @@ class InfoCard extends Component {
     };
 
 
-    handleDestinationAddressSelect = destinationAddress => {
-        this.setState({destinationAddress});
+    handleDestinationAddressSelect = async destinationAddress => {
+        // TODO: send destinationAddress to back end
+        await this.setState({destinationAddress});
         geocodeByAddress(destinationAddress)
             .then(results => getLatLng(results[0]))
             .then(latLng => console.log('Success', latLng))
