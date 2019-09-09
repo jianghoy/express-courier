@@ -1,0 +1,8 @@
+<component name="libraryTable">
+  <library name="maven-wrapper">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/server/expressCourier/.mvn/wrapper/maven-wrapper.jar!/" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

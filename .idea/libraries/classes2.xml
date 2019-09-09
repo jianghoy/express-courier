@@ -1,0 +1,8 @@
+<component name="libraryTable">
+  <library name="classes2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/client/ExpressCourier/node_modules/react-native-maps/lib/android/build/intermediates/packaged-classes/debug/classes.jar!/" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
