@@ -9,3 +9,13 @@
     top: 100px;
     border: 1px solid black;
 }
+
+.orderList {
+    position: absolute;
+    left: 700px;
+    top: 150px;
+    background-color: aliceblue;
+    border: 1px solid black;
+    height: 200px;
+    overflow: auto;
+}
