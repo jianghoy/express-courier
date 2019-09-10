@@ -52,6 +52,7 @@ class InfoCard extends Component {
     };
 
 
+    /* Turn PlacesAutocomplete into a component, make code easier to read*/
     render() {
         const radioStyle = {
             display: 'block',
@@ -62,15 +63,13 @@ class InfoCard extends Component {
             <div className="infoCard">
                 <Card className="info-card" bordered={false}>
                     <Title level={2}>Request a Delivery Now</Title>
-                    <br />
                     <div className="autocomplete">
                         <PlacesAutocomplete
                             value={this.state.pickUpAddress}
                             onChange={this.handlePickUpAddressChange}
-                            onSelect={this.handlePickUpAddressSelect}
-                        >
+                            onSelect={this.handlePickUpAddressSelect}>
                             { ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                <div>
+                                <div className="autocomplete-1">
                                     <Input
                                         allowClear={true}
                                         {...getInputProps({
@@ -94,8 +93,7 @@ class InfoCard extends Component {
                                                     {...getSuggestionItemProps(suggestion, {
                                                         className,
                                                         style,
-                                                    })}
-                                                >
+                                                    })}>
                                                    <span>
                                                     {suggestion.description}
                                                    </span>
@@ -106,7 +104,6 @@ class InfoCard extends Component {
                                 </div>
                             )}
                         </PlacesAutocomplete>
-                        <br />
                         <PlacesAutocomplete
                             value={this.state.destinationAddress}
                             onChange={this.handleDestinationAddressChange}
@@ -150,8 +147,6 @@ class InfoCard extends Component {
                             )}
                         </PlacesAutocomplete>
                     </div>
-                    <br />
-                    <br />
                     <div className="radio_button">
                         <Radio.Group onChange={this.onRadioButtonChange} value={this.state.value}>
                             <Radio style={radioStyle} value={1}>
@@ -162,11 +157,7 @@ class InfoCard extends Component {
                             </Radio>
                         </Radio.Group>
                     </div>
-                    <br />
-                    <br />
                     <div className="price">Price Will Show Here</div>
-                    <br />
-                    <br />
                     <div className="checkout">
                         <Button type="primary" block>
                             Checkout

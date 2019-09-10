@@ -1,10 +1,23 @@
-.info-card{
-    height: 70%;
-    width:350px;
-    font-weight: 500;
-    font-size: 1.1em;
-    text-align: left;
-}
 .radio_button{
     text-align: left;
+}
+.autocomplete{
+    border-style: hidden;
+    padding: 25px 10px 25px 10px;
+}
+.autocomplete-1{
+    border-style: hidden;
+    padding-bottom: 5px;
+}
+.radio_button{
+    border-style: hidden;
+    padding: 10px 10px 25px 30px;
+}
+.price{
+    border-style: hidden;
+    padding: 10px 20px 20px 100px;
+}
+.checkout{
+    border-style: hidden;
+    padding: 10px;
 }
