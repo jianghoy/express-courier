@@ -1,37 +1,9 @@
 import React, { Component } from "react";
-import { List, message, Avatar, Spin } from 'antd';
+import { List, message, Avatar, Button, Spin, Pagination } from 'antd';
 import reqwest from 'reqwest';
 import InfiniteScroll from 'react-infinite-scroller';
 
-// const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
-
-const data = [
-  {
-    title: 'Ant Design Title 1',
-    
-  },
-  {
-    title: 'Ant Design Title 2',
-  },
-  {
-    title: 'Ant Design Title 3',
-  },
-  {
-    title: 'Ant Design Title 4',
-  },
-  {
-    title: 'Ant Design Title 5',
-  },
-  {
-    title: 'Ant Design Title 6',
-  },
-  {
-    title: 'Ant Design Title 6',
-  },
-  {
-    title: 'Ant Design Title 7',
-  },
-];
+const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
 class OrderList extends Component {
   state = {
@@ -49,7 +21,7 @@ class OrderList extends Component {
 
   fetchData = callback => {
     reqwest({
-      // url: fakeDataUrl,
+      url: fakeDataUrl,
       type: 'json',
       method: 'get',
       contentType: 'application/json',
@@ -65,7 +37,7 @@ class OrderList extends Component {
       loading: true,
     });
     if (data.length > 6) {
-      message.warning('Infinite List loaded all');
+      message.warning('Finished load all Orders');
       this.setState({
         hasMore: false,
         loading: false,
@@ -81,6 +53,10 @@ class OrderList extends Component {
     });
   };
 
+  OnClickDetail = e => {
+    console.log('click by Detail', e);
+  };
+
   render() {
     return (
       <div className="orderList">
@@ -91,36 +67,24 @@ class OrderList extends Component {
           hasMore={!this.state.loading && this.state.hasMore}
           useWindow={false}
         >
-          {/* <List
-            dataSource={this.state.data}
-            renderItem={item => (
-              <List.Item key={item.id}>
-                <List.Item.Meta
-                  avatar={
-                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                  }
-                  title={<a href="https://ant.design">{item.name.last}</a>}
-                  description={item.email}
-                />
-                <div>Content</div>
-              </List.Item>
-            )}
-          >
-          </List> */}
-
-          <List 
-              itemLayout="horizontal"
-              dataSource={data}
+          <List
+              dataSource={this.state.data}
               renderItem={item => (
-                <List.Item>
+                <List.Item key={item.id}>
                   <List.Item.Meta
-                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                    title={<a href="https://ant.design">{item.title}</a>}
-                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                    avatar={
+                      <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtljuuw8XUjeIUolQrLOqLmFLp9iiI9UpgUoXLakVzEZTJxVtmCA" />
+                    }
+                    title={item.name.title}
+                    description={item.gender}
                   />
+                  <div>
+                    <Button type="primary" onClick={this.OnClickDetail}>Detail</Button>
+                  </div>
                 </List.Item>
               )}
-            />
+            >
+          </List>
         </InfiniteScroll>
       </div>
     );
