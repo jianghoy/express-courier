@@ -1,5 +1,8 @@
 import React,{Component}from 'react';
 import { Menu, Icon } from 'antd';
+import {  Route, Switch, Redirect, NavLink } from 'react-router-dom'
+import CarInfo from './CarInfo';
+import MainPage from './MainPage';
 
 const { SubMenu } = Menu;
 
@@ -19,10 +22,10 @@ export default class NavBar extends Component {
         return (
             <Menu className="nav-bar" onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
                 <Icon className="logo" type="github" />
-                <Menu.Item key="cars">
-                    Cars Info
+                <Menu.Item key="carinfo">
+                    <NavLink to="/carinfo">Car Info</NavLink>
                 </Menu.Item>
-                <Menu.Item key="drones">
+                <Menu.Item key="droneinfo">
                     Drones Info
                 </Menu.Item>
                 <div className="space"></div>
@@ -37,11 +40,8 @@ export default class NavBar extends Component {
                     <Menu.Item key="setting:1">Option 1</Menu.Item>
                     <Menu.Item key="setting:2">Option 2</Menu.Item>
                 </SubMenu>
-
-                {/* <h1>
-                    hello
-                </h1> */}
             </Menu>
+            
         );
     }
 }
