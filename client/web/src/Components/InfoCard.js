@@ -64,88 +64,92 @@ class InfoCard extends Component {
                 <Card className="info-card" bordered={false}>
                     <Title level={2}>Request a Delivery Now</Title>
                     <div className="autocomplete">
-                        <PlacesAutocomplete
-                            value={this.state.pickUpAddress}
-                            onChange={this.handlePickUpAddressChange}
-                            onSelect={this.handlePickUpAddressSelect}>
-                            { ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                <div className="autocomplete-1">
-                                    <Input
-                                        allowClear={true}
-                                        {...getInputProps({
-                                            placeholder: "Add Pick Up Location",
-                                            className: 'location-search-input',
-                                            autoFocus: true,
-                                        })}
-                                    />
-                                    <Menu className="autocomplete-dropdown-container">
-                                        {/*{loading && <div>Loading...</div>}*/}
-                                        {suggestions.map(suggestion => {
-                                            const className = suggestion.active
-                                                ? 'suggestion-item--active'
-                                                : 'suggestion-item';
-                                            // inline style for demonstration purpose
-                                            const style = suggestion.active
-                                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                            return (
-                                                <Menu.Item
-                                                    {...getSuggestionItemProps(suggestion, {
-                                                        className,
-                                                        style,
-                                                    })}>
-                                                   <span>
-                                                    {suggestion.description}
-                                                   </span>
-                                                </Menu.Item>
-                                            );
-                                        })}
-                                    </Menu>
-                                </div>
-                            )}
-                        </PlacesAutocomplete>
-                        <PlacesAutocomplete
-                            value={this.state.destinationAddress}
-                            onChange={this.handleDestinationAddressChange}
-                            onSelect={this.handleDestinationAddressSelect}
-                        >
-                            { ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                <div>
-                                    <Input
-                                        allowClear={true}
-                                        {...getInputProps({
-                                            placeholder: "Add Your Destination",
-                                            className: 'location-search-input',
-                                            autoFocus: true,
-                                        })}
-                                    />
-                                    <Menu className="autocomplete-dropdown-container">
-                                        {/*{loading && <div>Loading...</div>}*/}
-                                        {suggestions.map(suggestion => {
-                                            const className = suggestion.active
-                                                ? 'suggestion-item--active'
-                                                : 'suggestion-item';
-                                            // inline style for demonstration purpose
-                                            const style = suggestion.active
-                                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                            return (
-                                                <Menu.Item
-                                                    {...getSuggestionItemProps(suggestion, {
-                                                        className,
-                                                        style,
-                                                    })}
-                                                >
-                                                   <span>
-                                                    {suggestion.description}
-                                                   </span>
-                                                </Menu.Item>
-                                            );
-                                        })}
-                                    </Menu>
-                                </div>
-                            )}
-                        </PlacesAutocomplete>
+                        <div className="PickUp">
+                            <PlacesAutocomplete
+                                value={this.state.pickUpAddress}
+                                onChange={this.handlePickUpAddressChange}
+                                onSelect={this.handlePickUpAddressSelect}>
+                                { ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                    <div className="autocomplete-input">
+                                        <Input
+                                            allowClear={true}
+                                            {...getInputProps({
+                                                placeholder: "Add Pick Up Location",
+                                                className: 'location-search-input',
+                                                autoFocus: true,
+                                            })}
+                                        />
+                                        <Menu className="autocomplete-dropdown-container">
+                                            {/*{loading && <div>Loading...</div>}*/}
+                                            {suggestions.map(suggestion => {
+                                                const className = suggestion.active
+                                                    ? 'suggestion-item--active'
+                                                    : 'suggestion-item';
+                                                // inline style for demonstration purpose
+                                                const style = suggestion.active
+                                                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                                return (
+                                                    <Menu.Item
+                                                        {...getSuggestionItemProps(suggestion, {
+                                                            className,
+                                                            style,
+                                                        })}>
+                                                       <span>
+                                                        {suggestion.description}
+                                                       </span>
+                                                    </Menu.Item>
+                                                );
+                                            })}
+                                        </Menu>
+                                    </div>
+                                )}
+                            </PlacesAutocomplete>
+                        </div>
+                        <div className="Destination">
+                            <PlacesAutocomplete
+                                value={this.state.destinationAddress}
+                                onChange={this.handleDestinationAddressChange}
+                                onSelect={this.handleDestinationAddressSelect}
+                            >
+                                { ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                    <div className="autocomplete-input">
+                                        <Input
+                                            allowClear={true}
+                                            {...getInputProps({
+                                                placeholder: "Add Your Destination",
+                                                className: 'location-search-input',
+                                                autoFocus: true,
+                                            })}
+                                        />
+                                        <Menu className="autocomplete-dropdown-container">
+                                            {/*{loading && <div>Loading...</div>}*/}
+                                            {suggestions.map(suggestion => {
+                                                const className = suggestion.active
+                                                    ? 'suggestion-item--active'
+                                                    : 'suggestion-item';
+                                                // inline style for demonstration purpose
+                                                const style = suggestion.active
+                                                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                                return (
+                                                    <Menu.Item
+                                                        {...getSuggestionItemProps(suggestion, {
+                                                            className,
+                                                            style,
+                                                        })}
+                                                    >
+                                                       <span>
+                                                        {suggestion.description}
+                                                       </span>
+                                                    </Menu.Item>
+                                                );
+                                            })}
+                                        </Menu>
+                                    </div>
+                                )}
+                            </PlacesAutocomplete>
+                        </div>
                     </div>
                     <div className="radio_button">
                         <Radio.Group onChange={this.onRadioButtonChange} value={this.state.value}>
