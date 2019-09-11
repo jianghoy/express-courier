@@ -15,7 +15,7 @@ public class Address implements Serializable {
     private String address;
     private String city;
     private String state;
-    private String zipcode;
+    private String zipCode;
     private String country;
 
     @ManyToOne
@@ -53,12 +53,12 @@ public class Address implements Serializable {
         this.state = state;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void setZipCode(String zipcode) {
+        this.zipCode = zipcode;
     }
 
     public String getCountry() {
