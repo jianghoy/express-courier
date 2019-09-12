@@ -1,0 +1,11 @@
+.MainPage{
+    position: relative;
+    text-align: center;
+}
+
+.order-panel{
+    position: absolute;
+    left: 300px;
+    top: 100px;
+    border: 1px solid black;
+}
