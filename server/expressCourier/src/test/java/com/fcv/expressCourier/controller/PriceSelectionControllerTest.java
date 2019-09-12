@@ -1,6 +1,6 @@
 package com.fcv.expressCourier.controller;
 
-import com.fcv.expressCourier.priceCalculator.PriceCalculator;
+import com.fcv.expressCourier.services.priceCalculator.PriceCalculator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -10,7 +10,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -26,9 +25,11 @@ public class PriceSelectionControllerTest {
 
     @Test
     public void prices() throws Exception {
+
         /**
          * enforce mocking rules using Mockito
          */
+        
         Mockito.when(mockCalculator.carPrice("SFO", "Dragon's gate"))
                 .thenReturn((double) 10);
         Mockito.when(mockCalculator.dronePrice("SFO","Dragon's gate"))

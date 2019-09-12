@@ -1,4 +1,4 @@
-package com.fcv.expressCourier.priceCalculator;
+package com.fcv.expressCourier.services.priceCalculator;
 
 public interface PriceCalculator {
     double carPrice(String origin,String destination);

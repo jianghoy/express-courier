@@ -1,4 +1,4 @@
-package com.fcv.expressCourier.priceCalculator;
+package com.fcv.expressCourier.services.priceCalculator;
 
 import java.io.IOException;
 import org.json.JSONException;
