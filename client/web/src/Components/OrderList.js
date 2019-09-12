@@ -3,6 +3,7 @@ import { List, Avatar, Button, Spin } from 'antd';
 import reqwest from 'reqwest';
 import InfiniteScroll from 'react-infinite-scroller';
 
+// fake data
 const data = [
   {
     title: 'Product ID: 001',
