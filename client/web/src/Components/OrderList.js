@@ -1,9 +1,26 @@
 import React, { Component } from "react";
-import { List, message, Avatar, Button, Spin, Pagination } from 'antd';
+import { List, Avatar, Button, Spin } from 'antd';
 import reqwest from 'reqwest';
 import InfiniteScroll from 'react-infinite-scroller';
 
-const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
+const data = [
+  {
+    title: 'Product ID: 001',
+    description: 'The product is babababa'
+  },
+  {
+    title: 'Product ID: 002',
+    description: 'The product is babababa'
+  },
+  {
+    title: 'Product ID: 003',
+    description: 'The product is babababa'
+  },
+  {
+    title: 'Product ID: 004',
+    description: 'The product is babababa'
+  },
+];
 
 class OrderList extends Component {
   state = {
@@ -11,7 +28,7 @@ class OrderList extends Component {
     hasMore: true,
   };
 
-  componentDidMount() { 
+  componentDidMount() {
     this.fetchData(res => {
       this.setState({
         data: res.results,
@@ -21,7 +38,6 @@ class OrderList extends Component {
 
   fetchData = callback => {
     reqwest({
-      url: fakeDataUrl,
       type: 'json',
       method: 'get',
       contentType: 'application/json',
@@ -36,14 +52,15 @@ class OrderList extends Component {
     this.setState({
       loading: true,
     });
-    if (data.length > 6) {
-      message.warning('Finished load all Orders');
-      this.setState({
-        hasMore: false,
-        loading: false,
-      });
-      return;
-    }
+    // uncomment this when fetch real data
+    // if (data.length > 6) {
+    //   message.warning('Finished load all Orders');
+    //   this.setState({
+    //     hasMore: false,
+    //     loading: false,
+    //   });
+    //   return;
+    // }
     this.fetchData(res => {
       data = data.concat(res.results);
       this.setState({
@@ -68,22 +85,26 @@ class OrderList extends Component {
           useWindow={false}
         >
           <List
-              dataSource={this.state.data}
-              renderItem={item => (
-                <List.Item key={item.id}>
-                  <List.Item.Meta
-                    avatar={
-                      <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtljuuw8XUjeIUolQrLOqLmFLp9iiI9UpgUoXLakVzEZTJxVtmCA" />
-                    }
-                    title={item.name.title}
-                    description={item.gender}
-                  />
-                  <div>
-                    <Button type="primary" onClick={this.OnClickDetail}>Detail</Button>
-                  </div>
-                </List.Item>
-              )}
-            >
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar style={{ backgroundColor: '#87d068' }} icon="car" />}
+                  title={item.title}
+                  description={item.description}
+                />
+                <div>
+                  <Button type="primary" onClick={this.OnClickDetail}>Detail</Button>
+                </div>
+              </List.Item>
+            )}
+          >
+            {this.state.loading && this.state.hasMore && (
+              <div className="demo-loading-container">
+                <Spin />
+              </div>
+            )}
           </List>
         </InfiniteScroll>
       </div>

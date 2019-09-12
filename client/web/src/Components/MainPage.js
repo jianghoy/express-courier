@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import SimpleMap from "./SimpleMap";
 import OrderPanel from "./OrderPanel";
 import OrderList from "./OrderList";
+import OrderDetail from "./OrderDetail";
 
 //TODO:determine should we merge MainPage with App
 class MainPage extends Component {
@@ -14,6 +15,7 @@ class MainPage extends Component {
                 {/* //TODO: put className on InfoCard component */}
                 {/* <InfoCard className = "infoCard"/> */}
                 <OrderList />
+                <OrderDetail />
                 <OrderPanel />
             </div>
         );

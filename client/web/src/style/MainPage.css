@@ -16,7 +16,22 @@
     top: 150px;
     background-color: aliceblue;
     border: 1px solid black;
+    border-radius: 4px;
     height: 300px;
-    width: 600px;
+    width: 700px;
+    padding: 8px 24px;
+    overflow: auto;
+}
+
+.orderDetail {
+    position: absolute;
+    left: 700px;
+    top: 233px;
+    background-color: aliceblue;
+    border: 1px solid black;
+    border-radius: 4px;
+    height: 217px;
+    width: 700px;
+    padding: 8px 24px;
     overflow: auto;
 }
