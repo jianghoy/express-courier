@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
 import SimpleMap from "./SimpleMap";
-import OrderPanel from "./OrderPanel";
+import InfoCard from "./InfoCard";
 
 //TODO:determine should we merge MainPage with App
 class MainPage extends Component {
