@@ -1,7 +1,7 @@
 package com.fcv.expressCourier.controller;
 
 
-import com.fcv.expressCourier.priceCalculator.PriceCalculator;
+import com.fcv.expressCourier.services.priceCalculator.PriceCalculator;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
@@ -34,7 +34,7 @@ class PricePlan implements Serializable {
     private double price;
     private String type;
 
-    public PricePlan(double price, String type) {
+    PricePlan(double price, String type) {
         this.price = price;
         this.type = type;
     }

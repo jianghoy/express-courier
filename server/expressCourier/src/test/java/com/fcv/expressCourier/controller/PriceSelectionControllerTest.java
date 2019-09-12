@@ -29,7 +29,7 @@ public class PriceSelectionControllerTest {
         /**
          * enforce mocking rules using Mockito
          */
-        
+
         Mockito.when(mockCalculator.carPrice("SFO", "Dragon's gate"))
                 .thenReturn((double) 10);
         Mockito.when(mockCalculator.dronePrice("SFO","Dragon's gate"))
