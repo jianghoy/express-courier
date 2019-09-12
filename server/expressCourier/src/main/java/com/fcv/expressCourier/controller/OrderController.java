@@ -1,18 +1,27 @@
 package com.fcv.expressCourier.controller;
 
+import com.fcv.expressCourier.dao.OrderRepository;
 import com.fcv.expressCourier.models.Order;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
 
 @RestController
 public class OrderController {
+    private final OrderRepository orderRepository;
+
+    public OrderController(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
+
     @RequestMapping(value = "/order/{orderID}", method = RequestMethod.GET)
-    public Order getOrder(@PathVariable("orderId") int orderId) {
-        // Order order = orderDao.getOrder(orderId)
-        Order order = new Order();
-        return order;
+    public Order getOrder(@PathVariable("orderID") int orderId) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (!optionalOrder.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order Not Found");
+        }
+        return optionalOrder.get();
     }
 }
