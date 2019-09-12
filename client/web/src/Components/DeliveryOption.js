@@ -21,14 +21,9 @@ class DeliveryOption extends Component {
         let orig = nextProps.pickUpAddress;
         let dest = nextProps.destinationAddress;
         let fetchURL = '/ec/price?dest='+dest+'&orig='+ orig;
-        // console.log(orig);
-        // console.log(dest);
         if (this.checkAddressFilled(nextProps)===true){
             console.log(fetchURL);
-            // this.setState({price0: "loading..."});
-            // this.setState({price1: "loading..."});
             fetch(fetchURL)
-            // fetch('/ec/price?dest=undefined&orig=undefined')
                 .then(response => response.json())
                 .then(data => {
                     this.setState({

@@ -169,8 +169,7 @@ class OrderPanel extends Component {
                     </div>
 
                     <DeliveryOption pickUpAddress={this.state.pickUpAddress} destinationAddress={this.state.destinationAddress}/>
-
-                    <div className="price">Price Will Show Here</div>
+                    
                     <div className="checkout">
                         <Button type="primary" block>
                             Checkout
