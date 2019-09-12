@@ -5,6 +5,7 @@ import MainPage from "./Components/MainPage";
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
 import CarInfo from './Components/CarInfo';
 import * as serviceWorker from './serviceWorker';
+import TestIntegration from "./Components/TestIntegration";
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
@@ -16,16 +17,19 @@ function Home() {
 
 function App() {
     return (
-        <BrowserRouter>
-            <div>
-                <Switch>
-                    <Route exact path="/" component={Home}/>
-                    <Route path="/home" component={Home}/>
-                    <Route path="/carinfo" component={CarInfo}/>
-                    <Redirect to="/"/>
-                </Switch>
-            </div>
-        </BrowserRouter>
+        <div>
+            <TestIntegration/>
+        </div>
+        // {/*<BrowserRouter>*/}
+        // {/*    <div>*/}
+        // {/*        <Switch>*/}
+        // {/*            <Route exact path="/" component={Home}/>*/}
+        // {/*            <Route path="/home" component={Home}/>*/}
+        // {/*            <Route path="/carinfo" component={CarInfo}/>*/}
+        // {/*            <Redirect to="/"/>*/}
+        // {/*        </Switch>*/}
+        // {/*    </div>*/}
+        // {/*</BrowserRouter>*/}
     );
   }
 export default App;
