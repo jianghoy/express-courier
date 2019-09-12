@@ -1,24 +1,13 @@
 package com.fcv.expressCourier;
 
-import com.fcv.expressCourier.priceCalculator.PriceCalculator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @SpringBootApplication
 public class ExpressCourierApplication {
-//	@Autowired
-//	private PriceCalculator priceCalculator;
-//
-//	@RequestMapping("/")
-//	String home() {
-//		return "Hello World! The price between San Jose and Cuppertino is "
-//				+ priceCalculator.carPrice("San Jose","Cupertino");
-//	}
-//
+
 	public static void main(String[] args) {
 		SpringApplication.run(ExpressCourierApplication.class, args);
 	}
