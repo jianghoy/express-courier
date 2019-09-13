@@ -5,28 +5,26 @@ import PlacesAutocomplete, {
     getLatLng,
 } from 'react-places-autocomplete';
 import { Typography} from 'antd';
+import DeliveryOption from "./DeliveryOption";
+import Icon from "antd/es/icon";
 
 const { Title} = Typography;
 
-class InfoCard extends Component {
+class OrderPanel extends Component {
     state = {
         value: 1,
     };
-    onRadioButtonChange = e => {
-        console.log('radio checked', e.target.value);
-        this.setState({
-            value: e.target.value,
-        });
-    };
 
-    handlePickUpAddressChange = pickUpAddress => {
-        this.setState({ pickUpAddress });
+
+    handlePickUpAddressChange = pickUpInput => {
+        this.setState({ pickUpInput });
     };
 
 
     handlePickUpAddressSelect = async pickUpAddress => {
         // TODO: send pickUpAddress to back end
         await this.setState({pickUpAddress});
+        this.setState({pickUpInput: pickUpAddress});
         // console.log(this.state.pickUpAddress);
         geocodeByAddress(pickUpAddress)
             .then(results => getLatLng(results[0]))
@@ -34,14 +32,16 @@ class InfoCard extends Component {
             .catch(error => console.error('Error', error));
 
     };
-    handleDestinationAddressChange = destinationAddress => {
-        this.setState({ destinationAddress });
+    handleDestinationAddressChange = destinationInput => {
+        this.setState({ destinationInput });
     };
 
 
     handleDestinationAddressSelect = async destinationAddress => {
         // TODO: send destinationAddress to back end
         await this.setState({destinationAddress});
+        this.setState({destinationInput: destinationAddress});
+        // console.log(this.state.destinationAddress);
         geocodeByAddress(destinationAddress)
             .then(results => getLatLng(results[0]))
             .then(latLng => console.log('Success', latLng))
@@ -49,14 +49,22 @@ class InfoCard extends Component {
 
     };
 
+    handlePickUpClear = e =>{
+        this.setState({
+            pickUpAddress: "",
+            pickUpInput: "",
+        })
+    };
+    handleDestinationClear = e =>{
+        this.setState({
+            destinationAddress: "",
+            destinationInput: "",
+        })
+    };
+
 
     /* Turn PlacesAutocomplete into a component, make code easier to read*/
     render() {
-        const radioStyle = {
-            display: 'block',
-            height: '30px',
-            lineHeight: '30px',
-        };
         return (
             <div className="infoCard">
                 <Card className="info-card" bordered={false}>
@@ -64,13 +72,17 @@ class InfoCard extends Component {
                     <div className="autocomplete">
                         <div className="PickUp">
                             <PlacesAutocomplete
-                                value={this.state.pickUpAddress}
+                                value={this.state.pickUpInput}
                                 onChange={this.handlePickUpAddressChange}
                                 onSelect={this.handlePickUpAddressSelect}>
                                 { ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                     <div className="autocomplete-input">
                                         <Input
-                                            allowClear={true}
+                                            addonAfter={
+                                                <Icon type="close-circle-o"
+                                                    onClick={ this.handlePickUpClear}
+                                                />
+                                            }
                                             {...getInputProps({
                                                 placeholder: "Add Pick Up Location",
                                                 className: 'location-search-input',
@@ -106,14 +118,18 @@ class InfoCard extends Component {
                         </div>
                         <div className="Destination">
                             <PlacesAutocomplete
-                                value={this.state.destinationAddress}
+                                value={this.state.destinationInput}
                                 onChange={this.handleDestinationAddressChange}
                                 onSelect={this.handleDestinationAddressSelect}
                             >
                                 { ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                     <div className="autocomplete-input">
                                         <Input
-                                            allowClear={true}
+                                            addonAfter={
+                                                <Icon type="close-circle-o"
+                                                      onClick={ this.handleDestinationClear}
+                                                />
+                                            }
                                             {...getInputProps({
                                                 placeholder: "Add Your Destination",
                                                 className: 'location-search-input',
@@ -149,17 +165,9 @@ class InfoCard extends Component {
                             </PlacesAutocomplete>
                         </div>
                     </div>
-                    <div className="radio_button">
-                        <Radio.Group onChange={this.onRadioButtonChange} value={this.state.value}>
-                            <Radio style={radioStyle} value={1}>
-                                Use Car
-                            </Radio>
-                            <Radio style={radioStyle} value={2}>
-                                Use Drone
-                            </Radio>
-                        </Radio.Group>
-                    </div>
-                    <div className="price">Price Will Show Here</div>
+
+                    <DeliveryOption pickUpAddress={this.state.pickUpAddress} destinationAddress={this.state.destinationAddress}/>
+                    
                     <div className="checkout">
                         <Button type="primary" block>
                             Checkout
@@ -172,4 +180,4 @@ class InfoCard extends Component {
     }
 }
 
-export default InfoCard;
+export default OrderPanel;

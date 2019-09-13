@@ -1,0 +1,17 @@
+{
+  "name": "wire-up-front-end-with-back-end",
+  "version": "1.0.0",
+  "description": "A tutorial on how to wire up front end with back end",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Tutorial"
+  ],
+  "author": "Jianghong Ying",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0"
+  }
+}
