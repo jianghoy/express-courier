@@ -8,8 +8,6 @@ import { Typography} from 'antd';
 
 const { Title} = Typography;
 
-
-
 class InfoCard extends Component {
     state = {
         value: 1,
