@@ -5,6 +5,7 @@ import PlacesAutocomplete, {
     getLatLng,
 } from 'react-places-autocomplete';
 import { Typography} from 'antd';
+import LocationSearchInput from './LocationSearchInput';
 
 const { Title} = Typography;
 
@@ -30,12 +31,13 @@ class InfoCard extends Component {
         // TODO: send pickUpAddress to back end
         await this.setState({pickUpAddress});
         // console.log(this.state.pickUpAddress);
-        geocodeByAddress(pickUpAddress)
-            .then(results => getLatLng(results[0]))
-            .then(latLng => console.log('Success', latLng))
-            .catch(error => console.error('Error', error));
+        // geocodeByAddress(pickUpAddress)
+        //     .then(results => getLatLng(results[0]))
+        //     .then(latLng => console.log('Success', latLng))
+        //     .catch(error => console.error('Error', error));
 
     };
+    
     handleDestinationAddressChange = destinationAddress => {
         this.setState({ destinationAddress });
     };
@@ -44,10 +46,10 @@ class InfoCard extends Component {
     handleDestinationAddressSelect = async destinationAddress => {
         // TODO: send destinationAddress to back end
         await this.setState({destinationAddress});
-        geocodeByAddress(destinationAddress)
-            .then(results => getLatLng(results[0]))
-            .then(latLng => console.log('Success', latLng))
-            .catch(error => console.error('Error', error));
+        // geocodeByAddress(destinationAddress)
+        //     .then(results => getLatLng(results[0]))
+        //     .then(latLng => console.log('Success', latLng))
+        //     .catch(error => console.error('Error', error));
 
     };
 
@@ -64,7 +66,7 @@ class InfoCard extends Component {
                 <Card className="info-card" bordered={false}>
                     <Title level={2}>Request a Delivery Now</Title>
                     <div className="autocomplete">
-                        <div className="PickUp">
+                         <div className="PickUp">
                             <PlacesAutocomplete
                                 value={this.state.pickUpAddress}
                                 onChange={this.handlePickUpAddressChange}
@@ -81,7 +83,7 @@ class InfoCard extends Component {
                                         />
                                         <Menu className="autocomplete-dropdown-container">
                                             {/*{loading && <div>Loading...</div>}*/}
-                                            {suggestions.map(suggestion => {
+                         {suggestions.map(suggestion => {
                                                 const className = suggestion.active
                                                     ? 'suggestion-item--active'
                                                     : 'suggestion-item';
@@ -105,43 +107,64 @@ class InfoCard extends Component {
                                     </div>
                                 )}
                             </PlacesAutocomplete>
-                        </div>
+                        </div> 
+                       
                         <div className="Destination">
                             <PlacesAutocomplete
                                 value={this.state.destinationAddress}
                                 onChange={this.handleDestinationAddressChange}
                                 onSelect={this.handleDestinationAddressSelect}
                             >
-                                { ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                {({
+                                    getInputProps,
+                                    suggestions,
+                                    getSuggestionItemProps,
+                                    loading
+                                }) => (
                                     <div className="autocomplete-input">
                                         <Input
                                             allowClear={true}
                                             {...getInputProps({
-                                                placeholder: "Add Your Destination",
-                                                className: 'location-search-input',
-                                                autoFocus: true,
+                                                placeholder:
+                                                    "Add Your Destination",
+                                                className:
+                                                    "location-search-input",
+                                                autoFocus: true
                                             })}
                                         />
                                         <Menu className="autocomplete-dropdown-container">
                                             {/*{loading && <div>Loading...</div>}*/}
                                             {suggestions.map(suggestion => {
                                                 const className = suggestion.active
-                                                    ? 'suggestion-item--active'
-                                                    : 'suggestion-item';
+                                                    ? "suggestion-item--active"
+                                                    : "suggestion-item";
                                                 // inline style for demonstration purpose
                                                 const style = suggestion.active
-                                                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                                    ? {
+                                                          backgroundColor:
+                                                              "#fafafa",
+                                                          cursor: "pointer"
+                                                      }
+                                                    : {
+                                                          backgroundColor:
+                                                              "#ffffff",
+                                                          cursor: "pointer"
+                                                      };
                                                 return (
                                                     <Menu.Item
-                                                        {...getSuggestionItemProps(suggestion, {
-                                                            className,
-                                                            style,
-                                                        })}
+                                                        {...getSuggestionItemProps(
+                                                            suggestion,
+                                                            {
+                                                                className,
+                                                                style
+                                                            }
+                                                        )}
                                                     >
-                                                       <span>
-                                                        {suggestion.description}
-                                                       </span>
+                                                        <span>
+                                                            {
+                                                                suggestion.description
+                                                            }
+                                                        </span>
                                                     </Menu.Item>
                                                 );
                                             })}
@@ -152,7 +175,10 @@ class InfoCard extends Component {
                         </div>
                     </div>
                     <div className="radio_button">
-                        <Radio.Group onChange={this.onRadioButtonChange} value={this.state.value}>
+                        <Radio.Group
+                            onChange={this.onRadioButtonChange}
+                            value={this.state.value}
+                        >
                             <Radio style={radioStyle} value={1}>
                                 Use Car
                             </Radio>
@@ -169,7 +195,6 @@ class InfoCard extends Component {
                     </div>
                 </Card>
             </div>
-
         );
     }
 }
