@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { List, Avatar, Button, Spin } from 'antd';
 import reqwest from 'reqwest';
 import InfiniteScroll from 'react-infinite-scroller';
+import NavBar from './NavBar';
+import { bool } from "prop-types";
+import OrderDetail from './OrderDetail';
 
 // fake data
 const data = [
@@ -27,6 +30,7 @@ class OrderList extends Component {
   state = {
     loading: false,
     hasMore: true,
+    showOrderDetail: false,
   };
 
   componentDidMount() {
@@ -71,44 +75,53 @@ class OrderList extends Component {
     });
   };
 
-  OnClickDetail = e => {
-    console.log('click by Detail', e);
-  };
+  _showOrderDetail = (bool) => {
+    console.log('showOrderDetail');
+    this.setState({
+      showOrderDetail: bool
+    })
+  }
 
   render() {
     return (
       <div className="orderList">
-        <InfiniteScroll
-          initialLoad={false}
-          pageStart={0}
-          loadMore={this.handleInfiniteOnLoad}
-          hasMore={!this.state.loading && this.state.hasMore}
-          useWindow={false}
-        >
-          <List
-            itemLayout="horizontal"
-            dataSource={data}
-            renderItem={item => (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={<Avatar style={{ backgroundColor: '#87d068' }} icon="car" />}
-                  title={item.title}
-                  description={item.description}
-                />
-                <div>
-                  <Button type="primary" onClick={this.OnClickDetail}>Detail</Button>
-                </div>
-              </List.Item>
-            )}
+        <NavBar/>
+        <div className="align-center">
+          <div className="orderListStyle">
+          <InfiniteScroll
+            initialLoad={false}
+            pageStart={0}
+            loadMore={this.handleInfiniteOnLoad}
+            hasMore={!this.state.loading && this.state.hasMore}
+            useWindow={false}
           >
-            {this.state.loading && this.state.hasMore && (
-              <div className="demo-loading-container">
-                <Spin />
-              </div>
-            )}
-          </List>
-        </InfiniteScroll>
+            <List
+              itemLayout="horizontal"
+              dataSource={data}
+              renderItem={item => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={<Avatar style={{ backgroundColor: '#87d068' }} icon="car" />}
+                    title={item.title}
+                    description={item.description}
+                  />
+                  <div> 
+                    <Button type="primary" onClick={this._showOrderDetail.bind(null, true)}>Detail</Button>
+                    {this.state.showOrderDetail}
+                  </div>  
+                </List.Item>
+              )}
+            >
+              {this.state.loading && this.state.hasMore && (
+                <div className="demo-loading-container">
+                  <Spin />
+                </div>
+              )}
+            </List>
+          </InfiniteScroll>
+        </div>
       </div>
+    </div>
     );
   }
 }

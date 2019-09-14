@@ -12,10 +12,6 @@ class MainPage extends Component {
             <div className="MainPage">
                 <NavBar />
                 <SimpleMap className="Map" />
-                {/* //TODO: put className on InfoCard component */}
-                {/* <InfoCard className = "infoCard"/> */}
-                <OrderList />
-                <OrderDetail />
                 <OrderPanel />
             </div>
         );

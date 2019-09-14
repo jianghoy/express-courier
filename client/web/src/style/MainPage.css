@@ -10,14 +10,19 @@
     border: 1px solid black;
 }
 
-.orderList {
+.align-center {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.orderListStyle {
     position: absolute;
     left: 700px;
-    top: 150px;
+    top: 200px;
     background-color: aliceblue;
-    border: 1px solid black;
     border-radius: 4px;
-    height: 300px;
+    height: 400px;
     width: 700px;
     padding: 8px 24px;
     overflow: auto;
