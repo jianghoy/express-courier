@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Radio} from "antd";
+import {getPriceAndTime} from '../API/API'
 
 class DeliveryOption extends Component {
     state ={
@@ -20,22 +21,26 @@ class DeliveryOption extends Component {
     componentWillReceiveProps = (nextProps) =>{
         let orig = nextProps.pickUpAddress;
         let dest = nextProps.destinationAddress;
-        let fetchURL = '/ec/price?dest='+dest+'&orig='+ orig;
         if (this.checkAddressFilled(nextProps)===true){
-            console.log(fetchURL);
-            fetch(fetchURL)
-                .then(response => response.json())
-                .then(data => {
-                    this.setState({
-                        price0: data[0].price,
-                        type0: data[0].type,
-                        price1: data[1].price,
-                        type1: data[1].type
-                    });
-                });
+            getPriceAndTime(dest,orig,(priceAndTime) => {
+                this.setState({
+                    price0:priceAndTime[0].price,
+                    type0:priceAndTime[0].type,
+                    price1:priceAndTime[1].price,
+                    type1:priceAndTime[1].type 
+                })
+            })
+                // this.setState({
+                //     price0: data[0].price,
+                //     type0: data[0].type,
+                //     price1: data[1].price,
+                //     type1: data[1].type
+                // });
+            
         }
 
     };
+    
     checkAddressFilled(nextProps) {
         const differentTitle = this.props.pickUpaddress !== nextProps.pickUpAddress;
         const differentDone = this.props.destinationAddress !== nextProps.destinationAddress;
