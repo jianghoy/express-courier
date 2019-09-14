@@ -5,7 +5,7 @@ import PlacesAutocomplete, {
     getLatLng,
 } from 'react-places-autocomplete';
 import { Typography} from 'antd';
-import LocationSearchInput from './LocationSearchInput';
+
 
 const { Title} = Typography;
 
