@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 import NavBar from "./NavBar";
 import SimpleMap from "./SimpleMap";
-import InfoCard from "./InfoCard";
+import OrderPanel from "./OrderPanel";
 
 class MainPage extends Component {
     render() {
