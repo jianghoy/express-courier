@@ -1,0 +1,20 @@
+.MainPage{
+    position: relative;
+    text-align: center;
+}
+
+.infoCard{
+    position: absolute;
+    overflow: auto;
+    top: 20%;
+    left: 20%;
+    height: 70vh;
+    width: 30vw;
+    font-weight: 500;
+    font-size: 1.1em;
+    text-align: left;
+}
+
+.Map{
+    padding-top: 46px;
+}
