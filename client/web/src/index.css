@@ -3,6 +3,7 @@
 @import './style/OrderPanel.css';
 @import './style/NavBar.css';
 @import './style/OrderList.css';
+@import './style/OrderDetail.css';
 
 
 body {

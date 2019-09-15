@@ -85,43 +85,51 @@ class OrderList extends Component {
   render() {
     return (
       <div className="orderList">
-        <NavBar/>
+        <NavBar />
         <div className="align-center">
           <div className="orderListStyle">
-          <InfiniteScroll
-            initialLoad={false}
-            pageStart={0}
-            loadMore={this.handleInfiniteOnLoad}
-            hasMore={!this.state.loading && this.state.hasMore}
-            useWindow={false}
-          >
-            <List
-              itemLayout="horizontal"
-              dataSource={data}
-              renderItem={item => (
-                <List.Item>
-                  <List.Item.Meta
-                    avatar={<Avatar style={{ backgroundColor: '#87d068' }} icon="car" />}
-                    title={item.title}
-                    description={item.description}
-                  />
-                  <div> 
-                    <Button type="primary" onClick={this._showOrderDetail.bind(null, true)}>Detail</Button>
-                    {this.state.showOrderDetail}
-                  </div>  
-                </List.Item>
-              )}
+            <InfiniteScroll
+              initialLoad={false}
+              pageStart={0}
+              loadMore={this.handleInfiniteOnLoad}
+              hasMore={!this.state.loading && this.state.hasMore}
+              useWindow={false}
             >
-              {this.state.loading && this.state.hasMore && (
-                <div className="demo-loading-container">
-                  <Spin />
-                </div>
-              )}
-            </List>
-          </InfiniteScroll>
+              <List
+                itemLayout="horizontal"
+                dataSource={data}
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar style={{ backgroundColor: '#87d068' }} icon="car" />}
+                      title={item.title}
+                      description={item.description}
+                    />
+                    <div>
+                  <div> 
+                    <div>
+                  <div> 
+                    <div>
+                      <Button type="primary" onClick={this._showOrderDetail.bind(null, true)}>Detail</Button>
+                      {this.state.showOrderDetail ? <OrderDetail handleClose={this._showOrderDetail}/> : null}
+                    </div>
+                  </div>  
+                    </div>
+                  </div>  
+                    </div>
+                  </List.Item>
+                )}
+              >
+                {this.state.loading && this.state.hasMore && (
+                  <div className="demo-loading-container">
+                    <Spin />
+                  </div>
+                )}
+              </List>
+            </InfiniteScroll>
+          </div>
         </div>
       </div>
-    </div>
     );
   }
 }

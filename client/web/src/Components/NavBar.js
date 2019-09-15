@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Menu, Icon, Button } from 'antd';
-import { Route, Switch, Redirect, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const { SubMenu } = Menu;
 
