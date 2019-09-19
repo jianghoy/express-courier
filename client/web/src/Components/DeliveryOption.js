@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Radio} from "antd";
 import {getPriceAndTime} from '../API/API'
 import {Radio, Statistic, Col, Row} from "antd";
 
