@@ -20,7 +20,6 @@ class OrderPanel extends Component {
     };
 
     handlePickUpAddressSelect = async pickUpAddress => {
-        // TODO: send pickUpAddress to back end
         await this.setState({ pickUpAddress });
         //this.setState({ pickUpInput: pickUpAddress });
         // console.log(this.state.pickUpAddress);
@@ -34,7 +33,6 @@ class OrderPanel extends Component {
     };
 
     handleDestinationAddressSelect = async destinationAddress => {
-        // TODO: send destinationAddress to back end
         await this.setState({ destinationAddress });
         //this.setState({ destinationInput: destinationAddress });
         // console.log(this.state.destinationAddress);
