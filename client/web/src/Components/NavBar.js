@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Menu, Icon } from "antd";
-import { Route, Switch, Redirect, NavLink } from "react-router-dom";
-import CarInfo from "./CarInfo";
-import MainPage from "./MainPage";
+import React,{Component}from 'react';
+import { Menu, Icon } from 'antd';
+import {  Route, Switch, Redirect, NavLink } from 'react-router-dom'
+import CarInfo from './CarInfo';
+import MainPage from './MainPage';
 
 const { SubMenu } = Menu;
 
@@ -30,7 +30,9 @@ export default class NavBar extends Component {
                 <Menu.Item key="carinfo">
                     <NavLink to="/carinfo">Car Info</NavLink>
                 </Menu.Item>
-                <Menu.Item key="droneinfo">Drones Info</Menu.Item>
+                <Menu.Item key="droneinfo">
+                    Drones Info
+                </Menu.Item>
                 <div className="space"></div>
                 <Menu.Item className="help" key="help">
                     Help
@@ -43,6 +45,7 @@ export default class NavBar extends Component {
                     <Menu.Item key="setting:2">Option 2</Menu.Item>
                 </SubMenu>
             </Menu>
+            
         );
     }
 }

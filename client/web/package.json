@@ -36,6 +36,8 @@
   },
   "devDependencies": {
     "dotenv": "^8.1.0",
-    "dotenv-webpack": "^1.7.0"
-  }
+    "dotenv-webpack": "^1.7.0",
+    "react-router-dom": "^5.0.1"
+  },
+  "proxy": "http://localhost:8080"
 }

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 function CarInfo() {
     return (
-        console.log("at car info")
+        <h1>Car Info</h1>
     );
 }
 export default CarInfo;
