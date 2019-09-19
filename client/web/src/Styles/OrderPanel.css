@@ -1,0 +1,38 @@
+.autocomplete{
+    display: flex;
+    position: relative;
+    height: 150px;
+    border-style: hidden;
+    padding: 25px 10px 25px 10px;
+}
+.autocomplete-input{
+    border-style: hidden;
+    padding-bottom: 5px;
+    width: 89%;
+}
+
+
+.checkout{
+    border-style: hidden;
+    padding: 10px;
+}
+.PickUp{
+    display: flex;
+    position: absolute;
+    width:100%;
+    z-index: 11;
+}
+.Destination{
+    display: flex;
+    position: absolute;
+    width:100%;
+    top: 80px;
+    z-index: 10;
+}
+.action-button{
+    right:0;
+}
+
+Input{
+    width:100%;
+}
