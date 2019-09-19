@@ -78,13 +78,12 @@ class OrderPanel extends Component {
                                 }) => (
                                     <div className="autocomplete-input">
                                         <Input
-                                            addonAfter={
-                                                <Icon
-                                                    type="close-circle-o"
-                                                    onClick={
-                                                        this.handlePickUpClear
-                                                    }
-                                                />
+                                            suffix={
+                                                <div>
+                                                    <Icon type="close"
+                                                        onClick={ this.handlePickUpClear}
+                                                    />
+                                                </div>
                                             }
                                             {...getInputProps({
                                                 placeholder:
@@ -134,6 +133,7 @@ class OrderPanel extends Component {
                                     </div>
                                 )}
                             </PlacesAutocomplete>
+                            <Button type="primary"  icon="compass" />
                         </div>
                         <div className="Destination">
                             <PlacesAutocomplete
@@ -149,14 +149,13 @@ class OrderPanel extends Component {
                                 }) => (
                                     <div className="autocomplete-input">
                                         <Input
-                                            addonAfter={
-                                                <Icon
-                                                    type="close-circle-o"
-                                                    onClick={
-                                                        this
-                                                            .handleDestinationClear
-                                                    }
-                                                />
+                                            suffix={
+                                                <div>
+                                                    <Icon type="close"
+                                                        onClick={ this.handleDestinationClear}
+                                                    />
+
+                                                </div>
                                             }
                                             {...getInputProps({
                                                 placeholder:
@@ -206,6 +205,7 @@ class OrderPanel extends Component {
                                     </div>
                                 )}
                             </PlacesAutocomplete>
+                            <Button type="primary" icon="enter" />
                         </div>
                     </div>
 
@@ -213,7 +213,7 @@ class OrderPanel extends Component {
                         pickUpAddress={this.state.pickUpAddress}
                         destinationAddress={this.state.destinationAddress}
                     />
-
+                    <br />
                     <div className="checkout">
                         <Button type="primary" block>
                             Checkout

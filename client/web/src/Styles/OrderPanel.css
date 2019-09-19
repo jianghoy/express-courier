@@ -1,6 +1,3 @@
-.radio_button{
-    text-align: left;
-}
 .autocomplete{
     display: flex;
     position: relative;
@@ -11,17 +8,10 @@
 .autocomplete-input{
     border-style: hidden;
     padding-bottom: 5px;
-    padding-right: 25px;
-    width: 100%;
+    width: 89%;
 }
-.radio_button{
-    border-style: hidden;
-    padding: 10px 10px 25px 30px;
-}
-.price{
-    border-style: hidden;
-    padding: 10px 20px 20px 100px;
-}
+
+
 .checkout{
     border-style: hidden;
     padding: 10px;
@@ -39,6 +29,10 @@
     top: 80px;
     z-index: 10;
 }
+.action-button{
+    right:0;
+}
+
 Input{
     width:100%;
 }
