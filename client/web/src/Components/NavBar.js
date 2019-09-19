@@ -26,7 +26,9 @@ export default class NavBar extends Component {
                 selectedKeys={[this.state.current]}
                 mode="horizontal"
             >
-                <Icon className="logo" type="github" />
+                <Button href="/">
+                    <Icon type="github"></Icon>
+                </Button>
                 <Menu.Item key="carinfo">
                     <NavLink to="/carinfo">Car Info</NavLink>
                 </Menu.Item>
