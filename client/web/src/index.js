@@ -8,6 +8,7 @@ import DroneInfo from './Components/DroneInfo';
 import Help from './Components/Help';
 import * as serviceWorker from './serviceWorker';
 import OrderList from './Components/OrderList';
+import NormalLoginForm from './Components/Login';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
@@ -28,6 +29,8 @@ function App() {
                     <Route path="/droneinfo" component={DroneInfo}/>
                     <Route path="/help" component={Help}/>
                     <Route path="/orderList" component={OrderList}/>
+                    <Route path="/login" component={NormalLoginForm}/>
+                    <Route path="/logout" component={NormalLoginForm}/>
                     <Redirect to="/"/>
                 </Switch>
             </div>

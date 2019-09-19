@@ -34,8 +34,10 @@ export default class NavBar extends Component {
                     <NavLink to="/help">Help</NavLink>
                 </Menu.Item>
                 <SubMenu
-                    className="login"
-                    title={<span className="submenu-title-wrapper">Login</span>}
+                    className="login" key="login"
+                    title={<span className="submenu-title-wrapper">
+                        <NavLink to="/login">Login</NavLink>
+                        </span>}
                 >
                     <Menu.Item key="orderList">
                         <NavLink to="/orderList">Order Status</NavLink>

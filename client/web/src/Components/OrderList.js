@@ -3,7 +3,6 @@ import { List, Avatar, Button, Spin } from 'antd';
 import reqwest from 'reqwest';
 import InfiniteScroll from 'react-infinite-scroller';
 import NavBar from './NavBar';
-import { bool } from "prop-types";
 import OrderDetail from './OrderDetail';
 
 // fake data
@@ -106,16 +105,8 @@ class OrderList extends Component {
                       description={item.description}
                     />
                     <div>
-                  <div> 
-                    <div>
-                  <div> 
-                    <div>
                       <Button type="primary" onClick={this._showOrderDetail.bind(null, true)}>Detail</Button>
                       {this.state.showOrderDetail ? <OrderDetail handleClose={this._showOrderDetail}/> : null}
-                    </div>
-                  </div>  
-                    </div>
-                  </div>  
                     </div>
                   </List.Item>
                 )}

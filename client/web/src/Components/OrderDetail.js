@@ -6,7 +6,7 @@ const BtnComponent = (props) =>
         <Descriptions
             title="Order Detail"
             bordered
-            column={{ xxl: 1 }}
+            column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1}}
         >
             <Descriptions.Item label="Product Id"></Descriptions.Item>
             <Descriptions.Item label="Type(Car/Drone)"></Descriptions.Item>

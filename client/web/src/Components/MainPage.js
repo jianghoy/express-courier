@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NavBar from "./NavBar";
 import SimpleMap from "./SimpleMap";
 import OrderPanel from "./OrderPanel";
+import Login from "./Login";
 
 //TODO:determine should we merge MainPage with App
 class MainPage extends Component {
@@ -9,8 +10,9 @@ class MainPage extends Component {
         return (
             <div className="MainPage">
                 <NavBar />
-                <SimpleMap className="Map" />
-                <OrderPanel />
+                {/* <Login /> */}
+                {/* <SimpleMap className="Map" />
+                <OrderPanel /> */}
             </div>
         );
     }

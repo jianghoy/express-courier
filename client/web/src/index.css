@@ -4,6 +4,7 @@
 @import './style/NavBar.css';
 @import './style/OrderList.css';
 @import './style/OrderDetail.css';
+@import './style/Login.css';
 
 
 body {
