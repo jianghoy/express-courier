@@ -11,8 +11,8 @@ class MainPage extends Component {
             <div className="MainPage">
                 <NavBar />
                 {/* <Login /> */}
-                {/* <SimpleMap className="Map" />
-                <OrderPanel /> */}
+                <SimpleMap className="Map" />
+                <OrderPanel />
             </div>
         );
     }
