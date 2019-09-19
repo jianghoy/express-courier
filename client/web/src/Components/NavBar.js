@@ -1,5 +1,5 @@
-import { Menu, Icon, Button } from 'antd';
 import React,{Component}from 'react';
+import { Menu, Icon, Button } from 'antd';
 import {  Route, Switch, Redirect, NavLink } from 'react-router-dom'
 import CarInfo from './CarInfo';
 import MainPage from './MainPage';
@@ -26,11 +26,8 @@ export default class NavBar extends Component {
                 selectedKeys={[this.state.current]}
                 mode="horizontal"
             >
-                // <Icon className="logo" type="github" />
-                    <Button href="/">
-        <Icon type="github"></Icon>
-        </Button>
-                    <Menu.Item key="carinfo">
+                <Icon className="logo" type="github" />
+                <Menu.Item key="carinfo">
                     <NavLink to="/carinfo">Car Info</NavLink>
                 </Menu.Item>
                 <Menu.Item key="droneinfo">
