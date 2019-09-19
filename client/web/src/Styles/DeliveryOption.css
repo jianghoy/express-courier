@@ -1,0 +1,18 @@
+.row-selection{
+    display: flex;
+    align-items: center;
+    width: 120%;
+}
+
+.radio{
+    padding-right: 100px;
+}
+
+.price{}
+
+.time{}
+
+.radio_button{
+    padding-left: 40px;
+    width: 100%;
+}

@@ -5,6 +5,10 @@
 @import './style/OrderList.css';
 @import './style/OrderDetail.css';
 @import './style/Login.css';
+@import 'Styles/MainPage.css';
+@import 'Styles/OrderPanel.css';
+@import 'Styles/NavBar.css';
+@import 'Styles/DeliveryOption.css';
 
 
 body {

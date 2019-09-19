@@ -1,15 +1,13 @@
-import React from 'react';
-import MainPage from "./Components/MainPage";
+// import React from 'react';
+// import './App.css';
+// import MainPage from "./Components/MainPage";
 
+// function App() {
+//   return (
+//     <div className="App">
+//         <MainPage/>
+//     </div>
+//   );
+// }
 
-// TODO: decide how to serve various pages: via router or components
-function App() {
-  return (
-    <div className="App">
-        {/* {(showMainPage)?<MainPage/>:<anotherPage/>} */}
-        <MainPage/>
-    </div>
-  );
-}
-
-export default App;
+// export default App;
