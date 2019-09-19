@@ -30,13 +30,6 @@ class DeliveryOption extends Component {
                     type1:priceAndTime[1].type
                 })
             })
-                // this.setState({
-                //     price0: data[0].price,
-                //     type0: data[0].type,
-                //     price1: data[1].price,
-                //     type1: data[1].type
-                // });
-
         }
 
     };
