@@ -3,7 +3,8 @@
 @import 'Styles/OrderPanel.css';
 @import 'Styles/NavBar.css';
 @import 'Styles/DeliveryOption.css';
-
+@import 'Styles/OrderList.css';
+@import 'Styles/OrderDetail.css'
 
 body {
   margin: 0;
