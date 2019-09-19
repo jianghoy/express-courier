@@ -19,6 +19,12 @@
     padding-top: 70px;
 }
 
+.align-center {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
 .orderList {
     position: absolute;
     left: 700px;
@@ -32,14 +38,41 @@
     overflow: auto;
 }
 
+.orderListStyle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: aliceblue;
+    border-radius: 4px;
+    height: 400px;
+    width: 700px;
+    padding: 8px 24px;
+    overflow: auto;
+}
+
+
+.login-form {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 250px;
+    border: 5px solid #e6f7ff;
+}
+
 .orderDetail {
     position: absolute;
-    left: 700px;
-    top: 233px;
+    /* left: -24px;
+    top: 74px; */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     background-color: aliceblue;
     border: 1px solid black;
     border-radius: 4px;
-    height: 217px;
+    height: 300px;
     width: 700px;
     padding: 8px 24px;
     overflow: auto;
