@@ -1,6 +1,8 @@
 package com.fcv.expressCourier.models;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -24,6 +26,7 @@ public class User implements Serializable {
     private int id;
 
     private String email;
+
     private String password;
     private String name;
 

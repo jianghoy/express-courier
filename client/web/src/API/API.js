@@ -2,7 +2,7 @@
 
 import {ACCESS_TOKEN} from '../Const'
 
-const request = (options) => {
+export const request = (options) => {
     const headers = new Headers({
         'Content-Type': 'application/json',
     })

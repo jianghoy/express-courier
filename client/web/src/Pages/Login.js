@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Button, Checkbox } from "antd";
+import { NavLink } from "react-router-dom";
 import Title from "antd/lib/typography/Title";
 
 class LoginForm extends Component {
@@ -16,17 +17,13 @@ class LoginForm extends Component {
         const { getFieldDecorator } = this.props.form;
         return (
             <div className="login">
-                {/* <NavBar /> */}
-                {/* <div className="header">
-                    <Title>User Login</Title>
-                </div> */}
                 <div className="login-form">
                     <div className="header">
                         <h1>User Login</h1>
                     </div>
                     <Form onSubmit={this.handleSubmit} className="login-form">
                         <Form.Item>
-                            {getFieldDecorator("username", {
+                            {getFieldDecorator("nameOrEmail", {
                                 rules: [
                                     {
                                         required: true,
@@ -41,7 +38,7 @@ class LoginForm extends Component {
                                             style={{ color: "rgba(0,0,0,.25)" }}
                                         />
                                     }
-                                    placeholder="Username"
+                                    placeholder="Username or Email"
                                 />
                             )}
                         </Form.Item>
@@ -84,7 +81,7 @@ class LoginForm extends Component {
                             >
                                 Log in
                             </Button>
-                            Or <a href="www.google.com">register now!</a>
+                            Or <NavLink to="/register">register now!</NavLink>
                         </Form.Item>
                     </Form>
                 </div>
