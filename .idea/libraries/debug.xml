@@ -4,6 +4,7 @@
       <root url="jar://$PROJECT_DIR$/client/ExpressCourier/node_modules/react-native-maps/lib/android/build/intermediates/intermediate-jars/debug/classes.jar!/" />
       <root url="jar://$PROJECT_DIR$/client/ExpressCourier/node_modules/react-native-maps/lib/android/build/intermediates/intermediate-jars/debug/res.jar!/" />
     </CLASSES>
+    <JAVADOC />
     <SOURCES />
   </library>
 </component>

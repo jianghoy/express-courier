@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/client/ExpressCourier/node_modules/react-native-maps/lib/android/build/intermediates/packaged-classes/release/classes.jar!/" />
     </CLASSES>
+    <JAVADOC />
     <SOURCES />
   </library>
 </component>
