@@ -17,7 +17,8 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
                 //.formLogin()
                // .loginPage("/login")
 
-               // .and()   //hep return to builder
+               // .and
+                // ()   //hep return to builder
                  .authorizeRequests()
                 //TODO: add authorization for API
               // .antMatchers("/cart/**").hasAuthority("ROLE_USER")
@@ -43,3 +44,5 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 
     }
 }
+
+
