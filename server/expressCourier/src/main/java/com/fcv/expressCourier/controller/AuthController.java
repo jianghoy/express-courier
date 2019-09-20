@@ -81,6 +81,7 @@ public class AuthController {
         User user = new User(signUpRequest.getName(),signUpRequest.getEmail(),
                 passwordEncoder.encode(signUpRequest.getPassword()));
 
+        // TODO: IS IT RIGHT NOW?
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                 .orElse(roleRepository.save(new Role(RoleName.ROLE_USER)));
         user.setRoles(Collections.singleton(userRole));
