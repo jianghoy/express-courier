@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Menu, Icon, Button } from 'antd';
-import { NavLink } from 'react-router-dom'
+import React, { Component } from "react";
+import { Menu, Icon, Button } from "antd";
+import { NavLink } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
@@ -18,8 +18,12 @@ export default class NavBar extends Component {
 
     render() {
         return (
-            <Menu className="nav-bar" onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
-                {/* <Icon className="logo" type="github" href="/home"/> */}
+            <Menu
+                className="nav-bar"
+                onClick={this.handleClick}
+                selectedKeys={[this.state.current]}
+                mode="horizontal"
+            >
                 <Button href="/">
                     <Icon type="github"></Icon>
                 </Button>
@@ -34,10 +38,13 @@ export default class NavBar extends Component {
                     <NavLink to="/help">Help</NavLink>
                 </Menu.Item>
                 <SubMenu
-                    className="login" key="login"
-                    title={<span className="submenu-title-wrapper">
-                        <NavLink to="/login">Login</NavLink>
-                        </span>}
+                    className="login"
+                    key="login"
+                    title={
+                        <span className="submenu-title-wrapper">
+                            <NavLink to="/login">Login</NavLink>
+                        </span>
+                    }
                 >
                     <Menu.Item key="orderList">
                         <NavLink to="/orderList">Order Status</NavLink>
@@ -46,9 +53,7 @@ export default class NavBar extends Component {
                         <NavLink to="/logout">Logout</NavLink>
                     </Menu.Item>
                 </SubMenu>
-
             </Menu>
-
         );
     }
 }
