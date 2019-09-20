@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CheckoutService implements CheckoutInterface {
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
+
+    public CheckoutService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @Override
     public boolean isValid(Order order) {
@@ -19,7 +22,7 @@ public class CheckoutService implements CheckoutInterface {
 
     // TODO: add check geolocation method
     private boolean isAddressValid(Address address){
-        return true;
+        return address.getCity().equals("San Francisco");
     }
 
     @Override
