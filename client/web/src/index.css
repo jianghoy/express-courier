@@ -1,8 +1,11 @@
 @import '~antd/dist/antd.css';
-@import './style/MainPage.css';
-@import './style/OrderPanel.css';
-@import './style/NavBar.css';
-
+@import 'Styles/Login.css';
+@import 'Styles/MainPage.css';
+@import 'Styles/OrderPanel.css';
+@import 'Styles/NavBar.css';
+@import 'Styles/DeliveryOption.css';
+@import 'Styles/OrderList.css';
+@import 'Styles/OrderDetail.css';
 
 body {
   margin: 0;

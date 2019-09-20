@@ -1,5 +1,12 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Important Notes
+
+1. Please add the below script in your **index.html** in order to setup the API key for places-autocomplete
+```$xslt
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
