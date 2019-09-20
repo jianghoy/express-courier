@@ -1,4 +1,4 @@
-package com.fcv.expressCourier.apiDocument;
+package com.fcv.expressCourier.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
