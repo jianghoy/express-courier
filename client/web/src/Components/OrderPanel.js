@@ -21,7 +21,7 @@ class OrderPanel extends Component {
 
     handlePickUpAddressSelect = async pickUpAddress => {
         await this.setState({ pickUpAddress });
-        //this.setState({ pickUpInput: pickUpAddress });
+        this.setState({ pickUpInput: pickUpAddress });
         // console.log(this.state.pickUpAddress);
         geocodeByAddress(pickUpAddress)
             .then(results => getLatLng(results[0]))
@@ -34,7 +34,7 @@ class OrderPanel extends Component {
 
     handleDestinationAddressSelect = async destinationAddress => {
         await this.setState({ destinationAddress });
-        //this.setState({ destinationInput: destinationAddress });
+        this.setState({ destinationInput: destinationAddress });
         // console.log(this.state.destinationAddress);
         geocodeByAddress(destinationAddress)
             .then(results => getLatLng(results[0]))
