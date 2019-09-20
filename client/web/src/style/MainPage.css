@@ -3,27 +3,23 @@
     text-align: center;
 }
 
-.infoCard{
+.order-panel{
     position: absolute;
-    overflow: auto;
-    top: 20%;
-    left: 20%;
-    /* height: 70vh; */
-    width: 30vw;
-    font-weight: 500;
-    font-size: 1.1em;
-    text-align: left;
+    left: 300px;
+    top: 100px;
+    border: 1px solid black;
 }
 
-.Map{
-    padding-top: 70px;
-}
+/* .align-center {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+} */
 
 .orderListStyle {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    left: 700px;
+    top: 200px;
     background-color: aliceblue;
     border-radius: 4px;
     height: 400px;
@@ -32,21 +28,10 @@
     overflow: auto;
 }
 
-
-.login-form {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    height: 250px;
-}
-
 .orderDetail {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    left: -24px;
+    top: 74px;
     background-color: aliceblue;
     border: 1px solid black;
     border-radius: 4px;
@@ -55,4 +40,3 @@
     padding: 8px 24px;
     overflow: auto;
 }
-
