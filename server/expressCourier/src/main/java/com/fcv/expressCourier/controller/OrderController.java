@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 
+import java.io.Serializable;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -35,14 +37,41 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/order", method = RequestMethod.GET)
-    public Slice<Order> getOrderPagination(@RequestParam(name = "page") int page,
+    public ListAndHasNext getOrderPagination(@RequestParam(name = "page") int page,
                                           @RequestParam(name = "size") int size,
                                           Principal principal) {
 
         Pageable pageable = PageRequest.of(page, size);
-        //TODO: check if this is right
-        return orderRepository.findAllByCustomer(
-                userRepository.getUserById(Integer.parseInt(principal.getName())).getCustomer(), pageable);
 
+        Slice<Order> slice =  orderRepository.findAllByCustomer(
+                userRepository.getUserById(Integer.parseInt(principal.getName())).getCustomer(), pageable);
+        return new ListAndHasNext(slice.getContent(),slice.hasNext());
+
+    }
+
+    private class ListAndHasNext implements Serializable {
+        List<Order> orders;
+        boolean hasNext;
+
+        public ListAndHasNext(List<Order> orders, boolean hasNext) {
+            this.orders = orders;
+            this.hasNext = hasNext;
+        }
+
+        public List<Order> getOrders() {
+            return orders;
+        }
+
+        public void setOrders(List<Order> orders) {
+            this.orders = orders;
+        }
+
+        public boolean isHasNext() {
+            return hasNext;
+        }
+
+        public void setHasNext(boolean hasNext) {
+            this.hasNext = hasNext;
+        }
     }
 }
