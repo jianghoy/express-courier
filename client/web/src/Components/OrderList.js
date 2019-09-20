@@ -41,7 +41,7 @@ class OrderList extends Component {
         });
     }
 
-    // 
+    //
     fetchData = callback => {
         reqwest({
             type: "json",
@@ -83,71 +83,46 @@ class OrderList extends Component {
         });
     };
 
-    render() {
-        return (
-            <div className="orderList">
-                <NavBar />
-                <div className="align-center">
-                    <div className="orderListStyle">
-                        <InfiniteScroll
-                            initialLoad={false}
-                            pageStart={0}
-                            loadMore={this.handleInfiniteOnLoad}
-                            hasMore={!this.state.loading && this.state.hasMore}
-                            useWindow={false}
-                        >
-                            <List
-                                itemLayout="horizontal"
-                                dataSource={data}
-                                renderItem={item => (
-                                    <List.Item>
-                                        <List.Item.Meta
-                                            avatar={
-                                                <Avatar
-                                                    style={{
-                                                        backgroundColor:
-                                                            "#87d068"
-                                                    }}
-                                                    icon="car"
-                                                />
-                                            }
-                                            title={item.title}
-                                            description={item.description}
-                                        />
-                                        <div>
-                                            <Button
-                                                type="primary"
-                                                onClick={this._showOrderDetail.bind(
-                                                    null,
-                                                    true
-                                                )}
-                                            >
-                                                Detail
-                                            </Button>
-                                            {this.state.showOrderDetail ? (
-                                                <OrderDetail
-                                                    handleClose={
-                                                        this._showOrderDetail
-                                                    }
-                                                />
-                                            ) : null}
-                                        </div>
-                                    </List.Item>
-                                )}
-                            >
-                                {/* use spin for loading animation */}
-                                {this.state.loading && this.state.hasMore && (
-                                    <div className="demo-loading-container">
-                                        <Spin />
-                                    </div>
-                                )}
-                            </List>
-                        </InfiniteScroll>
+  render() {
+    return (
+      <div className="orderList">
+        <NavBar />
+          <div className="orderListStyle">
+            <InfiniteScroll
+              initialLoad={false}
+              pageStart={0}
+              loadMore={this.handleInfiniteOnLoad}
+              hasMore={!this.state.loading && this.state.hasMore}
+              useWindow={false}
+            >
+              <List
+                itemLayout="horizontal"
+                dataSource={data}
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar style={{ backgroundColor: '#87d068' }} icon="car" />}
+                      title={item.title}
+                      description={item.description}
+                    />
+                    <div>
+                      <Button type="primary" onClick={this._showOrderDetail.bind(null, true)}>Detail</Button>
+                      {this.state.showOrderDetail ? <OrderDetail handleClose={this._showOrderDetail}/> : null}
                     </div>
-                </div>
-            </div>
-        );
-    }
+                  </List.Item>
+                )}
+              >
+                {this.state.loading && this.state.hasMore && (
+                  <div className="demo-loading-container">
+                    <Spin />
+                  </div>
+                )}
+              </List>
+            </InfiniteScroll>
+          </div>
+      </div>
+    );
+  }
 }
 
 export default OrderList;

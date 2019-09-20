@@ -19,7 +19,7 @@ class LoginForm extends Component {
             <div className="login">
                 <NavBar />
                 <div className="header">
-                    <Title>Login Form</Title>
+                    <Title>User Login</Title>
                 </div>
                     <div className="login-form">
                         <Form onSubmit={this.handleSubmit} className="login-form">
@@ -54,7 +54,7 @@ class LoginForm extends Component {
                                 Or <a href="www.google.com">register now!</a>
                             </Form.Item>
                         </Form>
-                </div>
+                    </div>
             </div>
         );
     }
