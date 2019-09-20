@@ -26,6 +26,10 @@ public class Role {
         return name;
     }
 
+    public Role(RoleName name) {
+        this.name = name;
+    }
+
     public void setName(RoleName name) {
         this.name = name;
     }

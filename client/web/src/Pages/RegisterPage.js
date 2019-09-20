@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
     Form,
     Input,
@@ -10,8 +10,10 @@ import {
     Col,
     Checkbox,
     Button,
+    notification,
     AutoComplete
 } from "antd";
+import { register } from "../API/API";
 
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
@@ -19,14 +21,30 @@ const AutoCompleteOption = AutoComplete.Option;
 class RegistrationForm extends React.Component {
     state = {
         confirmDirty: false,
-        autoCompleteResult: []
+        name: "",
+        email: "",
+        password: ""
     };
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
+        this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
+                values = {email:values.email,password:values.password,name:values.nickname};
+                register(values).then(() => {
+                    notification.success({
+                        message: "Polling App",
+                        description:
+                            "Thank you! You're successfully registered. Please Login to continue!"
+                    });
+                    this.props.history.push("/login");
+                }).catch(e => {
+                    notification.error({
+                        message: 'Polling App',
+                        description: e.message || 'Sorry! Something went wrong. Please try again!'
+                    });
+                })
             }
         });
     };
@@ -51,18 +69,6 @@ class RegistrationForm extends React.Component {
             form.validateFields(["confirm"], { force: true });
         }
         callback();
-    };
-
-    handleWebsiteChange = value => {
-        let autoCompleteResult;
-        if (!value) {
-            autoCompleteResult = [];
-        } else {
-            autoCompleteResult = [".com", ".org", ".net"].map(
-                domain => `${value}${domain}`
-            );
-        }
-        this.setState({ autoCompleteResult });
     };
 
     render() {
@@ -91,18 +97,6 @@ class RegistrationForm extends React.Component {
                 }
             }
         };
-        const prefixSelector = getFieldDecorator("prefix", {
-            initialValue: "86"
-        })(
-            <Select style={{ width: 70 }}>
-                <Option value="86">+86</Option>
-                <Option value="87">+87</Option>
-            </Select>
-        );
-
-        const websiteOptions = autoCompleteResult.map(website => (
-            <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-        ));
 
         return (
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
@@ -165,7 +159,7 @@ class RegistrationForm extends React.Component {
                             }
                         ]
                     })(<Input />)}
-                </Form.Item>             
+                </Form.Item>
                 <Form.Item {...tailFormItemLayout}>
                     <Button type="primary" htmlType="submit">
                         Register
@@ -176,8 +170,6 @@ class RegistrationForm extends React.Component {
     }
 }
 
-const RegisterPage = Form.create({ name: "register" })(
-    RegistrationForm
-);
+const RegisterPage = Form.create({ name: "register" })(RegistrationForm);
 
 export default RegisterPage;

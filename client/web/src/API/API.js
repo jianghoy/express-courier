@@ -1,5 +1,31 @@
 /// <reference path="../_jsdoc/index.d.ts" />
 
+import {ACCESS_TOKEN} from '../Const'
+
+const request = (options) => {
+    const headers = new Headers({
+        'Content-Type': 'application/json',
+    })
+    
+    if(localStorage.getItem(ACCESS_TOKEN)) {
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
+    }
+
+    const defaults = {headers: headers};
+    options = Object.assign({}, defaults, options);
+
+    return fetch(options.url, options)
+    .then(response => 
+        response.json().then(json => {
+            if(!response.ok) {
+                return Promise.reject(json);
+            }
+            return json;
+        })
+    );
+};
+
+
 /**
  * get various price options based on destination and origin
  * @param {string} dest destination of order
@@ -40,3 +66,10 @@ export function getOrderById(id, callback) {
         .then(data => callback(data));
 }
 
+export function register(regInfo) {
+    return request({
+        url:'/ec/signup',
+        method: 'POST',
+        body: JSON.stringify(regInfo)
+    })
+}

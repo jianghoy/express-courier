@@ -11,6 +11,19 @@ import NavBar from "./Components/NavBar";
 import RegisterPage from "./Pages/RegisterPage";
 const { Content } = Layout;
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentUser: null,
+            isAuthenticated: false
+        }
+        // TODO: fix this
+        // this.handleLogout = this.handleLogout.bind(this);
+        // this.loadCurrentUser = this.loadCurrentUser.bind(this);
+        // this.handleLogin = this.handleLogin.bind(this);
+    }
+
+
     render() {
         return (
             <Layout className = "layout">
