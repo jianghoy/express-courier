@@ -30,8 +30,6 @@ public class Order implements Serializable {
     @OneToOne
     private Address shippingAddress;
 
-
-
     @OneToOne
     private WareHouse wareHouse;
 

@@ -17,9 +17,9 @@ public class Address implements Serializable {
     private String state;
     private String zipCode;
     private String country;
-
-    @ManyToOne
-    private Customer customer;
+//  remove now
+//    @ManyToOne
+//    private Customer customer;
 
     public int getId() {
         return id;
@@ -69,12 +69,12 @@ public class Address implements Serializable {
         this.country = country;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
+//    public Customer getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(Customer customer) {
+//        this.customer = customer;
+//    }
 
 }

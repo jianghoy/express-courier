@@ -40,7 +40,7 @@ public class OrderController {
                                           Principal principal) {
 
         Pageable pageable = PageRequest.of(page, size);
-
+        //TODO: check if this is right
         return orderRepository.findAllByCustomer(
                 userRepository.getUserById(Integer.parseInt(principal.getName())).getCustomer(), pageable);
 
