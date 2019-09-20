@@ -9,8 +9,8 @@ import NormalLoginForm from "./Pages/Login";
 import { Layout, notification } from "antd";
 import NavBar from "./Components/NavBar";
 import RegisterPage from "./Pages/RegisterPage";
-import {ACCESS_TOKEN} from "./Const";
-import {request} from "./API/API";
+import { ACCESS_TOKEN } from "./Const";
+import { request } from "./API/API";
 const { Content } = Layout;
 class App extends Component {
     constructor(props) {
@@ -18,7 +18,7 @@ class App extends Component {
         this.state = {
             currentUser: null,
             isAuthenticated: false,
-            isLoading:false
+            isLoading: false
         };
         // TODO: fix this
         this.handleLogout = this.handleLogout.bind(this);
@@ -27,13 +27,13 @@ class App extends Component {
     }
 
     getCurrentUser() {
-        if(!localStorage.getItem(ACCESS_TOKEN)) {
+        if (!localStorage.getItem(ACCESS_TOKEN)) {
             return Promise.reject("No access token set.");
         }
-    
+
         return request({
             url: "/ec/user/me",
-            method: 'GET'
+            method: "GET"
         });
     }
 
@@ -102,7 +102,15 @@ class App extends Component {
                             <Route path="/droneinfo" component={DroneInfo} />
                             <Route path="/help" component={Help} />
                             <Route path="/orderList" component={OrderList} />
-                            <Route path="/login" component={NormalLoginForm} />
+                            <Route
+                                path="/login"
+                                render={props => (
+                                    <NormalLoginForm
+                                        onLogin={this.handleLogin}
+                                        {...props}
+                                    />
+                                )}
+                            ></Route>
                             <Route path="/logout" component={NormalLoginForm} />
                             <Route path="/register" component={RegisterPage} />
                             <Redirect to="/" />

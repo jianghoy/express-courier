@@ -73,3 +73,11 @@ export function register(regInfo) {
         body: JSON.stringify(regInfo)
     })
 }
+
+export function login(loginInfo) {
+    return request({
+        url:'/ec/signin',
+        method: 'POST',
+        body: JSON.stringify(loginInfo)
+    })
+}

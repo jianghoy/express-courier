@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Form, Icon, Input, Button, Checkbox } from "antd";
+import { Form, Icon, Input, Button, Checkbox,notification } from "antd";
 import { NavLink } from "react-router-dom";
-import Title from "antd/lib/typography/Title";
+import {ACCESS_TOKEN} from "../Const";
+import { login } from "../API/API";
 
 class LoginForm extends Component {
     handleSubmit = e => {
@@ -9,6 +10,24 @@ class LoginForm extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
+                delete values.remember;
+                console.log(values);
+                login(values).then(response => {
+                    localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+                    this.props.onLogin();
+                }).catch(error => {
+                    if(error.status === 401) {
+                        notification.error({
+                            message: 'Polling App',
+                            description: 'Your Username or Password is incorrect. Please try again!'
+                        });                    
+                    } else {
+                        notification.error({
+                            message: 'Polling App',
+                            description: error.message || 'Sorry! Something went wrong. Please try again!'
+                        });                                            
+                    }
+                });
             }
         });
     };
