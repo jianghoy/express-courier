@@ -12,17 +12,17 @@ declare type TPriceAndTime={
     type: string,
 }
 
+
+
 declare type TOrder={
     billingAddress: TAddress,
-    customer: TCustomer,
     id: number,
-    items: Array<TItem>,
     pickUpAddress: TAddress,
     price: number,
-    robot: TRobot,
     shippingAddress: TAddress,
     status: string,
-    type: boolean,
+    type: string,
+    //TODO: figure out how to use wareHouse
     wareHouse: object,
 }
 
@@ -35,9 +35,9 @@ declare type TAddress={
     zipCode: string
 }
 
-declare type TRobot={
-    capacity: number,
-    id: number,
-    maxWeight: number,
-    speed: number
-}
+// declare type TRobot={
+//     capacity: number,
+//     id: number,
+//     maxWeight: number,
+//     speed: number
+// }
