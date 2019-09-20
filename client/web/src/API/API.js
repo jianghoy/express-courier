@@ -24,8 +24,8 @@ export function getPriceAndTime(dest, orig, callback) {
 export function getOrdersByPagination(page, size, callback) {
     let fetchURL = "/ec/order?page=" + page + "&size=" + size;
     fetch(fetchURL)
-        .then(response => {{response.json.orders};{response.json.hasNext}})
-        .then(callback(data.orders,data.hasNext));
+        .then(response => response.json())
+        .then(data => callback(data.orders,data.hasNext))               
 }
 
 /**

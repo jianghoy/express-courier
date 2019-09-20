@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Button, Checkbox } from "antd";
-import NavBar from "./NavBar";
 import Title from "antd/lib/typography/Title";
 
 class LoginForm extends Component {
@@ -17,7 +16,7 @@ class LoginForm extends Component {
         const { getFieldDecorator } = this.props.form;
         return (
             <div className="login">
-                <NavBar />
+                {/* <NavBar /> */}
                 {/* <div className="header">
                     <Title>User Login</Title>
                 </div> */}
