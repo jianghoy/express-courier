@@ -30,8 +30,14 @@ declare type TAddress={
     address: string,
     city: string,
     country: string,
-    customer: TCustomer,
     id: number,
     state: string,
     zipCode: string
+}
+
+declare type TRobot={
+    capacity: number,
+    id: number,
+    maxWeight: number,
+    speed: number
 }
