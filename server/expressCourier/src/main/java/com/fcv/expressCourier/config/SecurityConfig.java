@@ -1,8 +1,10 @@
-package com.fcv.expressCourier.security;
+package com.fcv.expressCourier.config;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fcv.expressCourier.security.CustomUserDetailsService;
+import com.fcv.expressCourier.security.JwtAuthenticationEntryPoint;
+import com.fcv.expressCourier.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -24,16 +27,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
         prePostEnabled = true
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
+
+    private final
     CustomUserDetailsService customUserDetailsService;
 
-    @Autowired
-    private JwtAuthenticationEntryPoint unauthorizedHandler;
+    private final JwtAuthenticationEntryPoint unauthorizedHandler;
+
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService, JwtAuthenticationEntryPoint unauthorizedHandler) {
+        this.customUserDetailsService = customUserDetailsService;
+        this.unauthorizedHandler = unauthorizedHandler;
+    }
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
     }
+
+    //To resolve ${} in @Value
+
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -53,6 +64,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    private static final String[] AUTH_WHITELIST = {
+
+            // -- swagger ui
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**"
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -67,6 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers("/",
                         "/favicon.ico",
                         "/**/*.png",
@@ -74,6 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.svg",
                         "/**/*.jpg",
                         "/**/*.html",
+                        "/*.html",
                         "/**/*.css",
                         "/**/*.js")
                 .permitAll()
