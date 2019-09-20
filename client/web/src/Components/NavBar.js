@@ -1,6 +1,6 @@
-import React,{Component}from 'react';
-import { Menu, Icon, Button } from 'antd';
-import {  Route, Switch, Redirect, NavLink } from 'react-router-dom'
+import React, { Component } from "react";
+import { Menu, Icon, Button } from "antd";
+import { NavLink } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
@@ -18,8 +18,12 @@ export default class NavBar extends Component {
 
     render() {
         return (
-            <Menu className="nav-bar" onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
-                {/* <Icon className="logo" type="github" href="/home"/> */}
+            <Menu
+                className="nav-bar"
+                onClick={this.handleClick}
+                selectedKeys={[this.state.current]}
+                mode="horizontal"
+            >
                 <Button href="/">
                     <Icon type="github"></Icon>
                 </Button>
@@ -31,18 +35,25 @@ export default class NavBar extends Component {
                 </Menu.Item>
                 <div className="space"></div>
                 <Menu.Item className="help" key="help">
-                    <NavLink to="/help">Help </NavLink>
+                    <NavLink to="/help">Help</NavLink>
                 </Menu.Item>
                 <SubMenu
                     className="login"
-                    title={<span className="submenu-title-wrapper">Login</span>}
+                    key="login"
+                    title={
+                        <span className="submenu-title-wrapper">
+                            <NavLink to="/login">Login</NavLink>
+                        </span>
+                    }
                 >
-                    <Menu.Item key="setting:1">Option 1</Menu.Item>
-                    <Menu.Item key="setting:2">Option 2</Menu.Item>
+                    <Menu.Item key="orderList">
+                        <NavLink to="/orderList">Order Status</NavLink>
+                    </Menu.Item>
+                    <Menu.Item key="logOut">
+                        <NavLink to="/logout">Logout</NavLink>
+                    </Menu.Item>
                 </SubMenu>
-                
             </Menu>
-            
         );
     }
 }

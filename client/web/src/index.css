@@ -1,4 +1,5 @@
 @import '~antd/dist/antd.css';
+@import 'Styles/Login.css';
 @import 'Styles/MainPage.css';
 @import 'Styles/OrderPanel.css';
 @import 'Styles/NavBar.css';
