@@ -1,5 +1,7 @@
 package com.fcv.expressCourier.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -13,17 +15,19 @@ public class Order implements Serializable {
     private int id;
     private double price;
     private String status;
-    // pickup order or delivery order
-    private boolean type;
+    // car or drone
+    private String type;
 
 
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     Robot robot;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany
     List<Item> items;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToOne
     private Customer customer;
 
@@ -64,11 +68,11 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public boolean isType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(boolean type) {
+    public void setType(String type) {
         this.type = type;
     }
 
