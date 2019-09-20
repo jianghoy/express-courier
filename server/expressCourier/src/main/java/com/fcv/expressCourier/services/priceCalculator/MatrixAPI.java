@@ -1,4 +1,4 @@
-package com.fcv.expressCourier.priceCalculator;
+package com.fcv.expressCourier.services.priceCalculator;
 
 import java.io.IOException;
 import org.json.JSONException;
@@ -6,12 +6,17 @@ import org.json.JSONObject;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 // TODO: use modern library for json parsing;
+
+@PropertySource("classpath:secret.properties")
 @Service
 public class MatrixAPI implements PriceCalculator {
 
-    private static final String API_KEY = APIKey.key;
+    @Value("${api.key}")
+    private String API_KEY;
 
     private OkHttpClient client = new OkHttpClient();
 

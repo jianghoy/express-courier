@@ -17,6 +17,29 @@ export default class NavBar extends Component {
     };
 
     render() {
+        if (this.props.currentUser) {
+            var userMenu = (
+                <SubMenu
+                    className="login"
+                    key="orderList"
+                    title={
+                        <span className="submenu-title-wrapper">
+                            <NavLink to="/orderList">Order Status</NavLink>
+                        </span>
+                    }
+                >
+                    <Menu.Item key="logOut">
+                        <NavLink to="/logout">Logout</NavLink>
+                    </Menu.Item>
+                </SubMenu>
+            );
+        } else {
+            var userMenu = (
+                <Menu.Item key="login">
+                    <NavLink to="/login">Login</NavLink>
+                </Menu.Item>
+            );
+        }
         return (
             <Menu
                 className="nav-bar"
@@ -37,7 +60,8 @@ export default class NavBar extends Component {
                 <Menu.Item className="help" key="help">
                     <NavLink to="/help">Help</NavLink>
                 </Menu.Item>
-                <SubMenu
+                {userMenu}
+                {/* <SubMenu
                     className="login"
                     key="login"
                     title={
@@ -52,7 +76,7 @@ export default class NavBar extends Component {
                     <Menu.Item key="logOut">
                         <NavLink to="/logout">Logout</NavLink>
                     </Menu.Item>
-                </SubMenu>
+                </SubMenu> */}
             </Menu>
         );
     }

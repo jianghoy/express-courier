@@ -26,7 +26,7 @@ After you get the api key, create a file called **credentials.json** under /clie
 
 ```json
 {
-    "GOOGLEMAPAPI_KEY" : 'your key here'
+    "GOOGLEMAPAPI_KEY" : "your key here"
 }
 ```
 
