@@ -1,59 +1,216 @@
 import React, { Component } from "react";
-import { Card } from "antd";
-import { Input } from "antd";
-import { Radio, Button } from "antd";
+import { Card, Input, Menu, Button } from "antd";
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng
+} from "react-places-autocomplete";
+import { Typography } from "antd";
+import DeliveryOption from "./DeliveryOption";
+import Icon from "antd/es/icon";
+
+const { Title } = Typography;
 
 class OrderPanel extends Component {
     state = {
         value: 1
     };
-    onChange = e => {
-        console.log("radio checked", e.target.value);
+
+    handlePickUpAddressChange = pickUpInput => {
+        this.setState({ pickUpInput });
+    };
+
+    handlePickUpAddressSelect = async pickUpAddress => {
+        await this.setState({ pickUpAddress });
+        //this.setState({ pickUpInput: pickUpAddress });
+        // console.log(this.state.pickUpAddress);
+        geocodeByAddress(pickUpAddress)
+            .then(results => getLatLng(results[0]))
+            .then(latLng => console.log("Success", latLng))
+            .catch(error => console.error("Error", error));
+    };
+    handleDestinationAddressChange = destinationInput => {
+        this.setState({ destinationInput });
+    };
+
+    handleDestinationAddressSelect = async destinationAddress => {
+        await this.setState({ destinationAddress });
+        //this.setState({ destinationInput: destinationAddress });
+        // console.log(this.state.destinationAddress);
+        geocodeByAddress(destinationAddress)
+            .then(results => getLatLng(results[0]))
+            .then(latLng => console.log("Success", latLng))
+            .catch(error => console.error("Error", error));
+    };
+
+    handlePickUpClear = e => {
         this.setState({
-            value: e.target.value
+            pickUpAddress: "",
+            pickUpInput: ""
         });
     };
+    handleDestinationClear = e => {
+        this.setState({
+            destinationAddress: "",
+            destinationInput: ""
+        });
+    };
+
+    /* Turn PlacesAutocomplete into a component, make code easier to read*/
     render() {
-        const radioStyle = {
-            display: "block",
-            height: "30px",
-            lineHeight: "30px"
-        };
         return (
-            <div className="order-panel">
-                <Card
-                    className="info-card"
-                    bordered={false}
-                    // override antd-card css styling
-                    style={{ width: 300, height: 600 }}
-                >
-                    <br />
-                    <br />
+            <div className="infoCard">
+                <Card className="info-card" bordered={false}>
+                    <Title level={2}>Request a Delivery Now</Title>
                     <div className="autocomplete">
-                        <Input placeholder="Add pick up location" />
-                        <br />
-                        <br />
-                        <Input placeholder="Add destination" />
+                        <div className="PickUp">
+                            <PlacesAutocomplete
+                                value={this.state.pickUpInput}
+                                onChange={this.handlePickUpAddressChange}
+                                onSelect={this.handlePickUpAddressSelect}
+                            >
+                                {({
+                                    getInputProps,
+                                    suggestions,
+                                    getSuggestionItemProps,
+                                    loading
+                                }) => (
+                                    <div className="autocomplete-input">
+                                        <Input
+                                            suffix={
+                                                <div>
+                                                    <Icon type="close"
+                                                        onClick={ this.handlePickUpClear}
+                                                    />
+                                                </div>
+                                            }
+                                            {...getInputProps({
+                                                placeholder:
+                                                    "Add Pick Up Location",
+                                                className:
+                                                    "location-search-input",
+                                                autoFocus: true
+                                            })}
+                                        />
+                                        <Menu className="autocomplete-dropdown-container">
+                                            {/*{loading && <div>Loading...</div>}*/}
+                                            {suggestions.map(suggestion => {
+                                                const className = suggestion.active
+                                                    ? "suggestion-item--active"
+                                                    : "suggestion-item";
+                                                // inline style for demonstration purpose
+                                                const style = suggestion.active
+                                                    ? {
+                                                          backgroundColor:
+                                                              "#fafafa",
+                                                          cursor: "pointer"
+                                                      }
+                                                    : {
+                                                          backgroundColor:
+                                                              "#ffffff",
+                                                          cursor: "pointer"
+                                                      };
+                                                return (
+                                                    <Menu.Item
+                                                        {...getSuggestionItemProps(
+                                                            suggestion,
+                                                            {
+                                                                className,
+                                                                style
+                                                            }
+                                                        )}
+                                                    >
+                                                        <span>
+                                                            {
+                                                                suggestion.description
+                                                            }
+                                                        </span>
+                                                    </Menu.Item>
+                                                );
+                                            })}
+                                        </Menu>
+                                    </div>
+                                )}
+                            </PlacesAutocomplete>
+                            <Button type="primary"  icon="compass" />
+                        </div>
+                        <div className="Destination">
+                            <PlacesAutocomplete
+                                value={this.state.destinationInput}
+                                onChange={this.handleDestinationAddressChange}
+                                onSelect={this.handleDestinationAddressSelect}
+                            >
+                                {({
+                                    getInputProps,
+                                    suggestions,
+                                    getSuggestionItemProps,
+                                    loading
+                                }) => (
+                                    <div className="autocomplete-input">
+                                        <Input
+                                            suffix={
+                                                <div>
+                                                    <Icon type="close"
+                                                        onClick={ this.handleDestinationClear}
+                                                    />
+
+                                                </div>
+                                            }
+                                            {...getInputProps({
+                                                placeholder:
+                                                    "Add Your Destination",
+                                                className:
+                                                    "location-search-input",
+                                                autoFocus: true
+                                            })}
+                                        />
+                                        <Menu className="autocomplete-dropdown-container">
+                                            {/*{loading && <div>Loading...</div>}*/}
+                                            {suggestions.map(suggestion => {
+                                                const className = suggestion.active
+                                                    ? "suggestion-item--active"
+                                                    : "suggestion-item";
+                                                // inline style for demonstration purpose
+                                                const style = suggestion.active
+                                                    ? {
+                                                          backgroundColor:
+                                                              "#fafafa",
+                                                          cursor: "pointer"
+                                                      }
+                                                    : {
+                                                          backgroundColor:
+                                                              "#ffffff",
+                                                          cursor: "pointer"
+                                                      };
+                                                return (
+                                                    <Menu.Item
+                                                        {...getSuggestionItemProps(
+                                                            suggestion,
+                                                            {
+                                                                className,
+                                                                style
+                                                            }
+                                                        )}
+                                                    >
+                                                        <span>
+                                                            {
+                                                                suggestion.description
+                                                            }
+                                                        </span>
+                                                    </Menu.Item>
+                                                );
+                                            })}
+                                        </Menu>
+                                    </div>
+                                )}
+                            </PlacesAutocomplete>
+                            <Button type="primary" icon="enter" />
+                        </div>
                     </div>
-                    <br />
-                    <br />
-                    <div className="radio_button">
-                        <Radio.Group
-                            onChange={this.onChange}
-                            value={this.state.value}
-                        >
-                            <Radio style={radioStyle} value={1}>
-                                Use Car
-                            </Radio>
-                            <Radio style={radioStyle} value={2}>
-                                Use Drone
-                            </Radio>
-                        </Radio.Group>
-                    </div>
-                    <br />
-                    <br />
-                    <div className="price">Price Will Show Here</div>
-                    <br />
+
+                    <DeliveryOption
+                        pickUpAddress={this.state.pickUpAddress}
+                        destinationAddress={this.state.destinationAddress}
+                    />
                     <br />
                     <div className="checkout">
                         <Button type="primary" block>
