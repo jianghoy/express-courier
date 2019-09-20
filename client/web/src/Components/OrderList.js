@@ -84,8 +84,7 @@ class OrderList extends Component {
   render() {
     return (
       <div className="orderList">
-        <NavBar />
-        <div className="align-center">
+        <NavBar />  
           <div className="orderListStyle">
             <InfiniteScroll
               initialLoad={false}
@@ -119,7 +118,6 @@ class OrderList extends Component {
               </List>
             </InfiniteScroll>
           </div>
-        </div>
       </div>
     );
   }

@@ -1,0 +1,42 @@
+.MainPage{
+    position: relative;
+    text-align: center;
+}
+
+.order-panel{
+    position: absolute;
+    left: 300px;
+    top: 100px;
+    border: 1px solid black;
+}
+
+/* .align-center {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+} */
+
+.orderListStyle {
+    position: absolute;
+    left: 700px;
+    top: 200px;
+    background-color: aliceblue;
+    border-radius: 4px;
+    height: 400px;
+    width: 700px;
+    padding: 8px 24px;
+    overflow: auto;
+}
+
+.orderDetail {
+    position: absolute;
+    left: -24px;
+    top: 74px;
+    background-color: aliceblue;
+    border: 1px solid black;
+    border-radius: 4px;
+    height: 300px;
+    width: 700px;
+    padding: 8px 24px;
+    overflow: auto;
+}

@@ -8,7 +8,7 @@
     overflow: auto;
     top: 20%;
     left: 20%;
-    height: 70vh;
+    /* height: 70vh; */
     width: 30vw;
     font-weight: 500;
     font-size: 1.1em;
@@ -17,25 +17,6 @@
 
 .Map{
     padding-top: 70px;
-}
-
-.align-center {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-}
-
-.orderList {
-    position: absolute;
-    left: 700px;
-    top: 150px;
-    background-color: aliceblue;
-    border: 1px solid black;
-    border-radius: 4px;
-    height: 300px;
-    width: 700px;
-    padding: 8px 24px;
-    overflow: auto;
 }
 
 .orderListStyle {
@@ -64,8 +45,6 @@
 
 .orderDetail {
     position: absolute;
-    /* left: -24px;
-    top: 74px; */
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
