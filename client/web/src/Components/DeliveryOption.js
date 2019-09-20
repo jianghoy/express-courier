@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {getPriceAndTime} from '../API/API'
-import {Radio, Statistic, Col, Row} from "antd";
+import {Radio, Statistic, Col, Row, Font} from "antd";
 
 class DeliveryOption extends Component {
     state ={
@@ -40,34 +40,24 @@ class DeliveryOption extends Component {
         return differentTitle && differentDone;
     }
 
-
-
     render() {
         const radioStyle = {
             display: 'block',
-            height: '30px',
-            lineHeight: '30px',
+            height: '8px',
+            lineHeight: '8px',
         };
         return (
             <div className="radio_button">
                 <Radio.Group onChange={this.onRadioButtonChange} value={this.state.value}>
-                    <Row className="row-selection" gutter={30}>
-                        <Col span={10}><Radio className="radio" style={radioStyle} value={1}>Use Car</Radio></Col>
-                        <Col span={14} >
-                            <Row type="flex"  align="middle" gutter={7}>
-                                <Col span={12}><Statistic className="price"  prefix="$" value={this.state.price0} precision={2} /></Col>
-                                <Col span={12}><Statistic className="time"  suffix="AM" value="11:24" precision={2} /></Col>
-                            </Row>
-                        </Col>
+                    <Row className="row-selection" type="flex" >
+                        <Col xl={8}><Radio className="radio" value={1}>Car</Radio></Col>
+                        <Col xl={8}><Statistic className="price"  prefix="$" value={this.state.price0} precision={2}/></Col>
+                        <Col xl={8}><Statistic className="time"  suffix="AM" value="11:24" precision={2}  /></Col>
                     </Row>
-                    <Row className="row-selection" gutter={30}>
-                        <Col span={10}><Radio className="radio" style={radioStyle} value={2}>Use Drone</Radio></Col>
-                        <Col span={14} >
-                            <Row type="flex"  align="middle" gutter={7}>
-                                <Col span={12}><Statistic className="price" prefix="$" value={this.state.price1} precision={2} /></Col>
-                                <Col span={12}><Statistic className="time"  suffix="PM" value="5:23" precision={2} /></Col>
-                            </Row>
-                        </Col>
+                    <Row className="row-selection" type="flex">
+                        <Col xl={8}><Radio className="radio" value={2}>Drone</Radio></Col>
+                        <Col xl={8}><Statistic className="price" prefix="$" value={this.state.price1} precision={2} /></Col>
+                        <Col xl={8}><Statistic className="time"  suffix="PM" value="5:23" precision={2}  /></Col>
 
                     </Row>
                 </Radio.Group>

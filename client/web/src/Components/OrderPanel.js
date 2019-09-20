@@ -60,7 +60,7 @@ class OrderPanel extends Component {
         return (
             <div className="infoCard">
                 <Card className="info-card" bordered={false}>
-                    <Title level={2}>Request a Delivery Now</Title>
+                    <Title level={3}>Request a Delivery Now</Title>
                     <div className="autocomplete">
                         <div className="PickUp">
                             <PlacesAutocomplete
@@ -211,7 +211,6 @@ class OrderPanel extends Component {
                         pickUpAddress={this.state.pickUpAddress}
                         destinationAddress={this.state.destinationAddress}
                     />
-                    <br />
                     <div className="checkout">
                         <Button type="primary" block>
                             Checkout
