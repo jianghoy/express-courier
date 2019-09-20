@@ -11,7 +11,7 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private int price;
+    private double price;
     private String status;
     // pickup order or delivery order
     private boolean type;
@@ -48,7 +48,7 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
