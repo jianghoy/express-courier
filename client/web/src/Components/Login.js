@@ -19,7 +19,7 @@ class LoginForm extends Component {
             <div className="login">
                 <NavBar />
                 <div className="header">
-                    <Title>Login Form</Title>
+                    <Title>User Login</Title>
                 </div>
                     <div className="login-form">
                         <Form onSubmit={this.handleSubmit} className="login-form">
