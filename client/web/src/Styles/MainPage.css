@@ -8,7 +8,7 @@
     overflow: auto;
     top: 20%;
     left: 20%;
-    height: 70vh;
+    /* height: 70vh; */
     width: 30vw;
     font-weight: 500;
     font-size: 1.1em;
@@ -19,18 +19,13 @@
     padding-top: 70px;
 }
 
-.align-center {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-}
-
 .orderList {
     position: absolute;
-    left: 700px;
-    top: 150px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     background-color: aliceblue;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-radius: 4px;
     height: 300px;
     width: 700px;
@@ -64,8 +59,6 @@
 
 .orderDetail {
     position: absolute;
-    /* left: -24px;
-    top: 74px; */
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);

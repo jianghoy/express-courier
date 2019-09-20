@@ -54,7 +54,7 @@ class LoginForm extends Component {
                                 Or <a href="www.google.com">register now!</a>
                             </Form.Item>
                         </Form>
-                </div>
+                    </div>
             </div>
         );
     }
