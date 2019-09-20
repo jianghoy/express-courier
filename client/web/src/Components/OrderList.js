@@ -84,7 +84,7 @@ class OrderList extends Component {
   render() {
     return (
       <div className="orderList">
-        <NavBar />
+        <NavBar />  
           <div className="orderListStyle">
             <InfiniteScroll
               initialLoad={false}

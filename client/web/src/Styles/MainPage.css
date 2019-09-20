@@ -19,20 +19,6 @@
     padding-top: 70px;
 }
 
-.orderList {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: aliceblue;
-    /* border: 1px solid black; */
-    border-radius: 4px;
-    height: 300px;
-    width: 700px;
-    padding: 8px 24px;
-    overflow: auto;
-}
-
 .orderListStyle {
     position: absolute;
     left: 50%;
