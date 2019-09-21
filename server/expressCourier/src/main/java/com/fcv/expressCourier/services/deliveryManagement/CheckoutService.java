@@ -29,7 +29,7 @@ public class CheckoutService implements CheckoutInterface {
     @Override
     public boolean placeOrder(Order order){
         try {
-            order.setRobot(robotAssignmentInterface.findRobot(order));
+            //order.setRobot(robotAssignmentInterface.findRobot(order));
             orderRepository.save(order);
         } catch (Exception e) {
             e.printStackTrace();
