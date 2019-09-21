@@ -3,15 +3,16 @@ package com.fcv.expressCourier.services.deliveryManagement;
 import com.fcv.expressCourier.dao.OrderRepository;
 import com.fcv.expressCourier.models.Address;
 import com.fcv.expressCourier.models.Order;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CheckoutService implements CheckoutInterface {
     private final OrderRepository orderRepository;
+    private final RobotAssignmentInterface robotAssignmentInterface;
 
-    public CheckoutService(OrderRepository orderRepository) {
+    public CheckoutService(OrderRepository orderRepository, RobotAssignmentInterface robotAssignmentInterface) {
         this.orderRepository = orderRepository;
+        this.robotAssignmentInterface = robotAssignmentInterface;
     }
 
     @Override
@@ -26,8 +27,14 @@ public class CheckoutService implements CheckoutInterface {
     }
 
     @Override
-    public boolean placeOrder(Order order) {
-        orderRepository.save(order);
+    public boolean placeOrder(Order order){
+        try {
+            order.setRobot(robotAssignmentInterface.findRobot(order));
+            orderRepository.save(order);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 }

@@ -21,7 +21,7 @@ public class Order implements Serializable {
 
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne
+    @OneToOne
     Robot robot;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
