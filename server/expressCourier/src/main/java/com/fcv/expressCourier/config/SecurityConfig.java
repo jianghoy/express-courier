@@ -45,6 +45,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     //To resolve ${} in @Value
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -59,10 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
     private static final String[] AUTH_WHITELIST = {
 
@@ -103,8 +104,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/price")
                 .permitAll()
-                .antMatchers("/checkout","/order","/order/*","/user/*")
-                .authenticated()
+//                .antMatchers("/checkout","/order","/order/*","/user/*")
+//                .authenticated()
                 .anyRequest()
                 .permitAll();
 

@@ -47,6 +47,10 @@ public class User implements Serializable {
     @OneToOne(mappedBy = "user")
     private Customer customer;
 
+    public User() {
+
+    }
+
     public User(String name, String email,String password) {
         this.name = name;
         this.email = email;
