@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { List, Avatar, Button, Spin } from "antd";
 import reqwest from "reqwest";
 import InfiniteScroll from "react-infinite-scroller";
-import NavBar from "../Components/NavBar";
 import OrderDetail from "../Components/OrderDetail";
 
 // fake data
@@ -86,7 +85,6 @@ class OrderList extends Component {
   render() {
     return (
       <div className="orderList">
-        {/* <NavBar /> */}
           <div className="orderListStyle">
             <InfiniteScroll
               initialLoad={false}

@@ -92,7 +92,7 @@ class App extends Component {
     render() {
         return (
             <Layout className="layout">
-                <NavBar currentUser={this.state.currentUser}></NavBar>]
+                <NavBar currentUser={this.state.currentUser}></NavBar>
                 <Content style={{ marginTop: "70px" }}>
                     <div>
                         <Switch>

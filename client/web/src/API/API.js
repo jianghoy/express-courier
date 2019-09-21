@@ -81,3 +81,11 @@ export function login(loginInfo) {
         body: JSON.stringify(loginInfo)
     })
 }
+
+export function checkout(order) {
+    return request({
+        url:'/ec/order',
+        method: 'PUT',
+        body: JSON.stringify(order)
+    })
+}
