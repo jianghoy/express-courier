@@ -25,7 +25,7 @@ class OrderPanel extends Component {
         // console.log(this.state.pickUpAddress);
         geocodeByAddress(pickUpAddress)
             .then(results => getLatLng(results[0]))
-            .then(latLng => console.log("Success", latLng))
+            .then(latLng => await this.setState({latLng}))
             .catch(error => console.error("Error", error));
     };
     handleDestinationAddressChange = destinationInput => {
@@ -38,7 +38,7 @@ class OrderPanel extends Component {
         // console.log(this.state.destinationAddress);
         geocodeByAddress(destinationAddress)
             .then(results => getLatLng(results[0]))
-            .then(latLng => console.log("Success", latLng))
+            .then(latLng => await this.setState({latLng}))
             .catch(error => console.error("Error", error));
     };
 
