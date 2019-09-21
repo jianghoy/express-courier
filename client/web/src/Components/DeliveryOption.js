@@ -35,9 +35,9 @@ class DeliveryOption extends Component {
     };
 
     checkAddressFilled(nextProps) {
-        const differentTitle = this.props.pickUpaddress !== nextProps.pickUpAddress;
+        const differentTitle = this.props.pickUpAddress !== nextProps.pickUpAddress;
         const differentDone = this.props.destinationAddress !== nextProps.destinationAddress;
-        return differentTitle && differentDone;
+        return differentTitle || differentDone;
     }
 
 
