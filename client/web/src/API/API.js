@@ -81,3 +81,29 @@ export function login(loginInfo) {
         body: JSON.stringify(loginInfo)
     })
 }
+
+/** @returns {Promise} */
+export function checkout(order) {
+    return request({
+        url:'/ec/checkout',
+        method: 'PUT',
+        body: JSON.stringify(order)
+    })
+}
+
+/**
+ * @param {string} string 
+ * @returns {TAddress} address in TAddress format
+ */
+export function strToTAddress(string) {
+    var strings = string.split(',')
+
+    /** @type {TAddress} */
+    var address = {address:"",city:"",state:"",country:""};
+    address.address = strings[0].trim();
+    address.city = strings[1].trim();
+    address.state = strings[2].trim();
+    address.country = strings[3].trim();
+    return address;   
+
+}

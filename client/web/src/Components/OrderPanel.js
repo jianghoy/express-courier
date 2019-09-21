@@ -1,5 +1,7 @@
+/// <reference path="../_jsdoc/index.d.ts" />
+
 import React, { Component } from "react";
-import { Card, Input, Menu, Button } from "antd";
+import { Card, Input, Menu, Button, notification } from "antd";
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng
@@ -7,12 +9,13 @@ import PlacesAutocomplete, {
 import { Typography } from "antd";
 import DeliveryOption from "./DeliveryOption";
 import Icon from "antd/es/icon";
+import { strToTAddress, checkout } from "../API/API";
 
 const { Title } = Typography;
 
 class OrderPanel extends Component {
     state = {
-        value: 1
+        type: "car"
     };
 
     handlePickUpAddressChange = pickUpInput => {
@@ -54,6 +57,46 @@ class OrderPanel extends Component {
             destinationInput: ""
         });
     };
+    handleCheckout = e => {
+        console.log(strToTAddress(this.state.pickUpAddress));
+        console.log(strToTAddress(this.state.destinationAddress));
+        console.log(this.state);
+        //console.log(strToTAddress(this.state.))
+
+        /** @type {TOrder} */
+        var order = {
+            shippingAddress: strToTAddress(this.state.destinationAddress),
+            billingAddress: strToTAddress(this.state.pickUpAddress),
+            pickUpAddress: strToTAddress(this.state.pickUpAddress),
+            type: this.state.type
+        };
+
+        checkout(order)
+            .then(() => {
+                notification.success({
+                    message: "Polling App",
+                    description:
+                        "Thank you! You're successfully registered. Please Login to continue!"
+                });
+            })
+            .catch(e => {
+                notification.error({
+                    message: "Express Courier",
+                    description:
+                        e.message ||
+                        "Sorry! Something went wrong. Please try again!"
+                });
+            });
+    };
+    /**
+     * handle select drone type in order panel
+     * @param {boolean} bool true is car, false is drone
+     */
+    handleDroneType(bool) {
+        this.setState({
+            type: bool ? "car" : "drone"
+        });
+    }
 
     /* Turn PlacesAutocomplete into a component, make code easier to read*/
     render() {
@@ -78,8 +121,12 @@ class OrderPanel extends Component {
                                         <Input
                                             suffix={
                                                 <div>
-                                                    <Icon type="close"
-                                                        onClick={ this.handlePickUpClear}
+                                                    <Icon
+                                                        type="close"
+                                                        onClick={
+                                                            this
+                                                                .handlePickUpClear
+                                                        }
                                                     />
                                                 </div>
                                             }
@@ -131,7 +178,7 @@ class OrderPanel extends Component {
                                     </div>
                                 )}
                             </PlacesAutocomplete>
-                            <Button type="primary"  icon="compass" />
+                            <Button type="primary" icon="compass" />
                         </div>
                         <div className="Destination">
                             <PlacesAutocomplete
@@ -149,10 +196,13 @@ class OrderPanel extends Component {
                                         <Input
                                             suffix={
                                                 <div>
-                                                    <Icon type="close"
-                                                        onClick={ this.handleDestinationClear}
+                                                    <Icon
+                                                        type="close"
+                                                        onClick={
+                                                            this
+                                                                .handleDestinationClear
+                                                        }
                                                     />
-
                                                 </div>
                                             }
                                             {...getInputProps({
@@ -210,10 +260,11 @@ class OrderPanel extends Component {
                     <DeliveryOption
                         pickUpAddress={this.state.pickUpAddress}
                         destinationAddress={this.state.destinationAddress}
+                        droneTypeSelection={this.handleDroneType.bind(this)}
                     />
                     <br />
                     <div className="checkout">
-                        <Button type="primary" block>
+                        <Button type="primary" onClick={this.handleCheckout}>
                             Checkout
                         </Button>
                     </div>

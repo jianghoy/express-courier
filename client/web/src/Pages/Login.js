@@ -12,6 +12,7 @@ class LoginForm extends Component {
                 console.log("Received values of form: ", values);
                 delete values.remember;
                 console.log(values);
+                const loginRequest = Object.assign({}, values);
                 login(values).then(response => {
                     localStorage.setItem(ACCESS_TOKEN, response.accessToken);
                     this.props.onLogin();
