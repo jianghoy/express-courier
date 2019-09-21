@@ -74,9 +74,9 @@ class OrderPanel extends Component {
         checkout(order)
             .then(() => {
                 notification.success({
-                    message: "Polling App",
+                    message: "Express courier",
                     description:
-                        "Thank you! You're successfully registered. Please Login to continue!"
+                        "Thank you! Your order has put."
                 });
             })
             .catch(e => {
