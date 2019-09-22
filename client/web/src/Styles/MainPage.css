@@ -52,3 +52,9 @@
     overflow: auto;
 }
 
+.ant-layout {
+    display: flex;
+    flex: auto;
+    min-height: 0;
+    background: #f0f2f5
+}

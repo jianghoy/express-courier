@@ -16,6 +16,7 @@ class DeliveryOption extends Component {
         this.setState({
             value: e.target.value
         });
+        this.props.droneTypeSelection(this.state.value != 1)
     };
 
     componentWillReceiveProps = nextProps => {

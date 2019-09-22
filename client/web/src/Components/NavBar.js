@@ -35,7 +35,7 @@ export default class NavBar extends Component {
             );
         } else {
             var userMenu = (
-                <Menu.Item key="login">
+                <Menu.Item key="login"> 
                     <NavLink to="/login">Login</NavLink>
                 </Menu.Item>
             );
