@@ -66,10 +66,6 @@ class OrderPanel extends Component {
         return address.city === 'San Francisco'
     }
     handleCheckout = e => {
-        console.log(strToTAddress(this.state.pickUpAddress));
-        console.log(strToTAddress(this.state.destinationAddress));
-        console.log(this.state);
-        //console.log(strToTAddress(this.state.))
 
         /** @type {TOrder} */
         var order = {
@@ -79,6 +75,7 @@ class OrderPanel extends Component {
             type: this.state.type
         };
 
+        // check if address is valid
         if (!this.handleCheckAddress(order.shippingAddress) ||
             !this.handleCheckAddress(order.pickUpAddress)) {
                 notification.error({

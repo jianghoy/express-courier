@@ -3,12 +3,10 @@ import { getPriceAndTime } from "../API/API";
 import { Radio, Statistic, Col, Row } from "antd";
 
 class DeliveryOption extends Component {
-    state = {
-        value: 1,
-        type0: null,
-        price0: 0,
-        type1: null,
-        price1: 0
+    state = {        
+        value: "car",
+        carPrice: 0,
+        dronePrice: 0
     };
 
     onRadioButtonChange = e => {
@@ -16,25 +14,23 @@ class DeliveryOption extends Component {
         this.setState({
             value: e.target.value
         });
-        this.props.droneTypeSelection(this.state.value != 1)
+        this.props.droneTypeSelection(this.state.value !== "car")
     };
 
     componentWillReceiveProps = nextProps => {
         let orig = nextProps.pickUpAddress;
         let dest = nextProps.destinationAddress;
-        if (this.checkAddressFilled(nextProps) === true) {
+        if (this.checkAddressDiff(nextProps) === true) {
             getPriceAndTime(dest, orig, priceAndTime => {
                 this.setState({
-                    price0: priceAndTime[0].price,
-                    type0: priceAndTime[0].type,
-                    price1: priceAndTime[1].price,
-                    type1: priceAndTime[1].type
+                    carPrice: priceAndTime[0].price,
+                    dronePrice: priceAndTime[1].price,
                 });
             });
         }
     };
 
-    checkAddressFilled(nextProps) {
+    checkAddressDiff(nextProps) {
         const differentTitle =
             this.props.pickUpaddress !== nextProps.pickUpAddress;
         const differentDone =
@@ -59,7 +55,7 @@ class DeliveryOption extends Component {
                             <Radio
                                 className="radio"
                                 style={radioStyle}
-                                value={1}
+                                value={"car"}
                             >
                                 Use Car
                             </Radio>
@@ -70,7 +66,7 @@ class DeliveryOption extends Component {
                                     <Statistic
                                         className="price"
                                         prefix="$"
-                                        value={this.state.price0}
+                                        value={this.state.carPrice}
                                         precision={2}
                                     />
                                 </Col>
@@ -90,7 +86,7 @@ class DeliveryOption extends Component {
                             <Radio
                                 className="radio"
                                 style={radioStyle}
-                                value={2}
+                                value={"drone"}
                             >
                                 Use Drone
                             </Radio>
@@ -101,7 +97,7 @@ class DeliveryOption extends Component {
                                     <Statistic
                                         className="price"
                                         prefix="$"
-                                        value={this.state.price1}
+                                        value={this.state.dronePrice}
                                         precision={2}
                                     />
                                 </Col>
