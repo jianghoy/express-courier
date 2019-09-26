@@ -15,7 +15,8 @@ const { Title } = Typography;
 
 class OrderPanel extends Component {
     state = {
-        type: "car"
+        type: "car",
+        displayGetPrice: true
     };
 
     handlePickUpAddressChange = pickUpInput => {
@@ -57,6 +58,13 @@ class OrderPanel extends Component {
             destinationInput: ""
         });
     };
+
+    /**
+     * @param {TAddress} address
+     */
+    handleCheckAddress = address => {
+        return address.city === 'San Francisco'
+    }
     handleCheckout = e => {
         console.log(strToTAddress(this.state.pickUpAddress));
         console.log(strToTAddress(this.state.destinationAddress));
@@ -71,12 +79,20 @@ class OrderPanel extends Component {
             type: this.state.type
         };
 
+        if (!this.handleCheckAddress(order.shippingAddress) ||
+            !this.handleCheckAddress(order.pickUpAddress)) {
+                notification.error({
+                    message: "Express Courier",
+                    description: "Sorry, the delivery service is only in San Francisco."                       
+                });
+                return;
+            }
+
         checkout(order)
             .then(() => {
                 notification.success({
                     message: "Express courier",
-                    description:
-                        "Thank you! Your order has put."
+                    description: "Thank you! Your order has put."
                 });
             })
             .catch(e => {
@@ -265,7 +281,7 @@ class OrderPanel extends Component {
                     <br />
                     <div className="checkout">
                         <Button type="primary" onClick={this.handleCheckout}>
-                            Checkout
+                            checkout
                         </Button>
                     </div>
                 </Card>
