@@ -19,15 +19,6 @@ class SimpleMap extends Component {
     };
 
   render() {
-    const ColoredLine = ({ color }) => (
-      <hr
-          style={{
-              color: color,
-              backgroundColor: color,
-              height: 4
-          }}
-      />
-  );
     return (
       // Important! Always set the container height explicitly
       <div className="Map" style={{ height: '100vh', width: '100vw' }}>
@@ -36,16 +27,10 @@ class SimpleMap extends Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
-          <ColoredLine color="red" />
           <AnyReactComponent 
             lat={37.78694970170928}
             lng={-122.41420136670445}
             text="My Marker1"
-          />
-          <AnyReactComponent 
-            lat={37.78694970170926}
-            lng={-122.41420136670440}
-            text="My Marker2"
           />
         </GoogleMapReact>
       </div>

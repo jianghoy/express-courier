@@ -1,0 +1,48 @@
+.ant-carousel .slick-slide {
+    text-align: center;
+    height: 700px;
+    line-height: 160px;
+    background: #364d79;
+    overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+    color: #fff;
+    font-family: monospace;
+    font-size: 30px;
+}
+
+.ant-carousel .slick-slide p {
+    color: #fff;
+}
+
+.ant-carousel .slick-slide li {
+    font-size: 50px;
+    margin: 5px;
+    text-align: left;
+}
+
+.ant-list-split .ant-list-item {
+}
+
+.ant-list-item-meta-description {
+    color: #fafafa;
+    font-size: 40px;
+    line-height: 50px;
+}
+
+.ant-list-item-meta-title > a {
+    font-size: 20px;
+    color: #fafafa;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.picProfile{
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    height: auto;
+}
+
+
