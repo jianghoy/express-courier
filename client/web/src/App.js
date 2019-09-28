@@ -11,7 +11,7 @@ import NavBar from "./Components/NavBar";
 import RegisterPage from "./Pages/RegisterPage";
 import { ACCESS_TOKEN } from "./Const";
 import { request } from "./API/API";
-const { Content } = Layout;
+const { Header,Content } = Layout;
 class App extends Component {
     constructor(props) {
         super(props);
@@ -92,9 +92,11 @@ class App extends Component {
     render() {
         return (
             <Layout className="layout">
-                <NavBar currentUser={this.state.currentUser}></NavBar>]
-                <Content style={{ marginTop: "70px" }}>
-                    <div>
+                <Header style={{padding:0}}>
+                    <NavBar currentUser={this.state.currentUser}></NavBar>
+                </Header>
+                <Content >
+                    <div style={{minHeight:'300px'}}>
                         <Switch>
                             <Route exact path="/" component={MainPage} />
                             <Route path="/home" component={MainPage} />
