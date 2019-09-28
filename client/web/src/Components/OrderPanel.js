@@ -16,7 +16,11 @@ const { Title } = Typography;
 class OrderPanel extends Component {
     state = {
         type: "car",
-        displayGetPrice: true
+        //display mode:
+        //  0: display description on price div
+        //  1: diplay fetch icon
+        //  2: display price selection(<OrderDetail>)
+        displayMode: 2
     };
 
     handlePickUpAddressChange = pickUpInput => {
@@ -63,10 +67,9 @@ class OrderPanel extends Component {
      * @param {TAddress} address
      */
     handleCheckAddress = address => {
-        return address.city === 'San Francisco'
-    }
+        return address.city === "San Francisco";
+    };
     handleCheckout = e => {
-
         /** @type {TOrder} */
         var order = {
             shippingAddress: strToTAddress(this.state.destinationAddress),
@@ -76,14 +79,17 @@ class OrderPanel extends Component {
         };
 
         // check if address is valid
-        if (!this.handleCheckAddress(order.shippingAddress) ||
-            !this.handleCheckAddress(order.pickUpAddress)) {
-                notification.error({
-                    message: "Express Courier",
-                    description: "Sorry, the delivery service is only in San Francisco."                       
-                });
-                return;
-            }
+        if (
+            !this.handleCheckAddress(order.shippingAddress) ||
+            !this.handleCheckAddress(order.pickUpAddress)
+        ) {
+            notification.error({
+                message: "Express Courier",
+                description:
+                    "Sorry, the delivery service is only in San Francisco."
+            });
+            return;
+        }
 
         checkout(order)
             .then(() => {
@@ -269,12 +275,19 @@ class OrderPanel extends Component {
                             <Button type="primary" icon="enter" />
                         </div>
                     </div>
-
-                    <DeliveryOption
-                        pickUpAddress={this.state.pickUpAddress}
-                        destinationAddress={this.state.destinationAddress}
-                        droneTypeSelection={this.handleDroneType.bind(this)}
-                    />
+                    
+                    {
+                        this.state.displayMode === 0 &&
+                        <h1>Please input address to see pricing</h1>
+                    }
+                    {this.state.displayMode === 2 && (
+                        <DeliveryOption
+                            pickUpAddress={this.state.pickUpAddress}
+                            destinationAddress={this.state.destinationAddress}
+                            droneTypeSelection={this.handleDroneType.bind(this)}
+                        />
+                    )}
+                    
                     <br />
                     <div className="checkout">
                         <Button type="primary" onClick={this.handleCheckout}>
