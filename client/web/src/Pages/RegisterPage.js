@@ -10,6 +10,7 @@ import {
     AutoComplete
 } from "antd";
 import { register } from "../API/API";
+import { withRouter} from 'react-router-dom';
 
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
@@ -167,7 +168,7 @@ class RegistrationForm extends React.Component {
     }
 }
 
-const RegisterForm = Form.create({ name: "register" })(RegistrationForm);
+const RegisterForm = withRouter(Form.create({ name: "register" })(RegistrationForm));
 
 function RegisterPage() {
     return (
