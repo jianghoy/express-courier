@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { getPriceAndTime } from "../API/API";
 import { Radio, Statistic, Col, Row } from "antd";
 
+// this is only for display purpose, the price will not be passed back to backend
 class DeliveryOption extends Component {
     state = {        
         value: "car",
@@ -50,7 +51,7 @@ class DeliveryOption extends Component {
                     onChange={this.onRadioButtonChange}
                     value={this.state.value}
                 >
-                    <Row className="row-selection" gutter={30}>
+                    <Row className="row-selection" gutter={16}>
                         <Col span={10}>
                             <Radio
                                 className="radio"
@@ -63,12 +64,13 @@ class DeliveryOption extends Component {
                         <Col span={14}>
                             <Row type="flex" align="middle" gutter={7}>
                                 <Col span={12}>
-                                    <Statistic
+                                    {/* <Statistic
                                         className="price"
                                         prefix="$"
                                         value={this.state.carPrice}
                                         precision={2}
-                                    />
+                                    /> */}
+                                    <span>${this.state.carPrice}</span>
                                 </Col>
                                 <Col span={12}>
                                     <Statistic
