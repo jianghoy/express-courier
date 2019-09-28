@@ -12,4 +12,7 @@ public interface UserRepository extends CrudRepository<User,Integer> {
     Optional<User> findByNameOrEmail(String name, String email);
     boolean existsByName(String name);
     boolean existsByEmail(String email);
+
+    @Override
+    <S extends User> S save(S s);
 }
