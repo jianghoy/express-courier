@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { getPriceAndTime } from "../API/API";
-import { Radio, Statistic, Col, Row, Typography } from "antd";
-import loadingIndicator from './LoadingIndicator';
+import { Radio, Statistic, Col, Row, Typography, Tooltip } from "antd";
 import LoadingIndicator from "./LoadingIndicator";
 const { Text } = Typography;
 // this is only for display purpose, the price will not be passed back to backend
@@ -51,7 +50,7 @@ class DeliveryOption extends Component {
         };
 
         if (this.state.loading) {
-            return (<LoadingIndicator/>)
+            return <LoadingIndicator />;
         }
 
         return (
@@ -129,7 +128,12 @@ class DeliveryOption extends Component {
                 >
                     <Row className="row-selection" gutter={30}>
                         <Col span={8}>
-                            <Text strong> type </Text>
+                            <Tooltip
+                                title="Autonomous electrical cars are slower but have no size and weight restriction;
+                        drones are faster but can only deliver goods within 10 pounds."
+                            >
+                                <Text strong> type? </Text>
+                            </Tooltip>
                         </Col>
                         <Col span={8}>
                             <Text strong> price </Text>
