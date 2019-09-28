@@ -31,14 +31,14 @@ class RegistrationForm extends React.Component {
                 values = {email:values.email,password:values.password,name:values.nickname};
                 register(values).then(() => {
                     notification.success({
-                        message: "Polling App",
+                        message: "Express Courier",
                         description:
                             "Thank you! You're successfully registered. Please Login to continue!"
                     });
                     this.props.history.push("/login");
                 }).catch(e => {
                     notification.error({
-                        message: 'Polling App',
+                        message: 'Express Courier',
                         description: e.message || 'Sorry! Something went wrong. Please try again!'
                     });
                 })
