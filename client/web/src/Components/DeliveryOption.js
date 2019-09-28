@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { getPriceAndTime } from "../API/API";
-import { Radio, Statistic, Col, Row } from "antd";
-
+import { Radio, Statistic, Col, Row, Typography } from "antd";
+const { Text } = Typography;
 // this is only for display purpose, the price will not be passed back to backend
 class DeliveryOption extends Component {
-    state = {        
+    state = {
         value: "car",
         carPrice: 0,
         dronePrice: 0
@@ -15,7 +15,7 @@ class DeliveryOption extends Component {
         this.setState({
             value: e.target.value
         });
-        this.props.droneTypeSelection(this.state.value !== "car")
+        this.props.droneTypeSelection(this.state.value !== "car");
     };
 
     componentWillReceiveProps = nextProps => {
@@ -25,7 +25,7 @@ class DeliveryOption extends Component {
             getPriceAndTime(dest, orig, priceAndTime => {
                 this.setState({
                     carPrice: priceAndTime[0].price,
-                    dronePrice: priceAndTime[1].price,
+                    dronePrice: priceAndTime[1].price
                 });
             });
         }
@@ -47,11 +47,11 @@ class DeliveryOption extends Component {
         };
         return (
             <div className="radio_button">
-                <Radio.Group
+                {/* <Radio.Group
                     onChange={this.onRadioButtonChange}
                     value={this.state.value}
                 >
-                    <Row className="row-selection" gutter={16}>
+                    <Row className="row-selection" gutter={30}>
                         <Col span={10}>
                             <Radio
                                 className="radio"
@@ -64,13 +64,12 @@ class DeliveryOption extends Component {
                         <Col span={14}>
                             <Row type="flex" align="middle" gutter={7}>
                                 <Col span={12}>
-                                    {/* <Statistic
+                                    <Statistic
                                         className="price"
                                         prefix="$"
                                         value={this.state.carPrice}
                                         precision={2}
-                                    /> */}
-                                    <span>${this.state.carPrice}</span>
+                                    />
                                 </Col>
                                 <Col span={12}>
                                     <Statistic
@@ -112,6 +111,77 @@ class DeliveryOption extends Component {
                                     />
                                 </Col>
                             </Row>
+                        </Col>
+                    </Row>
+                </Radio.Group> */}
+                <Radio.Group
+                    onChange={this.onRadioButtonChange}
+                    value={this.state.value}
+                >
+                    <Row className="row-selection" gutter={30}>
+                        <Col span={8}>
+                            <Text strong> type </Text>
+                        </Col>
+                        <Col span={8}>
+                            <Text strong> price </Text>
+                        </Col>
+                        <Col span={8}>
+                            <Text strong> estimated delivery </Text>
+                        </Col>
+                    </Row>
+                    <Row className="row-selection" gutter={30}>
+                        <Col span={8}>
+                            <Radio
+                                className="radio"
+                                style={radioStyle}
+                                value={"car"}
+                            >
+                                Use Car
+                            </Radio>
+                        </Col>
+                        <Col span={8}>
+                            <Statistic
+                                className="price"
+                                prefix="$"
+                                value={this.state.carPrice}
+                                precision={2}
+                            />
+                        </Col>
+                        <Col span={8}>
+                            <Statistic
+                                className="time"
+                                suffix="AM"
+                                value="11:24"
+                                precision={2}
+                            />
+                        </Col>
+                    </Row>
+
+                    <Row className="row-selection" gutter={30}>
+                        <Col span={8}>
+                            <Radio
+                                className="radio"
+                                style={radioStyle}
+                                value={"drone"}
+                            >
+                                Use Drone
+                            </Radio>
+                        </Col>
+                        <Col span={8}>
+                            <Statistic
+                                className="price"
+                                prefix="$"
+                                value={this.state.dronePrice}
+                                precision={2}
+                            />
+                        </Col>
+                        <Col span={8}>
+                            <Statistic
+                                className="time"
+                                suffix="PM"
+                                value="5:23"
+                                precision={2}
+                            />
                         </Col>
                     </Row>
                 </Radio.Group>
