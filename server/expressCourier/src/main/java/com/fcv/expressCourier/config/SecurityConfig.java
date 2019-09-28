@@ -1,7 +1,5 @@
 package com.fcv.expressCourier.config;
 
-import javax.sql.DataSource;
-
 import com.fcv.expressCourier.security.CustomUserDetailsService;
 import com.fcv.expressCourier.security.JwtAuthenticationEntryPoint;
 import com.fcv.expressCourier.security.JwtAuthenticationFilter;
@@ -42,8 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
     }
-
-    //To resolve ${} in @Value
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -88,26 +84,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-//                .antMatchers(AUTH_WHITELIST).permitAll()
-//                .antMatchers("/",
-//                        "/favicon.ico",
-//                        "/**/*.png",
-//                        "/**/*.gif",
-//                        "/**/*.svg",
-//                        "/**/*.jpg",
-//                        "/**/*.html",
-//                        "/*.html",
-//                        "/**/*.css",
-//                        "/**/*.js")
-//                .permitAll()
-//                .antMatchers("/signin","/signup")
-//                .permitAll()
-//                .antMatchers("/price")
-//                .permitAll()
-//                .antMatchers("/checkout","/order","/order/*","/user/*")
-//                .authenticated()
-                .anyRequest()
-                .permitAll();
+                .antMatchers(AUTH_WHITELIST).permitAll()
+                .antMatchers("/",
+                        "/favicon.ico",
+                        "/**/*.png",
+                        "/**/*.gif",
+                        "/**/*.svg",
+                        "/**/*.jpg",
+                        "/**/*.html",
+                        "/*.html",
+                        "/**/*.css",
+                        "/**/*.js")
+                .permitAll()
+                .antMatchers("/signin","/signup")
+                .permitAll()
+                .antMatchers("/price")
+                .permitAll()
+                .antMatchers("/checkout","/order","/order/*","/user/*")
+                .authenticated();
         http.headers().frameOptions().disable();
 
         // Add our custom JWT security filter
