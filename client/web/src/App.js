@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MainPage from "./Pages/MainPage";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Redirect, Switch, withRouter } from "react-router-dom";
 import CarInfo from "./Pages/CarInfo";
 import DroneInfo from "./Pages/DroneInfo";
 import Help from "./Pages/Help";
@@ -93,7 +93,9 @@ class App extends Component {
         return (
             <Layout className="layout">
                 <Header style={{padding:0}}>
-                    <NavBar currentUser={this.state.currentUser}></NavBar>
+                    <NavBar currentUser={this.state.currentUser}
+                            logout = {this.handleLogout}
+                      ></NavBar>
                 </Header>
                 <Content >
                     <div style={{minHeight:'300px'}}>
@@ -112,8 +114,7 @@ class App extends Component {
                                         {...props}
                                     />
                                 )}
-                            ></Route>
-                            <Route path="/logout" component={NormalLoginForm} />
+                            ></Route>                    
                             <Route path="/register" component={RegisterPage} />
                             <Redirect to="/" />
                         </Switch>
@@ -123,4 +124,4 @@ class App extends Component {
         );
     }
 }
-export default App;
+export default withRouter(App);
