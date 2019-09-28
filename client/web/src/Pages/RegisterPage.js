@@ -4,11 +4,7 @@ import {
     Input,
     Tooltip,
     Icon,
-    Cascader,
     Select,
-    Row,
-    Col,
-    Checkbox,
     Button,
     notification,
     AutoComplete
@@ -99,6 +95,7 @@ class RegistrationForm extends React.Component {
         };
 
         return (
+            
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                 <Form.Item label="E-mail">
                     {getFieldDecorator("email", {
@@ -170,6 +167,14 @@ class RegistrationForm extends React.Component {
     }
 }
 
-const RegisterPage = Form.create({ name: "register" })(RegistrationForm);
+const RegisterForm = Form.create({ name: "register" })(RegistrationForm);
+
+function RegisterPage() {
+    return (
+        <div style = {{width:'600px',margin:'0 auto',paddingTop:'40px'}}>
+            <RegisterForm></RegisterForm>
+        </div>
+    )
+}
 
 export default RegisterPage;
