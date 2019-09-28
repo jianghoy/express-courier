@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Menu, Icon, Button } from "antd";
 import { NavLink } from "react-router-dom";
-
 const { SubMenu } = Menu;
 
 export default class NavBar extends Component {
@@ -28,8 +27,8 @@ export default class NavBar extends Component {
                         </span>
                     }
                 >
-                    <Menu.Item key="logOut">
-                        <NavLink to="/logout">Logout</NavLink>
+                    <Menu.Item key="logOut" onClick={this.props.logout}>
+                        Logout
                     </Menu.Item>
                 </SubMenu>
             );
