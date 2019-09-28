@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { getPriceAndTime } from "../API/API";
 import { Radio, Statistic, Col, Row, Typography } from "antd";
+import loadingIndicator from './LoadingIndicator';
+import LoadingIndicator from "./LoadingIndicator";
 const { Text } = Typography;
 // this is only for display purpose, the price will not be passed back to backend
 class DeliveryOption extends Component {
     state = {
         value: "car",
         carPrice: 0,
-        dronePrice: 0
+        dronePrice: 0,
+        loading: true
     };
 
     onRadioButtonChange = e => {
@@ -18,26 +21,27 @@ class DeliveryOption extends Component {
         this.props.droneTypeSelection(this.state.value !== "car");
     };
 
-    componentWillReceiveProps = nextProps => {
-        let orig = nextProps.pickUpAddress;
-        let dest = nextProps.destinationAddress;
-        if (this.checkAddressDiff(nextProps) === true) {
-            getPriceAndTime(dest, orig, priceAndTime => {
+    componentDidMount = () => {
+        getPriceAndTime(
+            this.props.destinationAddress,
+            this.props.pickUpAddress,
+            priceAndTime => {
                 this.setState({
                     carPrice: priceAndTime[0].price,
-                    dronePrice: priceAndTime[1].price
+                    dronePrice: priceAndTime[1].price,
+                    loading: false
                 });
-            });
-        }
+            }
+        );
     };
 
-    checkAddressDiff(nextProps) {
-        const differentTitle =
-            this.props.pickUpaddress !== nextProps.pickUpAddress;
-        const differentDone =
-            this.props.destinationAddress !== nextProps.destinationAddress;
-        return differentTitle && differentDone;
-    }
+    // checkAddressDiff(nextProps) {
+    //     const differentTitle =
+    //         this.props.pickUpaddress !== nextProps.pickUpAddress;
+    //     const differentDone =
+    //         this.props.destinationAddress !== nextProps.destinationAddress;
+    //     return differentTitle && differentDone;
+    // }
 
     render() {
         const radioStyle = {
@@ -45,6 +49,11 @@ class DeliveryOption extends Component {
             height: "30px",
             lineHeight: "30px"
         };
+
+        if (this.state.loading) {
+            return (<LoadingIndicator/>)
+        }
+
         return (
             <div className="radio_button">
                 {/* <Radio.Group
