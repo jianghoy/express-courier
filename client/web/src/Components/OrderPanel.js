@@ -67,6 +67,11 @@ class OrderPanel extends Component {
     };
     handleCheckout = e => {
         /** @type {TOrder} */
+        if (!this.props.handleCheckUser()) {
+            alert('You haven\'t log in yet!');
+            this.setState({displayModal:false});
+            return;
+        }
         var order = {
             shippingAddress: strToTAddress(this.state.destinationAddress),
             billingAddress: strToTAddress(this.state.pickUpAddress),
