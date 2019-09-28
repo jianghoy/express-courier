@@ -1,6 +1,6 @@
 .nav-bar{
     position: fixed;
-    height: 70px;
+    line-height: 64px;
     width:100%;
     display: flex;
     align-items: center;
