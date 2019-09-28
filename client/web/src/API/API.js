@@ -2,7 +2,13 @@
 
 import {ACCESS_TOKEN} from '../Const'
 
-export const request = (options) => {
+//TODO: merge request and requestText
+/**
+ * 
+ * @param {*} options 
+ * @param {number} resBodyType 1:json;2:text
+ */
+export const request = (options,resBodyType) => {
     const headers = new Headers({
         'Content-Type': 'application/json',
     })
