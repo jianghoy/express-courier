@@ -309,18 +309,20 @@ class OrderPanel extends Component {
                         </Button>
                     </div>
                 </Card>
-                <Modal
-                    title="Please select a delivery option"
-                    visible={this.state.displayModal}
-                    onCancel={this.handleCloseModal}
-                    onOk={this.handleCheckout}
-                >
-                    <DeliveryOption
-                        pickUpAddress={this.state.pickUpAddress}
-                        destinationAddress={this.state.destinationAddress}
-                        droneTypeSelection={this.handleDroneType.bind(this)}
-                    />
-                </Modal>
+                {this.state.displayModal ? (
+                    <Modal
+                        title="Please select a delivery option"
+                        visible={true}
+                        onCancel={this.handleCloseModal}
+                        onOk={this.handleCheckout}
+                    >
+                        <DeliveryOption
+                            pickUpAddress={this.state.pickUpAddress}
+                            destinationAddress={this.state.destinationAddress}
+                            droneTypeSelection={this.handleDroneType.bind(this)}
+                        />
+                    </Modal>
+                ) : null}
             </div>
         );
     }
