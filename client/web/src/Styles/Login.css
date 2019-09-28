@@ -1,10 +1,6 @@
-.login-form {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+.login {
     width: 300px;
-    height: 250px;
+    margin: 0 auto;
 }
 
 .login-form {
@@ -19,9 +15,6 @@
     width: 100%;
 }
 
-.header {
-    position: relative;    
-    left: 50%;
-    top: -10%;
-    transform: translate(-50%, -50%);
+.form-title {
+    padding-top:20px;
 }
