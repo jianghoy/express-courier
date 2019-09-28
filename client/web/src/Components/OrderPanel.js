@@ -1,7 +1,7 @@
 /// <reference path="../_jsdoc/index.d.ts" />
 
 import React, { Component } from "react";
-import { Card, Input, Menu, Button, notification } from "antd";
+import { Card, Input, Menu, Button, notification, Modal } from "antd";
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng
@@ -16,11 +16,7 @@ const { Title } = Typography;
 class OrderPanel extends Component {
     state = {
         type: "car",
-        //display mode:
-        //  0: display description on price div
-        //  1: diplay fetch icon
-        //  2: display price selection(<OrderDetail>)
-        displayMode: 2
+        displayModal: false
     };
 
     handlePickUpAddressChange = pickUpInput => {
@@ -77,20 +73,6 @@ class OrderPanel extends Component {
             pickUpAddress: strToTAddress(this.state.pickUpAddress),
             type: this.state.type
         };
-
-        // check if address is valid
-        if (
-            !this.handleCheckAddress(order.shippingAddress) ||
-            !this.handleCheckAddress(order.pickUpAddress)
-        ) {
-            notification.error({
-                message: "Express Courier",
-                description:
-                    "Sorry, the delivery service is only in San Francisco."
-            });
-            return;
-        }
-
         checkout(order)
             .then(() => {
                 notification.success({
@@ -106,6 +88,50 @@ class OrderPanel extends Component {
                         "Sorry! Something went wrong. Please try again!"
                 });
             });
+    };
+    handleGetPrice = e => {
+        if (!this.state.destinationAddress) {
+            notification.error({
+                message: "Express Courier",
+                description: "Please specify the destination"
+            });
+            return;
+        }
+
+        if (!this.state.pickUpAddress) {
+            notification.error({
+                message: "Express Courier",
+                description: "Please specify the origin pickup address."
+            });
+            return;
+        }
+
+        /** @type {TOrder} */
+        var order = {
+            shippingAddress: strToTAddress(this.state.destinationAddress),
+            billingAddress: strToTAddress(this.state.pickUpAddress),
+            pickUpAddress: strToTAddress(this.state.pickUpAddress),
+            type: this.state.type
+        };
+
+        // check if address is valid
+        if (
+            !this.handleCheckAddress(order.shippingAddress) ||
+            !this.handleCheckAddress(order.pickUpAddress)
+        ) {
+            notification.error({
+                message: "Express Courier",
+                description:
+                    "Sorry, the delivery service is only in San Francisco."
+            });
+            return;
+        }
+
+        this.setState({ displayModal: true });
+    };
+
+    handleCloseModal = () => {
+        this.setState({ displayModal: false });
     };
     /**
      * handle select drone type in order panel
@@ -275,26 +301,26 @@ class OrderPanel extends Component {
                             <Button type="primary" icon="enter" />
                         </div>
                     </div>
-                    
-                    {
-                        this.state.displayMode === 0 &&
-                        <h1>Please input address to see pricing</h1>
-                    }
-                    {this.state.displayMode === 2 && (
-                        <DeliveryOption
-                            pickUpAddress={this.state.pickUpAddress}
-                            destinationAddress={this.state.destinationAddress}
-                            droneTypeSelection={this.handleDroneType.bind(this)}
-                        />
-                    )}
-                    
+
                     <br />
                     <div className="checkout">
-                        <Button type="primary" onClick={this.handleCheckout}>
-                            checkout
+                        <Button type="primary" onClick={this.handleGetPrice}>
+                            Get Price
                         </Button>
                     </div>
                 </Card>
+                <Modal
+                    title="Please select a delivery option"
+                    visible={this.state.displayModal}
+                    onCancel={this.handleCloseModal}
+                    onOk={this.handleCheckout}
+                >
+                    <DeliveryOption
+                        pickUpAddress={this.state.pickUpAddress}
+                        destinationAddress={this.state.destinationAddress}
+                        droneTypeSelection={this.handleDroneType.bind(this)}
+                    />
+                </Modal>
             </div>
         );
     }
