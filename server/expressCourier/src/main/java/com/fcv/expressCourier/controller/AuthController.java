@@ -2,7 +2,6 @@ package com.fcv.expressCourier.controller;
 
 import com.fcv.expressCourier.dao.RoleRepository;
 import com.fcv.expressCourier.dao.UserRepository;
-import com.fcv.expressCourier.exception.AppException;
 import com.fcv.expressCourier.models.Role;
 import com.fcv.expressCourier.models.RoleName;
 import com.fcv.expressCourier.models.User;
@@ -81,9 +80,11 @@ public class AuthController {
         User user = new User(signUpRequest.getName(),signUpRequest.getEmail(),
                 passwordEncoder.encode(signUpRequest.getPassword()));
 
-        // TODO: IS IT RIGHT NOW?
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                .orElse(roleRepository.save(new Role(RoleName.ROLE_USER)));
+                // orElse and orElseGet is different:
+                // orElse will be executed even if Option<T> has the element
+                // which is why there's duplicate data insertion
+                .orElseGet(() -> roleRepository.save(new Role(RoleName.ROLE_USER)));
         user.setRoles(Collections.singleton(userRole));
 
         userRepository.save(user);
