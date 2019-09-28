@@ -18,24 +18,31 @@ class SimpleMap extends Component {
         zoom: 13
     };
 
-  render() {
-    return (
-      // Important! Always set the container height explicitly
-      <div className="Map" style={{ height: '100vh', width: '100vw' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: GOOGLEMAPAPI_KEY }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-          <AnyReactComponent
-            lat={37.78694970170928}
-            lng={-122.41420136670445}
-            text="My Marker"
-          />
-        </GoogleMapReact>
-      </div>
-    );
-  }
+    render() {
+        return (
+            // Important! Always set the container height explicitly
+            <div
+                className="Map"
+                style={{
+                    height: "calc(100vh - 64px)",
+                    width: "100vw",
+                    maxWidth: "100%"
+                }}
+            >
+                <GoogleMapReact
+                    bootstrapURLKeys={{ key: GOOGLEMAPAPI_KEY }}
+                    defaultCenter={this.props.center}
+                    defaultZoom={this.props.zoom}
+                >
+                    <AnyReactComponent
+                        lat={37.78694970170928}
+                        lng={-122.41420136670445}
+                        text="My Marker"
+                    />
+                </GoogleMapReact>
+            </div>
+        );
+    }
 }
- 
+
 export default SimpleMap;
