@@ -2,6 +2,7 @@ package com.fcv.expressCourier.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "customer")
@@ -11,59 +12,23 @@ public class Customer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "customer_id")
     private int id;
-    private String firstName;
-    private String lastName;
-    private String customerPhone;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Address shippingAddress;
+    public List<Order> getOrders() {
+        return orders;
+    }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Address billingAddress;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+    // TODO: determine fetch type
+    @OneToMany(mappedBy = "customer")
+    List<Order> orders;
 
-    @OneToOne
+    @OneToOne(mappedBy = "customer")
     private User user;
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getCustomerPhone() {
-        return customerPhone;
-    }
-
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
-    }
-
-    public Address getShippingAddress() {
-        return shippingAddress;
-    }
-
-    public void setShippingAddress(Address shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
-
-    public Address getBillingAddress() {
-        return billingAddress;
-    }
-
-    public void setBillingAddress(Address billingAddress) {
-        this.billingAddress = billingAddress;
-    }
 
     public User getUser() {
         return user;

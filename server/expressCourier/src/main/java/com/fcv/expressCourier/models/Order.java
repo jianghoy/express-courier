@@ -30,6 +30,7 @@ public class Order implements Serializable {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToOne
+    @JoinColumn(name = "costomer_id")
     private Customer customer;
 
     @OneToOne
@@ -60,7 +61,7 @@ public class Order implements Serializable {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
