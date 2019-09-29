@@ -1,7 +1,9 @@
 package com.fcv.expressCourier.controller;
 
+import com.fcv.expressCourier.dao.CustomerRepository;
 import com.fcv.expressCourier.dao.RoleRepository;
 import com.fcv.expressCourier.dao.UserRepository;
+import com.fcv.expressCourier.models.Customer;
 import com.fcv.expressCourier.models.Role;
 import com.fcv.expressCourier.models.RoleName;
 import com.fcv.expressCourier.models.User;
@@ -36,15 +38,18 @@ public class AuthController {
     private final
     UserRepository userRepository;
 
+    private final CustomerRepository customerRepository;
+
     private final
     PasswordEncoder passwordEncoder;
 
     private final RoleRepository roleRepository;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserRepository userRepository, CustomerRepository customerRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userRepository = userRepository;
+        this.customerRepository = customerRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
     }
@@ -86,6 +91,9 @@ public class AuthController {
                 // which is why there's duplicate data insertion
                 .orElseGet(() -> roleRepository.save(new Role(RoleName.ROLE_USER)));
         user.setRoles(Collections.singleton(userRole));
+
+        Customer c = new Customer();
+        user.setCustomer(c);
 
         userRepository.save(user);
         //TODO: add redirect
