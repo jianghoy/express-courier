@@ -1,9 +1,13 @@
+/// <reference path="../_jsdoc/index.d.ts" />
+
 import React, { Component } from "react";
-import { List, Avatar, Button, Spin } from "antd";
+import { List, Avatar, Button, Spin, Typography } from "antd";
 import reqwest from "reqwest";
 import InfiniteScroll from "react-infinite-scroller";
-import NavBar from "../Components/NavBar";
 import OrderDetail from "../Components/OrderDetail";
+import moduleNgetOrdersByPaginationame from '../API/API';
+
+const { Title } = Typography;
 
 // fake data
 const data = [
@@ -83,46 +87,78 @@ class OrderList extends Component {
         });
     };
 
-  render() {
-    return (
-      <div className="orderList">
-        {/* <NavBar /> */}
-          <div className="orderListStyle">
-            <InfiniteScroll
-              initialLoad={false}
-              pageStart={0}
-              loadMore={this.handleInfiniteOnLoad}
-              hasMore={!this.state.loading && this.state.hasMore}
-              useWindow={false}
-            >
-              <List
-                itemLayout="horizontal"
-                dataSource={data}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar style={{ backgroundColor: '#87d068' }} icon="car" />}
-                      title={item.title}
-                      description={item.description}
-                    />
-                    <div>
-                      <Button type="primary" onClick={this._showOrderDetail.bind(null, true)}>Detail</Button>
-                      {this.state.showOrderDetail ? <OrderDetail handleClose={this._showOrderDetail}/> : null}
-                    </div>
-                  </List.Item>
-                )}
-              >
-                {this.state.loading && this.state.hasMore && (
-                  <div className="demo-loading-container">
-                    <Spin />
-                  </div>
-                )}
-              </List>
-            </InfiniteScroll>
-          </div>
-      </div>
-    );
-  }
+    /**
+     * set avatar based on order type
+     * @param {TOrder} order
+     */
+    setAvatar(order) {
+        if (order.type) {
+            return order.type === "car" ? "car" : "cloud-upload";
+        }
+        return "car";
+    }
+
+    render() {
+        return (
+            <div className="orderList">
+                <div className="orderListStyle">
+                    <Title> Orders </Title>
+                    <InfiniteScroll
+                        initialLoad={false}
+                        pageStart={0}
+                        loadMore={this.handleInfiniteOnLoad}
+                        hasMore={!this.state.loading && this.state.hasMore}
+                        useWindow={false}
+                    >
+                        <List
+                            itemLayout="horizontal"
+                            dataSource={data}
+                            renderItem={order => (
+                                <List.Item>
+                                    <List.Item.Meta
+                                        avatar={
+                                            <Avatar
+                                                style={{
+                                                    backgroundColor: "#87d068"
+                                                }}
+                                                icon={this.setAvatar(order)}
+                                            />
+                                        }
+                                        title={order.title}
+                                        description={order.description}
+                                    />
+                                    <div>
+                                        <Button
+                                            type="primary"
+                                            onClick={this._showOrderDetail.bind(
+                                                null,
+                                                true
+                                            )}
+                                        >
+                                            Detail
+                                        </Button>
+                                        {this.state.showOrderDetail ? (
+                                            <OrderDetail
+                                                handleClose={
+                                                    this._showOrderDetail
+                                                }
+                                            />
+                                        ) : null}
+                                    </div>
+                                </List.Item>
+                            )}
+                        >
+                            {this.state.loading && this.state.hasMore && (
+                                <div className="demo-loading-container">
+                                    <Spin />
+                                </div>
+                            )}
+                        </List>
+                    </InfiniteScroll>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default OrderList;

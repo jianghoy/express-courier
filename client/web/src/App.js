@@ -11,7 +11,8 @@ import NavBar from "./Components/NavBar";
 import RegisterPage from "./Pages/RegisterPage";
 import { ACCESS_TOKEN } from "./Const";
 import { request } from "./API/API";
-const { Header,Content } = Layout;
+import LoadingIndicator from "./Components/LoadingIndicator";
+const { Header, Content } = Layout;
 class App extends Component {
     constructor(props) {
         super(props);
@@ -56,6 +57,10 @@ class App extends Component {
             });
     }
 
+    checkCurrentUser = () => {
+        return this.state.currentUser !== null;
+    };
+
     componentDidMount() {
         this.loadCurrentUser();
     }
@@ -75,14 +80,14 @@ class App extends Component {
         this.props.history.push(redirectTo);
 
         notification[notificationType]({
-            message: "Polling App",
+            message: "Express Courier",
             description: description
         });
     }
 
     handleLogin() {
         notification.success({
-            message: "Polling App",
+            message: "Express Courier",
             description: "You're successfully logged in."
         });
         this.loadCurrentUser();
@@ -90,18 +95,40 @@ class App extends Component {
     }
 
     render() {
+        // TODO:Loading indicator
+        // if (this.state.isLoading) {
+        //     return <LoadingIndicator/>
+        // }
         return (
             <Layout className="layout">
-                <Header style={{padding:0}}>
-                    <NavBar currentUser={this.state.currentUser}
-                            logout = {this.handleLogout}
-                      ></NavBar>
+                <Header style={{ padding: 0 }}>
+                    <NavBar
+                        currentUser={this.state.currentUser}
+                        logout={this.handleLogout}
+                    ></NavBar>
                 </Header>
-                <Content >
-                    <div style={{minHeight:'300px'}}>
+                <Content>
+                    <div style={{ minHeight: "300px" }}>
                         <Switch>
-                            <Route exact path="/" component={MainPage} />
-                            <Route path="/home" component={MainPage} />
+                            <Route
+                                exact
+                                path="/"
+                                render={props => (
+                                    <MainPage
+                                        handleCheckUser={this.checkCurrentUser}
+                                        {...props}
+                                    />
+                                )}
+                            />
+                            <Route
+                                path="/home"
+                                render={props => (
+                                    <MainPage
+                                        handleCheckUser={this.checkCurrentUser}
+                                        {...props}
+                                    />
+                                )}
+                            />
                             <Route path="/carinfo" component={CarInfo} />
                             <Route path="/droneinfo" component={DroneInfo} />
                             <Route path="/help" component={Help} />
@@ -114,7 +141,7 @@ class App extends Component {
                                         {...props}
                                     />
                                 )}
-                            ></Route>                    
+                            ></Route>
                             <Route path="/register" component={RegisterPage} />
                             <Redirect to="/" />
                         </Switch>

@@ -2,7 +2,11 @@ package com.fcv.expressCourier.controller;
 
 import com.fcv.expressCourier.dao.OrderRepository;
 import com.fcv.expressCourier.dao.UserRepository;
+import com.fcv.expressCourier.exception.BadRequestException;
 import com.fcv.expressCourier.models.Order;
+import com.fcv.expressCourier.models.User;
+import com.fcv.expressCourier.security.CurrentUser;
+import com.fcv.expressCourier.security.UserPrincipal;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -39,15 +43,21 @@ public class OrderController {
     @RequestMapping(value = "/order", method = RequestMethod.GET)
     public ListAndHasNext getOrderPagination(@RequestParam(name = "page") int page,
                                           @RequestParam(name = "size") int size,
-                                          Principal principal) {
+                                          @CurrentUser UserPrincipal currentUser) {
 
         Pageable pageable = PageRequest.of(page, size);
-// TODO: fix auth.
+        Optional<User> u = userRepository.findByNameOrEmail(currentUser.getName(),currentUser.getName());
+        if (!u.isPresent()) {
+            throw new BadRequestException("user not found");
+        }
+        Slice<Order> slice =  orderRepository.findByCustomer(u.get().getCustomer(),pageable);
 //
-//        Slice<Order> slice =  orderRepository.findAllByCustomer(
-//                userRepository.findByNameOrEmail(Integer.parseInt(principal.getName())).getCustomer(), pageable);
+////
+//
+//
 //        return new ListAndHasNext(slice.getContent(),slice.hasNext());
-        return null;
+        return new ListAndHasNext(slice.getContent(),slice.hasNext());
+
 
     }
 

@@ -9,10 +9,8 @@ class MainPage extends Component {
     render() {
         return (
             <div className="MainPage">
-                {/* <NavBar /> */}
-                {/* <Login /> */}
                 <SimpleMap className="Map" />
-                <OrderPanel />
+                <OrderPanel handleCheckUser = {this.props.handleCheckUser} />
             </div>
         );
     }
