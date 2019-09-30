@@ -65,11 +65,7 @@ class App extends Component {
         this.loadCurrentUser();
     }
 
-    handleLogout(
-        redirectTo = "/",
-        notificationType = "success",
-        description = "You're successfully logged out."
-    ) {
+    handleLogout() {            
         localStorage.removeItem(ACCESS_TOKEN);
 
         this.setState({
@@ -77,12 +73,12 @@ class App extends Component {
             isAuthenticated: false
         });
 
-        this.props.history.push(redirectTo);
+        this.props.history.push("/");
 
-        notification[notificationType]({
+        notification.success({
             message: "Express Courier",
-            description: description
-        });
+            description: "You have successfully logged out."
+        })
     }
 
     handleLogin() {
@@ -90,7 +86,8 @@ class App extends Component {
             message: "Express Courier",
             description: "You're successfully logged in."
         });
-        this.loadCurrentUser();
+        // TODO: update login logic
+        this.setState({currentUser:true});
         this.props.history.push("/");
     }
 
