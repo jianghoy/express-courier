@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/client/ExpressCourier/node_modules/react-native/template/android/gradle/wrapper/gradle-wrapper.jar!/" />
     </CLASSES>
+    <JAVADOC />
     <SOURCES />
   </library>
 </component>

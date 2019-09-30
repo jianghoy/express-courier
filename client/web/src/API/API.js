@@ -1,5 +1,53 @@
 /// <reference path="../_jsdoc/index.d.ts" />
 
+import {ACCESS_TOKEN} from '../Const'
+
+export const request = (options) => {
+    const headers = new Headers({
+        'Content-Type': 'application/json',
+    })
+    
+    if(localStorage.getItem(ACCESS_TOKEN)) {
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
+    }
+
+    const defaults = {headers: headers};
+    options = Object.assign({}, defaults, options);
+
+    return fetch(options.url, options)
+    .then(response => 
+        response.json().then(json => {
+            if(!response.ok) {
+                return Promise.reject(json);
+            }
+            return json;
+        })
+    );
+};
+
+export const requestText = (options) => {
+    const headers = new Headers({
+        'Content-Type': 'application/json',
+    })
+    
+    if(localStorage.getItem(ACCESS_TOKEN)) {
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
+    }
+
+    const defaults = {headers: headers};
+    options = Object.assign({}, defaults, options);
+
+    return fetch(options.url, options)
+    .then(response => 
+        response.text().then(text => {
+            if(!response.ok) {
+                return Promise.reject(text);
+            }
+            return text;
+        })
+    );
+};
+
 /**
  * get various price options based on destination and origin
  * @param {string} dest destination of order
@@ -24,8 +72,8 @@ export function getPriceAndTime(dest, orig, callback) {
 export function getOrdersByPagination(page, size, callback) {
     let fetchURL = "/ec/order?page=" + page + "&size=" + size;
     fetch(fetchURL)
-        .then(response => {{response.json.orders};{response.json.hasNext}})
-        .then(callback(data.orders,data.hasNext));
+        .then(response => response.json())
+        .then(data => callback(data.orders,data.hasNext))               
 }
 
 /**
@@ -40,3 +88,44 @@ export function getOrderById(id, callback) {
         .then(data => callback(data));
 }
 
+export function register(regInfo) {
+    return request({
+        url:'/ec/signup',
+        method: 'POST',
+        body: JSON.stringify(regInfo)
+    })
+}
+
+export function login(loginInfo) {
+    return request({
+        url:'/ec/signin',
+        method: 'POST',
+        body: JSON.stringify(loginInfo)
+    })
+}
+
+/** @returns {Promise} */
+export function checkout(order) {
+    return requestText({
+        url:'/ec/checkout',
+        method: 'PUT',
+        body: JSON.stringify(order)
+    })
+}
+
+/**
+ * @param {string} string 
+ * @returns {TAddress} address in TAddress format
+ */
+export function strToTAddress(string) {
+    var strings = string.split(',')
+
+    /** @type {TAddress} */
+    var address = {address:"",city:"",state:"",country:""};
+    address.address = strings[0].trim();
+    address.city = strings[1].trim();
+    address.state = strings[2].trim();
+    address.country = strings[3].trim();
+    return address;   
+
+}

@@ -1,6 +1,7 @@
 package com.fcv.expressCourier.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,7 +21,7 @@ public class Order implements Serializable {
 
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne
+    @OneToOne
     Robot robot;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -32,15 +33,18 @@ public class Order implements Serializable {
     private Customer customer;
 
     @OneToOne
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Address shippingAddress;
 
-    @OneToOne
-    private WareHouse wareHouse;
+//    @OneToOne
+//    private WareHouse wareHouse;
 
     @OneToOne
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Address pickUpAddress;
 
     @OneToOne
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Address billingAddress;
 
 
@@ -108,13 +112,13 @@ public class Order implements Serializable {
         this.billingAddress = billingAddress;
     }
 
-    public WareHouse getWareHouse() {
-        return wareHouse;
-    }
-
-    public void setWareHouse(WareHouse wareHouse) {
-        this.wareHouse = wareHouse;
-    }
+//    public WareHouse getWareHouse() {
+//        return wareHouse;
+//    }
+//
+//    public void setWareHouse(WareHouse wareHouse) {
+//        this.wareHouse = wareHouse;
+//    }
 
     public Address getPickUpAddress() {
         return pickUpAddress;

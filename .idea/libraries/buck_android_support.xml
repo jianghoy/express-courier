@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/client/ExpressCourier/node_modules/react-native/ReactAndroid/src/main/third-party/java/buck-android-support/buck-android-support.jar!/" />
     </CLASSES>
+    <JAVADOC />
     <SOURCES />
   </library>
 </component>

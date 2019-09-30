@@ -42,10 +42,12 @@ public class OrderController {
                                           Principal principal) {
 
         Pageable pageable = PageRequest.of(page, size);
-
-        Slice<Order> slice =  orderRepository.findAllByCustomer(
-                userRepository.getUserById(Integer.parseInt(principal.getName())).getCustomer(), pageable);
-        return new ListAndHasNext(slice.getContent(),slice.hasNext());
+// TODO: fix auth.
+//
+//        Slice<Order> slice =  orderRepository.findAllByCustomer(
+//                userRepository.findByNameOrEmail(Integer.parseInt(principal.getName())).getCustomer(), pageable);
+//        return new ListAndHasNext(slice.getContent(),slice.hasNext());
+        return null;
 
     }
 

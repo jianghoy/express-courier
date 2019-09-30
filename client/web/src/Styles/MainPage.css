@@ -15,10 +15,6 @@
     text-align: left;
 }
 
-.Map{
-    padding-top: 70px;
-}
-
 .orderListStyle {
     position: absolute;
     left: 50%;
@@ -56,3 +52,9 @@
     overflow: auto;
 }
 
+.ant-layout {
+    display: flex;
+    flex: auto;
+    min-height: 0;
+    background: #f0f2f5
+}
