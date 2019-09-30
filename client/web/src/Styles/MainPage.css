@@ -15,20 +15,6 @@
     text-align: left;
 }
 
-.orderListStyle {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: aliceblue;
-    border-radius: 4px;
-    height: 400px;
-    width: 700px;
-    padding: 8px 24px;
-    overflow: auto;
-}
-
-
 .orderDetail {
     position: absolute;
     left: 50%;
