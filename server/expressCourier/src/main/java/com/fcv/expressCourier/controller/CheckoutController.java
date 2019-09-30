@@ -23,7 +23,7 @@ public class CheckoutController {
     @RequestMapping(value = "/checkout",method = PUT)
     public String checkout(@RequestBody Order order){
         if (!checkout.isValid(order)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot place such order");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot place order outside of San Francisco");
         }
         if (!checkout.placeOrder(order)) {
             throw  new ResponseStatusException(HttpStatus.NOT_FOUND,"Fail to checkout");

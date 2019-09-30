@@ -25,6 +25,28 @@ export const request = (options) => {
     );
 };
 
+export const requestText = (options) => {
+    const headers = new Headers({
+        'Content-Type': 'application/json',
+    })
+    
+    if(localStorage.getItem(ACCESS_TOKEN)) {
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
+    }
+
+    const defaults = {headers: headers};
+    options = Object.assign({}, defaults, options);
+
+    return fetch(options.url, options)
+    .then(response => 
+        response.text().then(text => {
+            if(!response.ok) {
+                return Promise.reject(text);
+            }
+            return text;
+        })
+    );
+};
 
 /**
  * get various price options based on destination and origin
@@ -80,4 +102,30 @@ export function login(loginInfo) {
         method: 'POST',
         body: JSON.stringify(loginInfo)
     })
+}
+
+/** @returns {Promise} */
+export function checkout(order) {
+    return requestText({
+        url:'/ec/checkout',
+        method: 'PUT',
+        body: JSON.stringify(order)
+    })
+}
+
+/**
+ * @param {string} string 
+ * @returns {TAddress} address in TAddress format
+ */
+export function strToTAddress(string) {
+    var strings = string.split(',')
+
+    /** @type {TAddress} */
+    var address = {address:"",city:"",state:"",country:""};
+    address.address = strings[0].trim();
+    address.city = strings[1].trim();
+    address.state = strings[2].trim();
+    address.country = strings[3].trim();
+    return address;   
+
 }
