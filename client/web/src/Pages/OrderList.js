@@ -2,82 +2,53 @@
 
 import React, { Component } from "react";
 import { List, Avatar, Button, Spin, Typography } from "antd";
-import reqwest from "reqwest";
 import InfiniteScroll from "react-infinite-scroller";
 import OrderDetail from "../Components/OrderDetail";
-import moduleNgetOrdersByPaginationame from '../API/API';
+import { getOrdersByPagination } from "../API/API";
 
 const { Title } = Typography;
-
-// fake data
-const data = [
-    {
-        title: "Product ID: 001",
-        description: "The product is babababa"
-    },
-    {
-        title: "Product ID: 002",
-        description: "The product is babababa"
-    },
-    {
-        title: "Product ID: 003",
-        description: "The product is babababa"
-    },
-    {
-        title: "Product ID: 004",
-        description: "The product is babababa"
-    }
-];
 
 class OrderList extends Component {
     state = {
         loading: false,
         hasMore: true,
-        showOrderDetail: false
+        showOrderDetail: false,
+        page: -1,
+        size: 5,
+        data: []
     };
 
     // init load
     componentDidMount() {
-        this.fetchData(res => {
-            this.setState({
-                data: res.results
-            });
-        });
+        this.fetchData();
     }
 
-    //
-    fetchData = callback => {
-        reqwest({
-            type: "json",
-            method: "get",
-            contentType: "application/json",
-            success: res => {
-                callback(res);
-            }
-        });
+    fetchData = () => {
+        if (this.state.hasMore) {
+            getOrdersByPagination(
+                this.state.page + 1,
+                this.state.size,
+                (orders, hasMore) => {
+                    console.log(orders);
+                    console.log(hasMore);
+                    this.setState(prevState => {
+                        return {
+                            data: [...prevState.data, ...orders],
+                            hasMore: hasMore,
+                            loading: false,
+                            page: prevState.page + 1
+                        };
+                    });
+                }
+            );
+        }
     };
 
     handleInfiniteOnLoad = () => {
-        let { data } = this.state;
         this.setState({
             loading: true
         });
-        // uncomment this when fetch real data
-        // if (data.length > 6) {
-        //   message.warning('Finished load all Orders');
-        //   this.setState({
-        //     hasMore: false,
-        //     loading: false,
-        //   });
-        //   return;
-        // }
-        this.fetchData(res => {
-            data = data.concat(res.results);
-            this.setState({
-                data,
-                loading: false
-            });
-        });
+        this.fetchData();
     };
 
     _showOrderDetail = bool => {
@@ -112,7 +83,7 @@ class OrderList extends Component {
                     >
                         <List
                             itemLayout="horizontal"
-                            dataSource={data}
+                            dataSource={this.state.data}
                             renderItem={order => (
                                 <List.Item>
                                     <List.Item.Meta
@@ -124,8 +95,9 @@ class OrderList extends Component {
                                                 icon={this.setAvatar(order)}
                                             />
                                         }
-                                        title={order.title}
-                                        description={order.description}
+                                        //TODO: fix format
+                                        title={`Price: \$ ${parseFloat(order.price).toFixed(2)}`}
+                                        description={`From: ${order.pickUpAddress.address} To: ${order.shippingAddress.address}`}
                                     />
                                     <div>
                                         <Button
