@@ -60,6 +60,9 @@ public class CheckoutService implements CheckoutInterface {
             if (order.getType().equals("car")) {
                 order.setPrice(priceCalculator.carPrice(addressToString.conversion(order.getPickUpAddress()),
                         addressToString.conversion(order.getShippingAddress())));
+            } else {
+                order.setPrice(priceCalculator.dronePrice(addressToString.conversion(order.getPickUpAddress()),
+                        addressToString.conversion(order.getShippingAddress())));
             }
             orderRepository.save(order);
         } catch (Exception e) {
