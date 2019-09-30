@@ -93,6 +93,7 @@ class OrderPanel extends Component {
                         "Sorry! Something went wrong. Please try again!"
                 });
             });
+        this.handleCloseModal();
     };
     handleGetPrice = e => {
         if (!this.state.destinationAddress) {
