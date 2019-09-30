@@ -61,7 +61,7 @@ export const requestText = (options) => {
  * @param {TPriceCallback} callback callback function: put response handling here
  */
 export function getPriceAndTime(dest, orig, callback) {
-    let fetchURL = "/ec/price?dest=" + dest + "&orig=" + orig;
+    let fetchURL = "/price?dest=" + dest + "&orig=" + orig;
     fetch(fetchURL)
         .then(response => response.json())
         .then(data => callback(data));
@@ -76,7 +76,7 @@ export function getPriceAndTime(dest, orig, callback) {
  * @param {TGetOrdersByPagiCb} callback input arguments: orders: an array of order; hasNext: has next page
  */
 export function getOrdersByPagination(page, size, callback) {
-    let fetchURL = "/ec/order?page=" + page + "&size=" + size;
+    let fetchURL = "/order?page=" + page + "&size=" + size;
     fetch(fetchURL)
         .then(response => response.json())
         .then(data => callback(data.orders,data.hasNext))               
@@ -88,7 +88,7 @@ export function getOrdersByPagination(page, size, callback) {
  * @param {*} callback 
  */
 export function getOrderById(id, callback) {
-    let fetchURL = "/ec/order/" + id;
+    let fetchURL = "/order/" + id;
     fetch(fetchURL)
         .then(response => response.json())
         .then(data => callback(data));
@@ -96,7 +96,7 @@ export function getOrderById(id, callback) {
 
 export function register(regInfo) {
     return request({
-        url:'/ec/signup',
+        url:'/signup',
         method: 'POST',
         body: JSON.stringify(regInfo)
     })
@@ -104,7 +104,7 @@ export function register(regInfo) {
 
 export function login(loginInfo) {
     return request({
-        url:'/ec/signin',
+        url:'/signin',
         method: 'POST',
         body: JSON.stringify(loginInfo)
     })
@@ -113,7 +113,7 @@ export function login(loginInfo) {
 /** @returns {Promise} */
 export function checkout(order) {
     return requestText({
-        url:'/ec/checkout',
+        url:'/checkout',
         method: 'PUT',
         body: JSON.stringify(order)
     })
