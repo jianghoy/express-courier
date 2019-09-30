@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Menu, Icon, Button } from "antd";
 import { NavLink } from "react-router-dom";
+import { withRouter } from "react-router";
 const { SubMenu } = Menu;
 
-export default class NavBar extends Component {
+class NavBarWithRouter extends Component {
     state = {
         current: null
     };
@@ -34,7 +35,7 @@ export default class NavBar extends Component {
             );
         } else {
             var userMenu = (
-                <Menu.Item key="login"> 
+                <Menu.Item key="login">
                     <NavLink to="/login">Login</NavLink>
                 </Menu.Item>
             );
@@ -46,7 +47,11 @@ export default class NavBar extends Component {
                 selectedKeys={[this.state.current]}
                 mode="horizontal"
             >
-                <Button href="/">
+                <Button
+                    onClick={() => {
+                        this.props.history.push("/");
+                    }}
+                >
                     <Icon type="github"></Icon>
                 </Button>
                 <Menu.Item key="carinfo">
@@ -60,23 +65,10 @@ export default class NavBar extends Component {
                     <NavLink to="/help">Help</NavLink>
                 </Menu.Item>
                 {userMenu}
-                {/* <SubMenu
-                    className="login"
-                    key="login"
-                    title={
-                        <span className="submenu-title-wrapper">
-                            <NavLink to="/login">Login</NavLink>
-                        </span>
-                    }
-                >
-                    <Menu.Item key="orderList">
-                        <NavLink to="/orderList">Order Status</NavLink>
-                    </Menu.Item>
-                    <Menu.Item key="logOut">
-                        <NavLink to="/logout">Logout</NavLink>
-                    </Menu.Item>
-                </SubMenu> */}
             </Menu>
         );
     }
 }
+
+const NavBar = withRouter(NavBarWithRouter);
+export default NavBar;
