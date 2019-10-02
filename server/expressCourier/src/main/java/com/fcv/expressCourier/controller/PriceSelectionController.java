@@ -1,11 +1,13 @@
 package com.fcv.expressCourier.controller;
 
 
+import com.fcv.expressCourier.payload.PricePlan;
 import com.fcv.expressCourier.services.priceCalculator.PriceCalculator;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -17,33 +19,17 @@ public class PriceSelectionController {
     }
 
     @RequestMapping(value = "/price", method = RequestMethod.GET, produces = "application/json")
-    public List<PricePlan> prices(@RequestParam(name = "orig", defaultValue = "SFO") String orig,
-                               @RequestParam(name = "dest", defaultValue = "SFO") String dest) {
-        double dronePrice = priceCalculator.dronePrice(orig, dest);
-        double carPrice = priceCalculator.carPrice(orig, dest);
+    public List<PricePlan> prices(@RequestParam(name = "orig") String orig,
+                                  @RequestParam(name = "dest") String dest) {
+        if (orig == null || orig.isEmpty() || dest == null || dest.isEmpty()) {
+            return null;
+        }
         List<PricePlan> resultList = new ArrayList<>();
-        resultList.add(new PricePlan(carPrice,"Car"));
-        resultList.add(new PricePlan(dronePrice,"Drone"));
+        resultList.add(priceCalculator.carPricePlan(orig,dest));
+        resultList.add(priceCalculator.dronePricePlan(orig, dest));
         return resultList;
 
     }
 
 }
 
-class PricePlan implements Serializable {
-    private double price;
-    private String type;
-
-    PricePlan(double price, String type) {
-        this.price = price;
-        this.type = type;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public String getType() {
-        return type;
-    }
-}

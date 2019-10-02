@@ -2,6 +2,7 @@ package com.fcv.expressCourier.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -14,6 +15,30 @@ public class Robot implements Serializable {
 
     @OneToOne
     private Order currentOrder;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date estimatedIdleTime;
+
+    /**
+     * type: 0:car or 1:drone
+     */
+    private int type;
+
+    private double lat;
+    private double lon;
+    @OneToMany
+    private List<Order> prevOrder;
+
+    @OneToMany
+    private List<Order> todoOrder;
+
+    @ManyToOne
+    @JoinColumn(name = "warehouse_id")
+    private WareHouse wareHouse;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date posTime;
+
 
     public Order getCurrentOrder() {
         return currentOrder;
@@ -63,21 +88,30 @@ public class Robot implements Serializable {
         this.lon = lon;
     }
 
-    @OneToMany
-    private List<Order> prevOrder;
 
-    @OneToMany
-    private List<Order> todoOrder;
+    public WareHouse getWareHouse() {
+        return wareHouse;
+    }
 
+    public void setWareHouse(WareHouse wareHouse) {
+        this.wareHouse = wareHouse;
+    }
 
+    public Date getPosTime() {
+        return posTime;
+    }
 
-    /**
-     * type: 0:car or 1:drone
-     */
-    private int type;
+    public void setPosTime(Date posTime) {
+        this.posTime = posTime;
+    }
 
-    private double lat;
-    private double lon;
+    public Date getEstimatedIdleTime() {
+        return estimatedIdleTime;
+    }
+
+    public void setEstimatedIdleTime(Date estimatedIdleTime) {
+        this.estimatedIdleTime = estimatedIdleTime;
+    }
 
     public int getId() {
         return id;

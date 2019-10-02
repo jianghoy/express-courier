@@ -1,7 +1,15 @@
 package com.fcv.expressCourier.services.priceCalculator;
 
 import java.io.IOException;
-import org.json.JSONException;
+import java.util.Date;
+
+import com.fcv.expressCourier.models.Robot;
+import com.fcv.expressCourier.models.WareHouse;
+import com.fcv.expressCourier.payload.PricePlan;
+import com.fcv.expressCourier.services.location.Location;
+import com.fcv.expressCourier.services.location.LocationService;
+import com.fcv.expressCourier.services.robotManagement.RobotsQuery;
+import com.fcv.expressCourier.services.warehouseQueryService.WarehouseQuery;
 import org.json.JSONObject;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -11,14 +19,35 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 // TODO: use modern library for json parsing;
 
+/**
+ * ALL DISTANCE UNIT IS METER!
+ */
 @PropertySource("classpath:secret.properties")
 @Service
 public class MatrixAPI implements PriceCalculator {
 
-    @Value("${api.key}")
+    @Value("${key.google}")
     private String API_KEY;
 
+    @Value("${base_price.car}")
+    private double CAR_BASE_PRICE;
+
+    @Value("${base_price.drone}")
+    private double DRONE_BASE_PRICE;
+
+    @Value("${speed.mps.demo.drone}")
+    private double DRONE_SPEED;
+
+    private final LocationService locationService;
+    private final WarehouseQuery warehouseQuery;
+    private final RobotsQuery robotsQuery;
     private OkHttpClient client = new OkHttpClient();
+
+    public MatrixAPI(LocationService locationService, WarehouseQuery warehouseQuery,RobotsQuery robotsQuery) {
+        this.locationService = locationService;
+        this.warehouseQuery = warehouseQuery;
+        this.robotsQuery = robotsQuery;
+    }
 
     private String run(String url) throws IOException {
         Request request = new Request.Builder().url(url).build();
@@ -42,7 +71,7 @@ public class MatrixAPI implements PriceCalculator {
         }
         // String output = response(["data"]["row"][0]["element"]["distance"]["text"]);
         String value;
-        try{
+        try {
             JSONObject jsonRespRouteDistance = new JSONObject(response)
                     .getJSONArray("rows")
                     .getJSONObject(0)
@@ -50,77 +79,54 @@ public class MatrixAPI implements PriceCalculator {
                     .getJSONObject(0)
                     .getJSONObject("distance");
             value = jsonRespRouteDistance.get("value").toString();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return -1;
         }
 
-        return Integer.parseInt(value) * 0.0006;
+        return Integer.parseInt(value) * CAR_BASE_PRICE;
     }
 
     @Override
     public double dronePrice(String origin, String destination) {
 
-        double[] initLocation;
-        double[] finalLocation;
-        try {
-            initLocation = geoLocation(origin);
-            finalLocation = geoLocation(destination);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return -1;
+        Location origLocation = locationService.getLatLon(origin);
+        Location destLocation = locationService.getLatLon(destination);
+        double dist = locationService.straightLineDistInMeter(origLocation,destLocation);
+        return dist * DRONE_BASE_PRICE;
+    }
+
+    @Override
+    public PricePlan dronePricePlan(String origin, String destination) {
+
+        Location origLocation = locationService.getLatLon(origin);
+        Location destLocation = locationService.getLatLon(destination);
+        double dist = locationService.straightLineDistInMeter(origLocation,destLocation);
+
+        // find nearest warehouse
+        WareHouse nearestWareHouse = warehouseQuery.nearestWarehouseInStraightLine(origLocation);
+        Location nearestWareHouseLocation = new Location(nearestWareHouse.getWareHouseAddress().getLatitude(),
+                nearestWareHouse.getWareHouseAddress().getLongtitude());
+
+        //get robot
+        Robot firstAvailableRobot = robotsQuery.findEarliestAvailableDroneInWarehouse(nearestWareHouse);
+
+        double pickupDist = locationService.straightLineDistInMeter(origLocation,nearestWareHouseLocation);
+        double deliveryDist = locationService.straightLineDistInMeter(origLocation,destLocation);
+        Date firstAvailableTime = new Date();
+        if (firstAvailableTime.compareTo(firstAvailableRobot.getEstimatedIdleTime()) < 0) {
+            firstAvailableTime = firstAvailableRobot.getEstimatedIdleTime();
         }
-        double dist = straightLineDistance(initLocation, finalLocation);
-        return dist * 0.0006;
+        Date estPickupTime = new Date(firstAvailableTime.getTime() + (long)(pickupDist / DRONE_SPEED * 1000));
+        Date estDeliveryTime = new Date(estPickupTime.getTime() + (long)(deliveryDist / DRONE_SPEED * 1000));
+        return new PricePlan(deliveryDist * DRONE_BASE_PRICE,"drone",estPickupTime,estDeliveryTime);
+
     }
 
-    private double[] geoLocation(String location) throws JSONException {
-        String url_request = "https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=" + API_KEY;
-        String response = null;
-        try {
-            response = run(url_request);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // String output = response(["data"]["row"][0]["element"]["distance"]["text"]);
-        JSONObject jsonRespRoute;
-        jsonRespRoute = new JSONObject(response)
-                .getJSONArray("results")
-                .getJSONObject(0)
-                .getJSONObject("geometry")
-                .getJSONObject("location");
-        double latitude = Double.parseDouble(jsonRespRoute.get("lat").toString());
-        double longitude = Double.parseDouble(jsonRespRoute.get("lng").toString());
+    @Override
+    public PricePlan carPricePlan(String origin, String destination) {
 
-
-        //System.out.println("lan=" + latitude + "lon=" + longitude);
-        return new double[]{latitude, longitude};
+        return new PricePlan(carPrice(origin,destination),"car",null,null);
     }
 
-    private double straightLineDistance(double[] loc1, double[] loc2) {
-
-        double lat1 = loc1[0];
-        double lon1 = loc1[1];
-        double lat2 = loc2[0];
-        double lon2 = loc2[1];
-
-        if ((lat1 == lat2) && (lon1 == lon2)) {
-            return 0;
-        } else {
-            double theta = lon1 - lon2;
-            double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2)) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
-            dist = Math.acos(dist);
-            dist = Math.toDegrees(dist);
-            dist = dist * 60 * 1.1515;  // by default: miles
-            dist = dist * 1.609344 * 1000;     // covert miles to m
-            return dist;
-        }
-    }
-
-    public static void main(String[] args) {
-
-        MatrixAPI matrix = new MatrixAPI();
-        System.out.println(matrix.carPrice("UTD", "Church in Dallas"));
-        System.out.println(matrix.dronePrice("UTD", "Church in Dallas"));
-    }
 }

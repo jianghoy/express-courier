@@ -13,8 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(PriceSelectionController.class)
+//@RunWith(SpringRunner.class)
+//@WebMvcTest(PriceSelectionController.class)
 public class PriceSelectionControllerTest {
     // a fake client
     @Autowired

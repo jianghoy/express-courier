@@ -18,8 +18,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(OrderController.class)
+//@RunWith(SpringRunner.class)
+//@WebMvcTest(OrderController.class)
 public class OrderControllerTest {
 
     @Autowired

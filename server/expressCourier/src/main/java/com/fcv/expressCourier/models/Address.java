@@ -17,6 +17,26 @@ public class Address implements Serializable {
     private String state;
     private String zipCode;
     private String country;
+
+    private double latitude;
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongtitude() {
+        return longtitude;
+    }
+
+    public void setLongtitude(double longtitude) {
+        this.longtitude = longtitude;
+    }
+
+    private double longtitude;
 //  remove now
 //    @ManyToOne
 //    private Customer customer;
