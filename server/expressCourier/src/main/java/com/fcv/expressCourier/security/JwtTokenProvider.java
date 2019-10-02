@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Component
 @PropertySource("classpath:secret.properties")
-public class JwtTokenProvider {
+public class  JwtTokenProvider {
 
     private static final Logger logger =
             LoggerFactory.getLogger(JwtTokenProvider.class);
