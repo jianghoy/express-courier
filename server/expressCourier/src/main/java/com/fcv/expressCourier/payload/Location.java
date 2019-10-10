@@ -1,4 +1,4 @@
-package com.fcv.expressCourier.services.location;
+package com.fcv.expressCourier.payload;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package com.fcv.expressCourier.services.robotManagement;
+package com.fcv.expressCourier.services.initialization;
 
 import com.fcv.expressCourier.dao.WareHouseRepository;
 import com.fcv.expressCourier.models.Address;

@@ -1,5 +1,6 @@
 package com.fcv.expressCourier.services.location;
 
+import com.fcv.expressCourier.payload.Location;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

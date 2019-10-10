@@ -1,4 +1,4 @@
-package com.fcv.expressCourier.services.deliveryManagement;
+package com.fcv.expressCourier.services.order;
 
 import com.fcv.expressCourier.dao.CustomerRepository;
 import com.fcv.expressCourier.dao.OrderRepository;
@@ -8,11 +8,14 @@ import com.fcv.expressCourier.models.Customer;
 import com.fcv.expressCourier.models.Order;
 import com.fcv.expressCourier.models.User;
 import com.fcv.expressCourier.security.UserPrincipal;
+import com.fcv.expressCourier.services.operation.RobotAssignmentInterface;
 import com.fcv.expressCourier.services.priceCalculator.PriceCalculator;
-import com.fcv.expressCourier.utils.AddressToString;
+import com.fcv.expressCourier.services.utils.AddressToString;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+import static com.fcv.expressCourier.services.utils.AddressToString.conversion;
 
 @Service
 public class CheckoutService implements CheckoutInterface {
@@ -58,11 +61,11 @@ public class CheckoutService implements CheckoutInterface {
             order.setStatus("waiting to be scheduled");
 
             if (order.getType().equals("car")) {
-                order.setPrice(priceCalculator.carPrice(addressToString.conversion(order.getPickUpAddress()),
-                        addressToString.conversion(order.getShippingAddress())));
+                order.setPrice(priceCalculator.carPrice(conversion(order.getPickUpAddress()),
+                        conversion(order.getShippingAddress())));
             } else {
-                order.setPrice(priceCalculator.dronePrice(addressToString.conversion(order.getPickUpAddress()),
-                        addressToString.conversion(order.getShippingAddress())));
+                order.setPrice(priceCalculator.dronePrice(conversion(order.getPickUpAddress()),
+                        conversion(order.getShippingAddress())));
             }
             orderRepository.save(order);
         } catch (Exception e) {

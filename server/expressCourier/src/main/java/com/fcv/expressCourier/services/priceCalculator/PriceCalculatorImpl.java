@@ -6,10 +6,10 @@ import java.util.Date;
 import com.fcv.expressCourier.models.Robot;
 import com.fcv.expressCourier.models.WareHouse;
 import com.fcv.expressCourier.payload.PricePlan;
-import com.fcv.expressCourier.services.location.Location;
+import com.fcv.expressCourier.payload.Location;
 import com.fcv.expressCourier.services.location.LocationService;
-import com.fcv.expressCourier.services.robotManagement.RobotsQuery;
-import com.fcv.expressCourier.services.warehouseQueryService.WarehouseQuery;
+import com.fcv.expressCourier.services.robot.RobotsQuery;
+import com.fcv.expressCourier.services.warehouse.WarehouseQuery;
 import org.json.JSONObject;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
  */
 @PropertySource("classpath:secret.properties")
 @Service
-public class MatrixAPI implements PriceCalculator {
+public class PriceCalculatorImpl implements PriceCalculator {
 
     @Value("${key.google}")
     private String API_KEY;
@@ -43,7 +43,7 @@ public class MatrixAPI implements PriceCalculator {
     private final RobotsQuery robotsQuery;
     private OkHttpClient client = new OkHttpClient();
 
-    public MatrixAPI(LocationService locationService, WarehouseQuery warehouseQuery,RobotsQuery robotsQuery) {
+    public PriceCalculatorImpl(LocationService locationService, WarehouseQuery warehouseQuery, RobotsQuery robotsQuery) {
         this.locationService = locationService;
         this.warehouseQuery = warehouseQuery;
         this.robotsQuery = robotsQuery;
