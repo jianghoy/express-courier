@@ -76,6 +76,31 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public double roadDistInMeter(String origin, String destination) {
-        return 0;
+        String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="
+                + origin + "&destinations="
+                + destination + "&departure_time=now&key=" + API_KEY;
+        String response;
+        try {
+            response = sendReq(url_request);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1;
+        }
+        // String output = response(["data"]["row"][0]["element"]["distance"]["text"]);
+        double value;
+        try {
+            JSONObject jsonRespRouteDistance = new JSONObject(response)
+                    .getJSONArray("rows")
+                    .getJSONObject(0)
+                    .getJSONArray("elements")
+                    .getJSONObject(0)
+                    .getJSONObject("distance");
+            value = (double) jsonRespRouteDistance.get("value");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+        return value;
+
     }
 }

@@ -41,7 +41,6 @@ public class PriceCalculatorImpl implements PriceCalculator {
     private final LocationService locationService;
     private final WarehouseQuery warehouseQuery;
     private final RobotsQuery robotsQuery;
-    private OkHttpClient client = new OkHttpClient();
 
     public PriceCalculatorImpl(LocationService locationService, WarehouseQuery warehouseQuery, RobotsQuery robotsQuery) {
         this.locationService = locationService;
@@ -49,42 +48,10 @@ public class PriceCalculatorImpl implements PriceCalculator {
         this.robotsQuery = robotsQuery;
     }
 
-    private String run(String url) throws IOException {
-        Request request = new Request.Builder().url(url).build();
-
-        Response response = client.newCall(request).execute();
-        return response.body().string();
-
-    }
-
     @Override
     public double carPrice(String origin, String destination) {
 
-        String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origin + "&destinations="
-                + destination + "&departure_time=now&key=" + API_KEY;
-        String response;
-        try {
-            response = run(url_request);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return -1;
-        }
-        // String output = response(["data"]["row"][0]["element"]["distance"]["text"]);
-        String value;
-        try {
-            JSONObject jsonRespRouteDistance = new JSONObject(response)
-                    .getJSONArray("rows")
-                    .getJSONObject(0)
-                    .getJSONArray("elements")
-                    .getJSONObject(0)
-                    .getJSONObject("distance");
-            value = jsonRespRouteDistance.get("value").toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
-        }
-
-        return Integer.parseInt(value) * CAR_BASE_PRICE;
+        return locationService.roadDistInMeter(origin,destination);
     }
 
     @Override
