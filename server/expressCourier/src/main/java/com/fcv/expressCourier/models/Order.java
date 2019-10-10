@@ -25,10 +25,6 @@ public class Order implements Serializable {
     Robot robot;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany
-    List<Item> items;
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToOne
     @JoinColumn(name = "costomer_id")
     private Customer customer;
@@ -79,14 +75,6 @@ public class Order implements Serializable {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
     }
 
     public Robot getRobot() {

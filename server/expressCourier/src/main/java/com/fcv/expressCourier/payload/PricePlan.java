@@ -1,5 +1,8 @@
 package com.fcv.expressCourier.payload;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fcv.expressCourier.models.Robot;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,12 +12,22 @@ public class PricePlan implements Serializable {
     private String type;
     private Date estimatedPickupTime;
     private Date estimatedDeliveryTime;
+    @JsonIgnore
+    private Robot robot;
 
     public PricePlan(double price, String type, Date estimatedPickupTime, Date estimatedDeliveryTime) {
         this.price = price;
         this.type = type;
         this.estimatedPickupTime = estimatedPickupTime;
         this.estimatedDeliveryTime = estimatedDeliveryTime;
+    }
+
+    public PricePlan(double price, String type, Date estimatedPickupTime, Date estimatedDeliveryTime, Robot robot) {
+        this.price = price;
+        this.type = type;
+        this.estimatedPickupTime = estimatedPickupTime;
+        this.estimatedDeliveryTime = estimatedDeliveryTime;
+        this.robot = robot;
     }
 
     public Date getEstimatedPickupTime() {
@@ -44,6 +57,14 @@ public class PricePlan implements Serializable {
 
     public String getType() {
         return type;
+    }
+
+    public Robot getRobot() {
+        return robot;
+    }
+
+    public void setRobot(Robot robot) {
+        this.robot = robot;
     }
 }
 

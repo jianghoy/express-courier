@@ -1,5 +1,6 @@
 package com.fcv.expressCourier.services.location;
 
+import com.fcv.expressCourier.payload.LatLon;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -28,7 +29,7 @@ public class LocationServiceImpl implements LocationService {
 
     }
     @Override
-    public Location getLatLon(String address) {
+    public LatLon getLatLon(String address) {
         String url_request = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + API_KEY;
         String response = null;
         try {
@@ -53,11 +54,11 @@ public class LocationServiceImpl implements LocationService {
             return null;
         }
 
-        return new Location(latitude,longitude);
+        return new LatLon(latitude,longitude);
     }
 
     @Override
-    public double straightLineDistInMeter(Location latLonOne, Location latLonTwo) {
+    public double straightLineDistInMeter(LatLon latLonOne, LatLon latLonTwo) {
         if (latLonOne.equals(latLonTwo)) {
             return 0;
         } else {

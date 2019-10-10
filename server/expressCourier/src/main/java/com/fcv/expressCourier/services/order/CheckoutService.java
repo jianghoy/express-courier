@@ -1,14 +1,12 @@
-package com.fcv.expressCourier.services.deliveryManagement;
+package com.fcv.expressCourier.services.order;
 
 import com.fcv.expressCourier.dao.CustomerRepository;
 import com.fcv.expressCourier.dao.OrderRepository;
 import com.fcv.expressCourier.dao.UserRepository;
-import com.fcv.expressCourier.models.Address;
-import com.fcv.expressCourier.models.Customer;
-import com.fcv.expressCourier.models.Order;
-import com.fcv.expressCourier.models.User;
+import com.fcv.expressCourier.models.*;
 import com.fcv.expressCourier.security.UserPrincipal;
-import com.fcv.expressCourier.services.priceCalculator.PriceCalculator;
+import com.fcv.expressCourier.services.operation.ScheduleInterface;
+import com.fcv.expressCourier.services.price.PriceCalculator;
 import com.fcv.expressCourier.utils.AddressToString;
 import org.springframework.stereotype.Service;
 
@@ -19,19 +17,18 @@ public class CheckoutService implements CheckoutInterface {
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
     private final UserRepository userRepository;
-    private final RobotAssignmentInterface robotAssignmentInterface;
+    private final ScheduleInterface scheduleInterface;
     private final PriceCalculator priceCalculator;
-    private final AddressToString addressToString;
+    private final ScheduleInterface schedule;
 
 
-    public CheckoutService(OrderRepository orderRepository, RobotAssignmentInterface robotAssignmentInterface, UserRepository userRepository, CustomerRepository customerRepository, UserRepository userRepository1, PriceCalculator priceCalculator, AddressToString addressToString) {
+    public CheckoutService(OrderRepository orderRepository, ScheduleInterface scheduleInterface, UserRepository userRepository, CustomerRepository customerRepository, UserRepository userRepository1, PriceCalculator priceCalculator, AddressToString addressToString, ScheduleInterface schedule) {
         this.orderRepository = orderRepository;
-        this.robotAssignmentInterface = robotAssignmentInterface;
+        this.scheduleInterface = scheduleInterface;
         this.customerRepository = customerRepository;
-
         this.userRepository = userRepository1;
         this.priceCalculator = priceCalculator;
-        this.addressToString = addressToString;
+        this.schedule = schedule;
     }
 
     @Override
@@ -48,7 +45,7 @@ public class CheckoutService implements CheckoutInterface {
     @Override
     public boolean placeOrder(Order order, UserPrincipal currentUser){
         try {
-            //order.setRobot(robotAssignmentInterface.findRobot(order));
+            //order.setRobot(scheduleInterface.findRobot(order));
             Optional<User> u = userRepository.findByNameOrEmail(currentUser.getEmail(),currentUser.getEmail());
             if (!u.isPresent()) {
                 return false;
@@ -56,15 +53,8 @@ public class CheckoutService implements CheckoutInterface {
             Customer c = u.get().getCustomer();
             order.setCustomer(c);
             order.setStatus("waiting to be scheduled");
-
-            if (order.getType().equals("car")) {
-                order.setPrice(priceCalculator.carPrice(addressToString.conversion(order.getPickUpAddress()),
-                        addressToString.conversion(order.getShippingAddress())));
-            } else {
-                order.setPrice(priceCalculator.dronePrice(addressToString.conversion(order.getPickUpAddress()),
-                        addressToString.conversion(order.getShippingAddress())));
-            }
-            orderRepository.save(order);
+            order = orderRepository.save(order);
+            schedule.assignRobotToOrder(order);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
