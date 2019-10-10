@@ -5,4 +5,5 @@ import com.fcv.expressCourier.payload.Location;
 public interface LocationService {
     Location getLatLon(String address);
     double straightLineDistInMeter(Location latLonOne, Location latLonTwo);
+    double roadDistInMeter(String origin,String destination);
 }

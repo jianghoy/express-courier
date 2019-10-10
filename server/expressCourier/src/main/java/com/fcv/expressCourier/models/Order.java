@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -33,17 +34,64 @@ public class Order implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Address shippingAddress;
 
-//    @OneToOne
-//    private WareHouse wareHouse;
-
     @OneToOne
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Address pickUpAddress;
 
-    @OneToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private Address billingAddress;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date generatedTimestamp;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date expectedPickUpTimestamp;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date expectedDeliveryTimestamp;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date actuallPickUpTimestamp;
+
+    public Date getGeneratedTimestamp() {
+        return generatedTimestamp;
+    }
+
+    public void setGeneratedTimestamp(Date generatedTimestamp) {
+        this.generatedTimestamp = generatedTimestamp;
+    }
+
+    public Date getExpectedPickUpTimestamp() {
+        return expectedPickUpTimestamp;
+    }
+
+    public void setExpectedPickUpTimestamp(Date expectedPickUpTimestamp) {
+        this.expectedPickUpTimestamp = expectedPickUpTimestamp;
+    }
+
+    public Date getExpectedDeliveryTimestamp() {
+        return expectedDeliveryTimestamp;
+    }
+
+    public void setExpectedDeliveryTimestamp(Date expectedDeliveryTimestamp) {
+        this.expectedDeliveryTimestamp = expectedDeliveryTimestamp;
+    }
+
+    public Date getActuallPickUpTimestamp() {
+        return actuallPickUpTimestamp;
+    }
+
+    public void setActuallPickUpTimestamp(Date actuallPickUpTimestamp) {
+        this.actuallPickUpTimestamp = actuallPickUpTimestamp;
+    }
+
+    public Date getActualDeliveryTimestamp() {
+        return actualDeliveryTimestamp;
+    }
+
+    public void setActualDeliveryTimestamp(Date actualDeliveryTimestamp) {
+        this.actualDeliveryTimestamp = actualDeliveryTimestamp;
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date actualDeliveryTimestamp;
 
     public int getId() {
         return id;
@@ -92,22 +140,6 @@ public class Order implements Serializable {
     public void setShippingAddress(Address shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
-
-    public Address getBillingAddress() {
-        return billingAddress;
-    }
-
-    public void setBillingAddress(Address billingAddress) {
-        this.billingAddress = billingAddress;
-    }
-
-//    public WareHouse getWareHouse() {
-//        return wareHouse;
-//    }
-//
-//    public void setWareHouse(WareHouse wareHouse) {
-//        this.wareHouse = wareHouse;
-//    }
 
     public Address getPickUpAddress() {
         return pickUpAddress;

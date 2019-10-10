@@ -13,6 +13,7 @@ import com.fcv.expressCourier.services.priceCalculator.PriceCalculator;
 import com.fcv.expressCourier.services.utils.AddressToString;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 import static com.fcv.expressCourier.services.utils.AddressToString.conversion;
@@ -56,6 +57,7 @@ public class CheckoutService implements CheckoutInterface {
             }
             Customer c = u.get().getCustomer();
             order.setCustomer(c);
+            order.setGeneratedTimestamp(new Date());
             order.setStatus("waiting to be scheduled");
 
             order = orderRepository.save(order);

@@ -101,7 +101,6 @@ public class PriceCalculatorImpl implements PriceCalculator {
 
         Location origLocation = locationService.getLatLon(origin);
         Location destLocation = locationService.getLatLon(destination);
-        double dist = locationService.straightLineDistInMeter(origLocation,destLocation);
 
         // find nearest warehouse
         WareHouse nearestWareHouse = warehouseQuery.nearestWarehouseInStraightLine(origLocation);
@@ -113,20 +112,33 @@ public class PriceCalculatorImpl implements PriceCalculator {
 
         double pickupDist = locationService.straightLineDistInMeter(origLocation,nearestWareHouseLocation);
         double deliveryDist = locationService.straightLineDistInMeter(origLocation,destLocation);
+        double returnDist = locationService.straightLineDistInMeter(destLocation,nearestWareHouseLocation);
+
         Date firstAvailableTime = new Date();
         if (firstAvailableTime.compareTo(firstAvailableRobot.getEstimatedIdleTime()) < 0) {
             firstAvailableTime = firstAvailableRobot.getEstimatedIdleTime();
         }
         Date estPickupTime = new Date(firstAvailableTime.getTime() + (long)(pickupDist / DRONE_SPEED * 1000));
         Date estDeliveryTime = new Date(estPickupTime.getTime() + (long)(deliveryDist / DRONE_SPEED * 1000));
-        return new PricePlan(deliveryDist * DRONE_BASE_PRICE,"drone",estPickupTime,estDeliveryTime,firstAvailableRobot);
+        Date estReturnTime = new Date(estDeliveryTime.getTime() + (long)(returnDist / DRONE_SPEED * 1000));
 
+        double price = deliveryDist * DRONE_BASE_PRICE;
+        PricePlan plan = new PricePlan();
+        plan.setPrice(price);
+        plan.setEstimatedDeliveryTime(estDeliveryTime);
+        plan.setEstimatedPickupTime(estPickupTime);
+        plan.setEstimatedReturnTime(estReturnTime);
+        plan.setRobot(firstAvailableRobot);
+        plan.setType("drone");
+        return plan;
     }
 
     @Override
     public PricePlan carPricePlan(String origin, String destination) {
-
-        return new PricePlan(carPrice(origin,destination),"car",null,null);
+        PricePlan plan = new PricePlan();
+        plan.setPrice(carPrice(origin,destination));
+        plan.setType("car");
+        return plan;
     }
 
 }

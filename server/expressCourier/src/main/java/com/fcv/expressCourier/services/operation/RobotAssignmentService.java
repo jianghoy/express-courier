@@ -37,6 +37,8 @@ public class RobotAssignmentService implements RobotAssignmentInterface {
         }
         o.setRobot(plan.getRobot());
         o.setPrice(plan.getPrice());
+        o.setExpectedPickUpTimestamp(plan.getEstimatedPickupTime());
+        o.setExpectedDeliveryTimestamp(plan.getEstimatedDeliveryTime());
         o.setStatus("scheduled");
         orderRepository.save(o);
         return true;

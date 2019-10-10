@@ -12,23 +12,27 @@ public class PricePlan implements Serializable {
     private String type;
     private Date estimatedPickupTime;
     private Date estimatedDeliveryTime;
+    private Date estimatedReturnTime;
     @JsonIgnore
     private Robot robot;
 
-    public PricePlan(double price, String type, Date estimatedPickupTime, Date estimatedDeliveryTime) {
+    public void setPrice(double price) {
         this.price = price;
-        this.type = type;
-        this.estimatedPickupTime = estimatedPickupTime;
-        this.estimatedDeliveryTime = estimatedDeliveryTime;
     }
 
-    public PricePlan(double price, String type, Date estimatedPickupTime, Date estimatedDeliveryTime, Robot robot) {
-        this.price = price;
+    public void setType(String type) {
         this.type = type;
-        this.estimatedPickupTime = estimatedPickupTime;
-        this.estimatedDeliveryTime = estimatedDeliveryTime;
-        this.robot = robot;
     }
+
+    public Date getEstimatedReturnTime() {
+        return estimatedReturnTime;
+    }
+
+    public void setEstimatedReturnTime(Date estimatedReturnTime) {
+        this.estimatedReturnTime = estimatedReturnTime;
+    }
+
+    public PricePlan() {}
 
     public Date getEstimatedPickupTime() {
         return estimatedPickupTime;
@@ -44,11 +48,6 @@ public class PricePlan implements Serializable {
 
     public void setEstimatedDeliveryTime(Date estimatedDeliveryTime) {
         this.estimatedDeliveryTime = estimatedDeliveryTime;
-    }
-
-    PricePlan(double price, String type) {
-        this.price = price;
-        this.type = type;
     }
 
     public double getPrice() {

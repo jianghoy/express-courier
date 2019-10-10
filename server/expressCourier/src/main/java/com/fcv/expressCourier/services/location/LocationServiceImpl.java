@@ -73,4 +73,9 @@ public class LocationServiceImpl implements LocationService {
             return dist;
         }
     }
+
+    @Override
+    public double roadDistInMeter(String origin, String destination) {
+        return 0;
+    }
 }
