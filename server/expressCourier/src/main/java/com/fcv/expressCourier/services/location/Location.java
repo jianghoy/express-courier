@@ -1,13 +1,12 @@
-package com.fcv.expressCourier.payload;
+package com.fcv.expressCourier.services.location;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class LatLon implements Serializable {
+public class Location {
     double latitude;
     double longitude;
 
-    public LatLon(double latitude, double longitude) {
+    public Location(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -32,9 +31,9 @@ public class LatLon implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        LatLon latLon = (LatLon) o;
-        return Double.compare(latLon.latitude, latitude) == 0 &&
-                Double.compare(latLon.longitude, longitude) == 0;
+        Location location = (Location) o;
+        return Double.compare(location.latitude, latitude) == 0 &&
+                Double.compare(location.longitude, longitude) == 0;
     }
 
     @Override

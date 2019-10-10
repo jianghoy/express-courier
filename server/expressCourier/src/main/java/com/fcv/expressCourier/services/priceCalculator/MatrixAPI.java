@@ -1,14 +1,14 @@
-package com.fcv.expressCourier.services.price;
+package com.fcv.expressCourier.services.priceCalculator;
 
 import java.io.IOException;
 import java.util.Date;
 
 import com.fcv.expressCourier.models.Robot;
 import com.fcv.expressCourier.models.WareHouse;
-import com.fcv.expressCourier.payload.LatLon;
 import com.fcv.expressCourier.payload.PricePlan;
+import com.fcv.expressCourier.services.location.Location;
 import com.fcv.expressCourier.services.location.LocationService;
-import com.fcv.expressCourier.services.robot.RobotsQuery;
+import com.fcv.expressCourier.services.robotManagement.RobotsQuery;
 import com.fcv.expressCourier.services.warehouseQueryService.WarehouseQuery;
 import org.json.JSONObject;
 import okhttp3.OkHttpClient;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
  */
 @PropertySource("classpath:secret.properties")
 @Service
-public class PriceCalculatorImpl implements PriceCalculator {
+public class MatrixAPI implements PriceCalculator {
 
     @Value("${key.google}")
     private String API_KEY;
@@ -43,7 +43,7 @@ public class PriceCalculatorImpl implements PriceCalculator {
     private final RobotsQuery robotsQuery;
     private OkHttpClient client = new OkHttpClient();
 
-    public PriceCalculatorImpl(LocationService locationService, WarehouseQuery warehouseQuery, RobotsQuery robotsQuery) {
+    public MatrixAPI(LocationService locationService, WarehouseQuery warehouseQuery,RobotsQuery robotsQuery) {
         this.locationService = locationService;
         this.warehouseQuery = warehouseQuery;
         this.robotsQuery = robotsQuery;
@@ -90,43 +90,43 @@ public class PriceCalculatorImpl implements PriceCalculator {
     @Override
     public double dronePrice(String origin, String destination) {
 
-        LatLon origLatLon = locationService.getLatLon(origin);
-        LatLon destLatLon = locationService.getLatLon(destination);
-        double dist = locationService.straightLineDistInMeter(origLatLon, destLatLon);
+        Location origLocation = locationService.getLatLon(origin);
+        Location destLocation = locationService.getLatLon(destination);
+        double dist = locationService.straightLineDistInMeter(origLocation,destLocation);
         return dist * DRONE_BASE_PRICE;
     }
 
     @Override
     public PricePlan dronePricePlan(String origin, String destination) {
 
-        LatLon origLatLon = locationService.getLatLon(origin);
-        LatLon destLatLon = locationService.getLatLon(destination);
+        Location origLocation = locationService.getLatLon(origin);
+        Location destLocation = locationService.getLatLon(destination);
+        double dist = locationService.straightLineDistInMeter(origLocation,destLocation);
 
         // find nearest warehouse
-        WareHouse nearestWareHouse = warehouseQuery.nearestWarehouseInStraightLine(origLatLon);
-        LatLon nearestWareHouseLatLon = new LatLon(nearestWareHouse.getWareHouseAddress().getLatitude(),
+        WareHouse nearestWareHouse = warehouseQuery.nearestWarehouseInStraightLine(origLocation);
+        Location nearestWareHouseLocation = new Location(nearestWareHouse.getWareHouseAddress().getLatitude(),
                 nearestWareHouse.getWareHouseAddress().getLongtitude());
 
         //get robot
         Robot firstAvailableRobot = robotsQuery.findEarliestAvailableDroneInWarehouse(nearestWareHouse);
 
-        double pickupDist = locationService.straightLineDistInMeter(origLatLon, nearestWareHouseLatLon);
-        double deliveryDist = locationService.straightLineDistInMeter(origLatLon, destLatLon);
+        double pickupDist = locationService.straightLineDistInMeter(origLocation,nearestWareHouseLocation);
+        double deliveryDist = locationService.straightLineDistInMeter(origLocation,destLocation);
         Date firstAvailableTime = new Date();
         if (firstAvailableTime.compareTo(firstAvailableRobot.getEstimatedIdleTime()) < 0) {
             firstAvailableTime = firstAvailableRobot.getEstimatedIdleTime();
         }
         Date estPickupTime = new Date(firstAvailableTime.getTime() + (long)(pickupDist / DRONE_SPEED * 1000));
         Date estDeliveryTime = new Date(estPickupTime.getTime() + (long)(deliveryDist / DRONE_SPEED * 1000));
-        return new PricePlan(deliveryDist * DRONE_BASE_PRICE,"drone",estPickupTime,estDeliveryTime,firstAvailableRobot);
+        return new PricePlan(deliveryDist * DRONE_BASE_PRICE,"drone",estPickupTime,estDeliveryTime);
 
     }
 
-    //TODO: fix this!
     @Override
     public PricePlan carPricePlan(String origin, String destination) {
 
-        return new PricePlan(carPrice(origin,destination),"car",null,null,null);
+        return new PricePlan(carPrice(origin,destination),"car",null,null);
     }
 
 }

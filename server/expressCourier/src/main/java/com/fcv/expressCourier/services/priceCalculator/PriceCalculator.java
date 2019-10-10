@@ -1,4 +1,4 @@
-package com.fcv.expressCourier.services.price;
+package com.fcv.expressCourier.services.priceCalculator;
 
 import com.fcv.expressCourier.payload.PricePlan;
 

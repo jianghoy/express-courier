@@ -1,8 +1,8 @@
 package com.fcv.expressCourier.services.warehouseQueryService;
 
 import com.fcv.expressCourier.models.WareHouse;
-import com.fcv.expressCourier.payload.LatLon;
+import com.fcv.expressCourier.services.location.Location;
 
 public interface WarehouseQuery {
-    WareHouse nearestWarehouseInStraightLine(LatLon latLon);
+    WareHouse nearestWarehouseInStraightLine(Location location);
 }

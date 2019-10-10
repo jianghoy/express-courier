@@ -1,4 +1,4 @@
-package com.fcv.expressCourier.services.initialization;
+package com.fcv.expressCourier.services.robotManagement;
 
 import com.fcv.expressCourier.dao.WareHouseRepository;
 import com.fcv.expressCourier.models.Address;
@@ -64,7 +64,7 @@ public class InitializeRobotsAndWarehouses {
         wareHouseOne.setWareHouseAddress(addressOne);
         List<Robot> robotListOne = new ArrayList<>();
 
-        // generate 5 car for
+        // generate 10 car for
         for (int i = 0; i < 5; i++) {
             Robot robot = new Robot();
             robot.setLat(latOne);

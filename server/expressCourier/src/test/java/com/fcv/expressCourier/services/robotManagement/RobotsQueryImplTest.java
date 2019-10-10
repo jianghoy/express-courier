@@ -1,4 +1,4 @@
-package com.fcv.expressCourier.services.robot;
+package com.fcv.expressCourier.services.robotManagement;
 
 import com.fcv.expressCourier.models.Robot;
 import com.fcv.expressCourier.models.WareHouse;
@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 import java.util.Date;
 
+import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.*;
 
 @RunWith(SpringRunner.class)

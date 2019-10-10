@@ -74,23 +74,19 @@ export function getPriceAndTime(dest, orig, callback) {
 //TODO:wire up APIs
 
 /**
- * get multiple orders based on pagination; the user is get via JWT token
+ * get multiple orders based on pagination; the user is get via session
  * @param {number} page numbers of pages starting from 0
  * @param {number} size how many orders per page
  * @param {TGetOrdersByPagiCb} callback input arguments: orders: an array of order; hasNext: has next page
  */
 export function getOrdersByPagination(page, size, callback) {
-    if (!page) {
-        page = 0;
-    }
-    if (!size) {
-        size = 5;
-    } 
     let fetchURL = "/order?page=" + page + "&size=" + size;
     request({
         url:fetchURL,
-        method: 'GET',
-    }).then(data => callback(data));
+        method:"GET",
+    }).then((body)=>{
+        callback(body.orders,body.hasNext);
+    })
 }
 
 /**
@@ -107,8 +103,8 @@ export function getOrderById(id, callback) {
 
 export function register(regInfo) {
     return request({
-        url:'/signup',
-        method: 'POST',
+        url: "/signup",
+        method: "POST",
         body: JSON.stringify(regInfo)
     });
 }
@@ -124,8 +120,8 @@ export function login(loginInfo) {
 /** @returns {Promise} */
 export function checkout(order) {
     return requestText({
-        url:'/checkout',
-        method: 'PUT',
+        url: "/checkout",
+        method: "PUT",
         body: JSON.stringify(order)
     });
 }

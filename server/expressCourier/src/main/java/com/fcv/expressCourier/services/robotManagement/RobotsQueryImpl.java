@@ -1,4 +1,4 @@
-package com.fcv.expressCourier.services.robot;
+package com.fcv.expressCourier.services.robotManagement;
 
 import com.fcv.expressCourier.models.Robot;
 import com.fcv.expressCourier.models.WareHouse;
