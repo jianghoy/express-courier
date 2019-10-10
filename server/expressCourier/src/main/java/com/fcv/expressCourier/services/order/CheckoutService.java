@@ -22,19 +22,17 @@ public class CheckoutService implements CheckoutInterface {
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
     private final UserRepository userRepository;
-    private final RobotAssignmentInterface robotAssignmentInterface;
+    private final RobotAssignmentInterface robotAssignment;
     private final PriceCalculator priceCalculator;
-    private final AddressToString addressToString;
 
 
-    public CheckoutService(OrderRepository orderRepository, RobotAssignmentInterface robotAssignmentInterface, UserRepository userRepository, CustomerRepository customerRepository, UserRepository userRepository1, PriceCalculator priceCalculator, AddressToString addressToString) {
+    public CheckoutService(OrderRepository orderRepository, RobotAssignmentInterface robotAssignmentInterface, UserRepository userRepository, CustomerRepository customerRepository, UserRepository userRepository1, PriceCalculator priceCalculator) {
         this.orderRepository = orderRepository;
-        this.robotAssignmentInterface = robotAssignmentInterface;
+        this.robotAssignment = robotAssignmentInterface;
         this.customerRepository = customerRepository;
 
         this.userRepository = userRepository1;
         this.priceCalculator = priceCalculator;
-        this.addressToString = addressToString;
     }
 
     @Override
@@ -60,14 +58,9 @@ public class CheckoutService implements CheckoutInterface {
             order.setCustomer(c);
             order.setStatus("waiting to be scheduled");
 
-            if (order.getType().equals("car")) {
-                order.setPrice(priceCalculator.carPrice(conversion(order.getPickUpAddress()),
-                        conversion(order.getShippingAddress())));
-            } else {
-                order.setPrice(priceCalculator.dronePrice(conversion(order.getPickUpAddress()),
-                        conversion(order.getShippingAddress())));
-            }
-            orderRepository.save(order);
+            order = orderRepository.save(order);
+            robotAssignment.assignRobot(order);
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;

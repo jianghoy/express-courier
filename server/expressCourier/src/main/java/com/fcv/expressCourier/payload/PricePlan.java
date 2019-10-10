@@ -22,6 +22,14 @@ public class PricePlan implements Serializable {
         this.estimatedDeliveryTime = estimatedDeliveryTime;
     }
 
+    public PricePlan(double price, String type, Date estimatedPickupTime, Date estimatedDeliveryTime, Robot robot) {
+        this.price = price;
+        this.type = type;
+        this.estimatedPickupTime = estimatedPickupTime;
+        this.estimatedDeliveryTime = estimatedDeliveryTime;
+        this.robot = robot;
+    }
+
     public Date getEstimatedPickupTime() {
         return estimatedPickupTime;
     }

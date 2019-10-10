@@ -119,7 +119,7 @@ public class PriceCalculatorImpl implements PriceCalculator {
         }
         Date estPickupTime = new Date(firstAvailableTime.getTime() + (long)(pickupDist / DRONE_SPEED * 1000));
         Date estDeliveryTime = new Date(estPickupTime.getTime() + (long)(deliveryDist / DRONE_SPEED * 1000));
-        return new PricePlan(deliveryDist * DRONE_BASE_PRICE,"drone",estPickupTime,estDeliveryTime);
+        return new PricePlan(deliveryDist * DRONE_BASE_PRICE,"drone",estPickupTime,estDeliveryTime,firstAvailableRobot);
 
     }
 
